@@ -10,7 +10,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 5;
+  let curframe = 1;
   let transfer = false;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -336,14 +336,14 @@
 	</div>
   {/if}
   {#if curframe == 1 && flipped}
-	<div class="next" on:click={forward}>More about housing market and investor activity →</div>
+	<div class="next" on:click={forward}>→</div>
   {/if}
   {#if curframe == 2}
 	<div class="title">
 	  Overall Housing Market and Investor Activity
 	</div>
-	<div class="prev" on:click={back}>← Go back</div>
-	<div class="next" on:click={forward}>Potential consequences of investor redistribution →</div>
+	<div class="prev" on:click={back}>←</div>
+	<div class="next" on:click={forward}>→</div>
 	<div class="flexpage">
 	  <div class="section" style="flex: 45;">
 		<!-- <div in:fly={{ y: -200, duration: 1000 }} class="desp"> -->
@@ -395,8 +395,8 @@
 		<li> Collage explain investor's effect in terms of urban economics
 	  </ul>
 	</div>
-  	<div class="prev" on:click={back}>← Go back</div>
-	<div class="next" on:click={forward}> →</div>
+  	<div class="prev" on:click={back}>←</div>
+	<div class="next" on:click={forward}>→</div>
   {/if}
   {#if curframe == 4}
 	<div class="title">
@@ -417,8 +417,8 @@
 	<!-- 	<li> Equal to how many affordable homes? -->
 	<!--   </ul> -->
 	<!-- </div> -->
-  	<div class="prev" on:click={back}>← Go back</div>
-	<div class="next" on:click={forward}>Investors' effect on the general public →</div>
+  	<div class="prev" on:click={back}>←</div>
+	<div class="next" on:click={forward}>→</div>
   {/if}
   {#if curframe == 5}
 	<div class="title">
@@ -437,8 +437,8 @@
 	  <div class="section" style="flex: 50;">
 	  </div>
 	</div>
-  	<div class="prev" on:click={back}>← Go back</div>
-	<div class="next" on:click={forward}> →</div>
+  	<div class="prev" on:click={back}>←</div>
+	<div class="next" on:click={forward}>→</div>
   {/if}
   {#if curframe == 6}
 	<div class="title">
@@ -450,8 +450,8 @@
 		<li> Less homes on the market
 	  </ul>
 	</div>
-  	<div class="prev" on:click={back}>← Go back</div>
-	<div class="next" on:click={forward}> →</div>
+  	<div class="prev" on:click={back}>←</div>
+	<div class="next" on:click={forward}>→</div>
   {/if}
   {#if curframe == 7}
 	<div class="title">
@@ -466,8 +466,8 @@
 		<li> More study on Boston affordable housing due to transfer fee
 	  </ul>
 	</div>
-  	<div class="prev" on:click={back}>← Go back</div>
-	<div class="next" on:click={forward}> →</div>
+  	<div class="prev" on:click={back}>←</div>
+	<div class="next" on:click={forward}>→</div>
   {/if}
   {#if curframe == 8}
 	<div class="title">
@@ -479,7 +479,7 @@
 		<li> Collage showing the pros and cons of transfer fee
 	  </ul>
 	</div>
-  	<div class="prev" on:click={back}>← Go back</div>
+  	<div class="prev" on:click={back}>←</div>
   {/if}
 </div>
 
