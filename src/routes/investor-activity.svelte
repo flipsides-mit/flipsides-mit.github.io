@@ -223,7 +223,6 @@
 	if (n == 0) {
 	  resetBrushesLocation()
 	} else if (n == 1) {
-	  resetBrushesLocation()
 	  d3.select(brushp)
 		.transition()
 		.duration(1000)
@@ -286,13 +285,11 @@
 	console.log('Number of data points:', dataraw.length)
 
 	// Disable the second brush.
+	resetBrushesLocation();
 	disableBrush(1);
   });
 
-  $: {
-	// console.log('phase', phase);
-	drawFinding(phase);
-  }
+  $: drawFinding(phase);
 
   // Debug.
   $: console.log(`Dimension: ${width}, ${height}`);

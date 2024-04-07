@@ -11,7 +11,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 2;
+  let curframe = 1;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -29,7 +29,7 @@
   }
 
   function forward() {
-	if (curframe < 5) {
+	if (curframe < 3) {
 	  curframe = curframe + 1
 	  phase = 0;
 	}
@@ -302,67 +302,10 @@
 
 <div class="container">
   {#if curframe == 1}
-	<div class="card" style="transform: rotateY({flipped ? 180 : 0}deg);" on:click={toggleFlip}>
-	  <div class="face front">Collecting transfer fee is a reasonable action to
-		achieve better housing affordability. For instance, the government can use the
-		collected tax to build more affordable housing. Furthermore, transfer fee also
-		has the potential of inhibiting investor activity in the housing market.</div>
-	  <div class="face back">On the flip side, applying transfer fee might also
-		have some unintended side-effects. Specifically, a decrease in the profit of
-		luxury housing market may prompt investors to reallocate their resources from
-		the luxury housing market to other lower-end housing markets.</div>
-	</div>
-	<div class="collage-container">
-	  {#if icollage == 1}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-1.png" width="100%" alt="Intro">
-		</div>
-	  {/if}
-	  {#if icollage == 2}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-2.png" width="100%" alt="Intro">
-		</div>
-	  {/if}
-	  {#if icollage == 3}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-3.png" width="100%" alt="Intro">
-		</div>
-	  {/if}
-	  {#if icollage == 4}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-4.png" width="100%" alt="Intro">
-		</div>
-	  {/if}
-	  {#if icollage == 5}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-5.png" width="80%" alt="Intro">
-		</div>
-	  {/if}
-	  {#if icollage == 6}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-6.png" width="80%" alt="Intro">
-		</div>
-	  {/if}
-	  {#if icollage == 7}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-7.png" width="100%" alt="Intro">
-		</div>
-	  {/if}
-	  {#if icollage == 8}
-		<div class="collage" out:fade={{ duration: 300 }} in:fade={{ duration: 300 }}>
-		  <img src="/intro-8.png" width="100%" alt="Intro">
-		</div>
-	  {/if}
-	</div>
-  {/if}
-  {#if curframe == 1 && flipped}
-	<div class="next" on:click={forward}>→</div>
-  {/if}
-  {#if curframe == 2}
 	<div class="title">
 	  Overall Housing Market and Investor Activity
 	</div>
-	<div class="prev" on:click={back}>←</div>
+	<!-- <div class="prev" on:click={back}>←</div> -->
 	<div class="next" on:click={forward}>→</div>
 	<div class="flexpage">
 	  <div class="section" style="flex: 45;">
@@ -405,21 +348,8 @@
 		</div>
 	  </div>
 	</div>
-	<!-- <div class="transfer" style="background: {transfer ? "#FEDA8B" : "#F7F7F7"}" on:click={toggleTransfer}>Apply transfer fee</div> -->
   {/if}
-  {#if curframe == 3}
-	<div class="title">
-	  How Investors Affect the General Public
-	</div>
-	<div class="items">
-	  <ul>
-		<li> Collage explain investor's effect in terms of urban economics
-	  </ul>
-	</div>
-  	<div class="prev" on:click={back}>←</div>
-	<div class="next" on:click={forward}>→</div>
-  {/if}
-  {#if curframe == 4}
+  {#if curframe == 2}
 	<div class="title">
 	  Benefit of the Affordable Homes Act
 	</div>
@@ -432,25 +362,13 @@
 	  </div>
 	</div>
 
-	<!-- <div class="items"> -->
-	<!--   <ul> -->
-	<!-- 	<li> Revenue analysis -->
-	<!-- 	<li> Equal to how many affordable homes? -->
-	<!--   </ul> -->
-	<!-- </div> -->
   	<div class="prev" on:click={back}>←</div>
 	<div class="next" on:click={forward}>→</div>
   {/if}
-  {#if curframe == 5}
+  {#if curframe == 3}
 	<div class="title">
 	  Investor Redistribution
 	</div>
-	<!-- <div class="items"> -->
-	<!--   <ul> -->
-	<!-- 	<li> Collage depicting the reasoning of investor redistribution -->
-	<!-- 	<li> Potential buyers analysis -->
-	<!--   </ul> -->
-	<!-- </div> -->
 	<div class="flexpage">
 	  <div class="section" style="flex: 50;">
 		<TaxEffect />
@@ -459,48 +377,7 @@
 	  </div>
 	</div>
   	<div class="prev" on:click={back}>←</div>
-	<div class="next" on:click={forward}>→</div>
-  {/if}
-  {#if curframe == 6}
-	<div class="title">
-	  Estimating and Analyzing the Effect of Investor Redistribution
-	</div>
-	<div class="items">
-	  <ul>
-		<li> High housing price
-		<li> Less homes on the market
-	  </ul>
-	</div>
-  	<div class="prev" on:click={back}>←</div>
-	<div class="next" on:click={forward}>→</div>
-  {/if}
-  {#if curframe == 7}
-	<div class="title">
-	  Next Steps
-	</div>
-	<div class="items">
-	  <ul>
-		<li> Other state/country's data
-		<li> Geographical analysis
-		<li> What kinds of homes do investors like?
-		<li> More about flipping
-		<li> More study on Boston affordable housing due to transfer fee
-	  </ul>
-	</div>
-  	<div class="prev" on:click={back}>←</div>
-	<div class="next" on:click={forward}>→</div>
-  {/if}
-  {#if curframe == 8}
-	<div class="title">
-	  Conclusion
-	</div>
-	<div class="items">
-	  <ul>
-		<li> Summary of our findings and analyses
-		<li> Collage showing the pros and cons of transfer fee
-	  </ul>
-	</div>
-  	<div class="prev" on:click={back}>←</div>
+	<!-- <div class="next" on:click={forward}>→</div> -->
   {/if}
 </div>
 
