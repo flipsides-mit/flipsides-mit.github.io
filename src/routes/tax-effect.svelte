@@ -10,6 +10,7 @@
   let height = 0;
   let taxrate = 0.01;
   let flipped = false;
+  let investor = true;
 
   $: margin = {
 	top: height * 0.15,
@@ -28,13 +29,17 @@
 	return {
 	  price: d.current_price,
 	  profit: profit,
-	  year: d.year_diff
+	  year: d.year_diff,
+	  investor: d.investor,
 	}
   }
 
   let data = [];
   $: {
 	data = dataraw.map(toProfit);
+	if (investor) {
+	  data = data.filter(d => d.investor)
+	}
 	if (flipped) {
 	  data = data.filter(d => d.year <= 2);
 	}
@@ -202,9 +207,13 @@
 </script>
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
+  <label>
+	<input type="checkbox" bind:checked={investor} />
+	Show investor transactions only
+  </label>
   <label id="fpbox">
 	<input type="checkbox" bind:checked={flipped} />
-	Show flipped properties only
+	Show flipped transaction only
   </label>
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 	<g transform="translate(0, {height - margin.bottom})"
