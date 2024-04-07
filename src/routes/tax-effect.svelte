@@ -133,13 +133,13 @@
   .attr('y1', medianp ? margin.top : 0)
   .attr('y2', medianp ? height - margin.bottom : 0);
 
-  // $: d3.select(histp)
-  // .select('text.mediantext')
-  // .transition()
-  // .duration(300)
-  // .attr('x', xScale(medianp))
-  // .attr('y', margin.top)
-  // .text(medianp ? `median = ${medianp.toFixed(2)}%` : '');
+  $: d3.select(histp)
+  .select('text.mediantext')
+  .transition()
+  .duration(300)
+  .attr('x', xScale(medianp))
+  .attr('y', margin.top)
+  .text(medianp ? `median = ${medianp.toFixed(2)}%` : '');
 
   let histq;
 
