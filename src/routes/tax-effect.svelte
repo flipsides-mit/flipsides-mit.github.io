@@ -3,6 +3,7 @@
   import { fade } from 'svelte/transition';
   import * as d3 from 'd3';
   import { sliderBottom } from 'd3-simple-slider';
+  import { legendColor } from 'd3-svg-legend';
 
   let dataraw = [];
   let color = "#F67E4B";
@@ -184,11 +185,44 @@
 	slider = sliderBottom()
 	  .min(d3.min(rates))
 	  .max(d3.max(rates))
-	  .width(width / 3)
+	  .width(width * 0.35)
 	// .tickFormat("%f")
 	  .tickValues(rates)
 	  .on("onchange", (d, e) => taxrate = d);
-	d3.select(sliderg).call(slider);
+
+	d3.select(sliderg)
+	  .call(slider);
+
+	d3.select(sliderg)
+	  .selectAll("text")
+	  .attr("font-size", "12px");
+  }
+
+  // Legend
+  let legendg;
+  
+  let quantize = d3.scaleQuantize()
+      .domain([ 0, 0.15 ])
+      .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
+
+  let ordinal = d3.scaleOrdinal()
+	  .domain(["<= 1 million $", "> 1 million $"])
+	  .range(["#BBBBBB", "#F67E4B"]);
+
+  // svg.append("g")
+  // .attr("class", "legendQuant")
+  // .attr("transform", "translate(20,20)");
+
+  $: if (legendColor) {
+	let legend = legendColor()
+		.scale(ordinal);
+
+	d3.select(legendg)
+	  .call(legend);
+
+	d3.select(legendg)
+	  .selectAll("rect")
+	  .attr("opacity", 0.5);
   }
 
   onMount(async () => {
@@ -250,7 +284,10 @@
 
 	<g bind:this={sliderg}
 	   class="slider"
-	   transform="translate({margin.left + width * 1 / 2}, {margin.top / 2})" />
+	   transform="translate({margin.left + width * 0.5}, {margin.top / 2})" />
+
+	<g bind:this={legendg}
+	   transform="translate({margin.left + width * 0.69}, {margin.top * 2.5})" />
   </svg>
 </div>
 
