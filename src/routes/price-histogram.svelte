@@ -11,9 +11,9 @@
   let height = 0;
 
   $: margin = {
-	top: height * 0.1,
+	top: height * 0.18,
 	right: width * 0.05,
-	bottom: height * 0.1,
+	bottom: height * 0.18,
 	left: width * 0.1,
   };
 
@@ -117,10 +117,22 @@
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 	<g transform="translate(0, {height - margin.bottom})"
-	   bind:this={xAxis} />
+	   bind:this={xAxis}>
+	  <text class="axislabel"
+			x={width} y={margin.bottom * 0.8}
+			style="text-anchor: end; font-size: {width * 0.03}px">
+		profit per year (%) →
+	  </text>
+	</g>
 
 	<g transform="translate({margin.left}, 0)"
-	   bind:this={yAxis} />
+	   bind:this={yAxis}>
+	  <text class="axislabel"
+			x={-(0.5 * margin.left)} y={margin.top * 0.8}
+			style="text-anchor: start; font-size: {width * 0.03}px">
+		↑ # transactions
+	  </text>
+	</g>
 
 	<g bind:this={histp} fill={color} stroke={color}>
 	  <g class="bars" />
@@ -155,5 +167,10 @@
 	font-weight: 300;
 	stroke: black;
 	opacity: 0.8;
+  }
+  .axislabel {
+	fill: currentColor;
+	font-size: 20px;
+	font-weight: normal;
   }
 </style>

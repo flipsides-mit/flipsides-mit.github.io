@@ -31,7 +31,7 @@
   let color = {
 	residential: "#6699CC",
 	commercial: "#DDCC77",
-	other: "#44AA99"
+	unclassified: "#44AA99"
   }
 
   let svg;
@@ -114,10 +114,17 @@
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 	<g transform="translate(0, {height - margin.bottom})"
-	   bind:this={xAxis} />
+	   bind:this={xAxis}>
+	</g>
 
 	<g transform="translate({margin.left}, 0)"
-	   bind:this={yAxis} />
+	   bind:this={yAxis}>
+	  <text class="axislabel"
+			x={-(0.3 * margin.left)} y={margin.top * 0.85}
+			style="text-anchor: start; font-size: {width * 0.03}px">
+		↑ revenue (million $)
+	  </text>
+	</g>
 
 	<g bind:this={bars}>
 	</g>
@@ -131,5 +138,10 @@
 	align-items: center;
 	width: 100%;
 	height: 100%;
+  }
+  .axislabel {
+	fill: currentColor;
+	font-size: 20px;
+	font-weight: normal;
   }
 </style>

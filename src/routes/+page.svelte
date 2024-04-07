@@ -11,7 +11,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 1;
+  let curframe = 3;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -200,7 +200,6 @@
 	flex-direction: column;
 	justify-content: center;
 	position: relative;
-	/* padding-top: 50px; */
   }
 
   .desp {
@@ -366,10 +365,10 @@
 	  Benefit of the Affordable Homes Act
 	</div>
 	<div class="flexpage">
-	  <div class="section" style="flex: 50;">
+	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
 		<Revenue />
 	  </div>
-	  <div class="section" style="flex: 50;">
+	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
 		<Affordable />
 	  </div>
 	</div>
@@ -379,13 +378,13 @@
   {/if}
   {#if curframe == 3}
 	<div class="title">
-	  Investor Redistribution
+	  Profit Affected by Transfer Fee and Investor Redistribution
 	</div>
 	<div class="flexpage">
-	  <div class="section" style="flex: 50;">
+	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
 		<TaxEffect />
 	  </div>
-	  <div class="section" style="flex: 50;">
+	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
 	  </div>
 	</div>
   	<div class="prev" on:click={back}>←</div>

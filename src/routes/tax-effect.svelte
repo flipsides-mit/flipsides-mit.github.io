@@ -13,7 +13,7 @@
   let investor = true;
 
   $: margin = {
-	top: height * 0.15,
+	top: height * 0.05,
 	right: width * 0.05,
 	bottom: height * 0.15,
 	left: width * 0.1,
@@ -207,20 +207,34 @@
 </script>
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
-  <label>
-	<input type="checkbox" bind:checked={investor} />
-	Show investor transactions only
-  </label>
-  <label id="fpbox">
-	<input type="checkbox" bind:checked={flipped} />
-	Show flipped transactions only
-  </label>
+  <div style="position: relative; bottom: 5%;">
+	<label style="position: relative; right: 10%;">
+	  <input type="checkbox" bind:checked={investor} />
+	  Show investor transactions only
+	</label>
+	<label style="position: relative; left: 10%;">
+	  <input type="checkbox" bind:checked={flipped} />
+	  Show flipped transactions only
+	</label>
+  </div>
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 	<g transform="translate(0, {height - margin.bottom})"
-	   bind:this={xAxis} />
+	   bind:this={xAxis}>
+	  <text class="axislabel"
+			x={width - margin.right * 0.7} y={margin.bottom * 0.5}
+			style="text-anchor: end; font-size: {width * 0.03}px">
+		profit per year (%) →
+	  </text>
+	</g>
 
 	<g transform="translate({margin.left}, 0)"
-	   bind:this={yAxis} />
+	   bind:this={yAxis}>
+	  <text class="axislabel"
+			x={-(0.4 * margin.left)} y={margin.top * 0.6}
+			style="text-anchor: start; font-size: {width * 0.03}px">
+		↑ # transactions
+	  </text>
+	</g>
 
 	<g bind:this={histp} fill="#BBBBBB" stroke="#BBBBBB">
 	  <g class="bars" id="normal" />
@@ -246,7 +260,7 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 70%;
+	height: 100%;
 	flex-direction: column;
   }
   .medianline {
@@ -275,6 +289,9 @@
   }
   .slider {	
   }
-  #fpbox {
+  .axislabel {
+	fill: currentColor;
+	font-size: 20px;
+	font-weight: normal;
   }
 </style>
