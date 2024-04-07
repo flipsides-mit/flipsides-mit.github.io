@@ -11,7 +11,8 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 5;
+  let curframe = 2;
+  let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
   let icollage = 1;
@@ -30,12 +31,24 @@
   function forward() {
 	if (curframe < 5) {
 	  curframe = curframe + 1
+	  phase = 0;
 	}
   }
 
   function back() {
 	if (curframe > 1) {
 	  curframe = curframe - 1
+	  phase = 0;
+	}
+  }
+
+  function next() {
+	phase = phase + 1;
+  }
+
+  function prev() {
+	if (phase > 0) {
+	  phase = phase - 1;
 	}
   }
 
@@ -51,9 +64,15 @@
 	if (event.keyCode === 37) {
       // Left key pressed
       back();
+    } else if (event.keyCode === 38) {
+      // Up key pressed
+	  prev();
     } else if (event.keyCode === 39) {
       // Right key pressed
       forward();
+    } else if (event.keyCode === 40) {
+      // Down key pressed
+      next();
     }
   }
 
@@ -351,7 +370,7 @@
 		  <!-- 	The luxury housing market, in general, is more profitable than lower-end -->
 		  <!-- 	housing markets, resulting in an influx of investors into the market. -->
 		  <!-- </div> -->
-		<InvestorActivity {colorp} {colorq} />
+		<InvestorActivity {phase} {colorp} {colorq} />
 	  </div>
 	  <div class="section" style="flex: 55;">
 		<!-- <div class="desp"> -->
@@ -361,8 +380,9 @@
 		  <!-- </div> -->
 		<div id="findings">
 		  <ul>
-			<li> Flipped properties are much more than profitable
-			<li> Investors dominate the luxury housing market
+			<li> Investors dominate the luxury housing market.
+			<li> Flipped properties are much more profitable than overall,
+			<li> especially for investors.
 		  </ul>
 		</div>
 		<div class="histograms">
@@ -371,7 +391,7 @@
 			  <PriceHistogram color={colorp} seldata={seldatap} invsel={invselp} />
 			</div>
 			<div class="invpie">
-			  <InvestorPie color={colorp} data={seldatap} invsel={invselp} />
+			  <InvestorPie {phase} id={0} color={colorp} data={seldatap} invsel={invselp} />
 			</div>
 		  </div>
 		  <div class="histpie">
@@ -379,7 +399,7 @@
 			  <PriceHistogram color={colorq} seldata={seldataq} invsel={invselq} />
 			</div>
 			<div class="invpie">
-			  <InvestorPie color={colorq} data={seldataq} invsel={invselq} />
+			  <InvestorPie {phase} id={1} color={colorq} data={seldataq} invsel={invselq} />
 			</div>
 		  </div>
 		</div>

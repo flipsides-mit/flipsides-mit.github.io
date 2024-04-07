@@ -4,6 +4,7 @@
   import * as d3 from 'd3';
   import { seldatap, seldataq } from './stores.js';
 
+  export let phase = 0;
   export let colorp, colorq;
   let dataraw = [];
   
@@ -215,12 +216,41 @@
 	d3.select(brushp)
 	  .call(brushes[0].move, [[xScale(0),yScale(0)],[xScale(0),yScale(0)]]);
 	d3.select(brushq)
-	  .call(brushes[0].move, [[xScale(0),yScale(0)],[xScale(0),yScale(0)]]);
+	  .call(brushes[1].move, [[xScale(0),yScale(0)],[xScale(0),yScale(0)]]);
   }
 
   function drawFinding(n) {
 	if (n == 0) {
 	  resetBrushesLocation()
+	} else if (n == 1) {
+	  resetBrushesLocation()
+	  d3.select(brushp)
+		.transition()
+		.duration(1000)
+	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
+	  d3.select(brushq)
+		.transition()
+		.duration(1000)
+		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
+	} else if (n == 2) {
+	  d3.select(brushp)
+		.transition()
+		.duration(1000)
+	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
+	  d3.select(brushq)
+		.transition()
+		.duration(1000)
+		.call(brushes[1].move, [[xScale(2000000),yScale(25)],[xScale(3000000),yScale(0)]]);
+	} else if (n == 3) {
+	  d3.select(brushp)
+		.transition()
+		.duration(1000)
+	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
+	  d3.select(brushq)
+		.transition()
+		.duration(1000)
+		.call(brushes[1].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
+	} else if (n == 4) {
 	  d3.select(brushp)
 		.transition()
 		.duration(1000)
@@ -229,15 +259,17 @@
 		.transition()
 		.duration(1000)
 		.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
-	} else if (n == 1) {
+	} else if (n == 5) {
+	  // Nothing to do here.
+	} else if (n == 6) {
 	  d3.select(brushp)
 		.transition()
 		.duration(1000)
-	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
+	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(4000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
 		.duration(1000)
-		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(4000000),yScale(0)]]);
+		.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
 	}
   }
 
@@ -255,11 +287,12 @@
 
 	// Disable the second brush.
 	disableBrush(1);
-
-	// Animate a few findings.
-	setTimeout(() => drawFinding(0), 3000);
-	setTimeout(() => drawFinding(1), 8000);
   });
+
+  $: {
+	// console.log('phase', phase);
+	drawFinding(phase);
+  }
 
   // Debug.
   $: console.log(`Dimension: ${width}, ${height}`);

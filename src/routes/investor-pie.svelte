@@ -1,7 +1,9 @@
 <script>
   import { onMount } from 'svelte';
   import * as d3 from 'd3';
-  
+
+  export let phase = 0;
+  export let id;
   export let data;
   export let invsel;
   export let color = "#CCCCCC";
@@ -27,8 +29,7 @@
 	  if (emptydata) {
 		investor.sel = true;
 		noninvestor.sel = true;
-		$invsel[0] = investor.sel;
-		$invsel[1] = noninvestor.sel;
+		updateSel();
 	  }
 	  emptydata = false;
 	}
@@ -71,8 +72,7 @@
 
   function onClick(e, d) {
 	d.data.sel = !d.data.sel;
-	$invsel[0] = investor.sel;
-	$invsel[1] = noninvestor.sel;
+	updateSel();
 	// This noop assignment triggers Svelte reactivity.
 	ratios = ratios;
   }
@@ -95,19 +95,25 @@
   .attr("transform", d => `translate(${label.centroid(d)})`)
   .select("tspan.pct")
   .text(d => emptydata ? "" : `${(d.data.value * 100).toFixed(0)}%`);
-  
-  // .selectAll("tspan")
-  // .data(["123"])
-  // .join("tspan")
-  // //.attr("y", "-0.4em")
-  // .text(d => d);
 
+  $: {
+	if (phase == 0) {
+	  // Do nothing.
+	} else if (phase == 5 && id == 1) {
+	  investor.sel = true;
+	  noninvestor.sel = false;
+	  updateSel();
+	} else {
+	  investor.sel = true;
+	  noninvestor.sel = true;
+	  updateSel();
+	}
+  }
 
-
-  
-  // .call(text => text.append("tspan")
-  //       .attr("y", "-0.4em")
-  //       .text(d => d.data.value));
+  function updateSel(seli, seln) {
+	$invsel[0] = investor.sel;
+	$invsel[1] = noninvestor.sel;
+  }
 
   onMount(() => {
   });
