@@ -6,11 +6,12 @@
   import InvestorPie from './investor-pie.svelte';
   import Revenue from './revenue.svelte';
   import Affordable from './affordable.svelte';
-  import TaxRate from './tax-rate.svelte';
+  // import TaxRate from './tax-rate.svelte';
+  import TaxEffect from './tax-effect.svelte';
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 1;
+  let curframe = 5;
   let transfer = false;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -432,7 +433,7 @@
 	<!-- </div> -->
 	<div class="flexpage">
 	  <div class="section" style="flex: 50;">
-		<TaxRate />
+		<TaxEffect />
 	  </div>
 	  <div class="section" style="flex: 50;">
 	  </div>

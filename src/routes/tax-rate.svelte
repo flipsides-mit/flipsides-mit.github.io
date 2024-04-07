@@ -8,19 +8,18 @@
   let height = 0;
 
   $: margin = {
-	top: height * 0.2,
+	top: height * 0.3,
 	right: width * 0.05,
-	bottom: height * 0.2,
+	bottom: height * 0.3,
 	left: width * 0.2,
   };
 
   $: xScale = d3.scaleLinear()
-  .domain([0, d3.max(data, d => d.price)])
+  .domain([0, d3.max(data, d => d.price)]).nice()
   .range([margin.left, width - margin.right]);
 
   $: yScale = d3.scaleLinear()
-  // TODO: replace it with the highest tax rate
-  .domain([0, d3.max(data, d => d.rate_1)]).nice()
+  .domain([0, d3.max(data, d => d.rate * 5)]).nice()
   .range([height - margin.bottom, margin.top]);
 
   let color = {
@@ -58,7 +57,50 @@
 	  .style('font-size', `${width * 0.025}px`);
   }
 
-  $: points = data.map((d) => [xScale(d.price), yScale(d.rate_1), "todo"]);
+  // Gridlines
+  $: d3.select(svg)
+  .selectAll('line.xgridline')
+  .data(yScale.ticks(5))
+  .join('line')
+  .classed('xgridline', true)
+  .transition()
+  .duration(300)
+  .attr('x1', margin.left)
+  .attr('x2', width - margin.right)
+  .attr('y1', d => yScale(d))
+  .attr('y2', d => yScale(d))
+  // we can also put things below under :global(xgridline) in CSS
+  .attr('shape-rendering', 'crispEdges')
+  .attr('stroke', 'black')
+  .attr('stroke-width', '1px')
+  // dotted line
+  .attr('stroke-dasharray', '1, 5');
+
+   $: d3.select(svg)
+  .selectAll('line.ygridline')
+  .data(xScale.ticks(5))
+  .join('line')
+  .classed('ygridline', true)
+  .transition()
+  .duration(300)
+  .attr('x1', d => xScale(d))
+  .attr('x2', d => xScale(d))
+  .attr('y1', margin.top)
+  .attr('y2', height - margin.bottom)
+  // we can also put things below under :global(ygridline) in CSS
+  .attr('shape-rendering', 'crispEdges')
+  .attr('stroke', 'black')
+  .attr('stroke-width', '1px')
+  // dotted line
+  .attr('stroke-dasharray', '1, 5');
+
+  let points = [];
+  $: {
+	points = data.map(d => [xScale(d.price), yScale(d.rate), "1x"]);
+	points = points.concat(data.map(d => [xScale(d.price), yScale(d.rate * 3), "3x"]));
+	points = points.concat(data.map(d => [xScale(d.price), yScale(d.rate * 5), "5x"]));
+	console.log('points', points)
+  }
   $: groups = d3.rollup(points, v => Object.assign(v, {z: v[0][2]}), d => d[2]);
   $: console.log(groups)
 
@@ -76,7 +118,7 @@
 	data = await d3.csv('/tax-rate.csv', d => { return {
 	  ...d,
 	  price: +d.price,
-	  rate_1: +d.rate_1,
+	  rate: +d.rate,
 	}});
 	console.log('Loaded data:', data)
   });
