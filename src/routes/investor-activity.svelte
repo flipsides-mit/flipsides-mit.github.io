@@ -4,12 +4,22 @@
   import * as d3 from 'd3';
   import { seldatap, seldataq } from './stores.js';
 
-  export let transfer = false;
   export let colorp, colorq;
-  let data_before_tax = [];
-  let data_after_tax = [];
-  $: data = transfer ? data_after_tax : data_before_tax;
+  let dataraw = [];
+  
+  function toProfit(d) {
+	let diff = d.current_price - d.previous_price;
+	let profit = diff / d.previous_price / d.year_diff * 100;
+	return {
+	  price: d.current_price,
+	  profit: profit,
+	  year: d.year_diff,
+	  investor: d.investor,
+	}
+  }
 
+  $: data = dataraw.map(toProfit);
+  
   let width = 0;
   let height = 0;
 
@@ -29,7 +39,6 @@
   $: xScaleReady = !isNaN(xScale.domain()[1])
 
   $: yScale = d3.scaleLinear()
-  // .domain([d3.min(data, d => d.revenue), d3.max(data, d => d.revenue)])
   .domain([0, 25])
   .range([height - margin.bottom, margin.top])
   .clamp(true);
@@ -234,32 +243,22 @@
 
   // Actions performed when this component is created.
   onMount(async () => {
-	data_before_tax = await d3.csv('/boston-recent.csv', d => { return {
+	dataraw = await d3.csv('/2022_mapc.csv', d => { return {
 	  ...d,
-	  price: +d.price,
-	  revenue: +d.revenue,
+	  current_price: +d.current_price,
+	  previous_price: +d.previous_price,
 	  investor: d.investor === 'True',
 	  year: +d.year
 	}});
 
-	console.log(data_before_tax)
-
-	data_after_tax = await d3.csv('/boston-recent-taxed.csv', d => { return {
-	  ...d,
-	  price: +d.price,
-	  revenue: +d.revenue,
-	  investor: d.investor === 'True',
-	  year: +d.year
-	}});
-
-	console.log(data_after_tax);
+	console.log('Number of data points:', dataraw.length)
 
 	// Disable the second brush.
 	disableBrush(1);
 
 	// Animate a few findings.
-	setTimeout(() => drawFinding(0), 1000);
-	setTimeout(() => drawFinding(1), 5000);
+	setTimeout(() => drawFinding(0), 3000);
+	setTimeout(() => drawFinding(1), 8000);
   });
 
   // Debug.

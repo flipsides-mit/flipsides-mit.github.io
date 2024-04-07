@@ -33,7 +33,7 @@
   .domain([-20, 60])
   // 200 bins
   .thresholds(200)
-  .value((d) => d.revenue)(datainv);
+  .value((d) => d.profit)(datainv);
 
   $: xScale = d3.scaleLinear()
   .domain([bins[0].x0, bins[bins.length - 1].x1])
@@ -91,7 +91,7 @@
   .attr("height", (d) => yScale(0) - yScale(d.length))
   .attr("opacity", "0.5");
 
-  $: medianp = d3.median(datainv, d => d.revenue);
+  $: medianp = d3.median(datainv, d => d.profit);
 
   $: d3.select(histp)
   .select('line.medianline')

@@ -11,8 +11,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 5;
-  let transfer = false;
+  let curframe = 2;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
   let icollage = 1;
@@ -351,7 +350,7 @@
 		  <!-- 	The luxury housing market, in general, is more profitable than lower-end -->
 		  <!-- 	housing markets, resulting in an influx of investors into the market. -->
 		  <!-- </div> -->
-		<InvestorActivity {transfer} {colorp} {colorq} />
+		<InvestorActivity {colorp} {colorq} />
 	  </div>
 	  <div class="section" style="flex: 55;">
 		<!-- <div class="desp"> -->

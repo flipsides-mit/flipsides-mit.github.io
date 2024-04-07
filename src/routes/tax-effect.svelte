@@ -3,10 +3,11 @@
   import { fade } from 'svelte/transition';
   import * as d3 from 'd3';
 
-  let data = [];
+  let dataraw = [];
   let color = "#F67E4B";
   let width = 0;
   let height = 0;
+  let taxrate = 0.01;
 
   $: margin = {
 	top: height * 0.25,
@@ -14,6 +15,18 @@
 	bottom: height * 0.25,
 	left: width * 0.1,
   };
+
+  function toProfit(d) {
+	let diff = d.current_price - d.previous_price;
+	let taxed = diff - taxrate * d.current_price;
+	let profit = taxed / d.previous_price / d.year_diff * 100;
+	return {
+	  price: d.current_price,
+	  profit: profit
+	}
+  }
+
+  $: data = dataraw.map(toProfit);
 
   $: datap = data.filter(d => d.price <= 1000000);
   $: dataq = data.filter(d => d.price > 1000000);
@@ -23,13 +36,13 @@
   .domain([-20, 60])
   // 200 bins
   .thresholds(200)
-  .value((d) => d.revenue)(datap);
+  .value((d) => d.profit)(datap);
 
   $: binsq = d3.bin()
   .domain([-20, 60])
   // 200 bins
   .thresholds(200)
-  .value((d) => d.revenue)(dataq);
+  .value((d) => d.profit)(dataq);
 
   $: xScale = d3.scaleLinear()
   .domain([-20, 60])
@@ -90,7 +103,7 @@
   .attr("height", (d) => yScale(0) - yScale(d.length))
   .attr("opacity", "0.5");
 
-  $: medianp = d3.median(datap, d => d.revenue);
+  $: medianp = d3.median(datap, d => d.profit);
   $: console.log(medianp)
 
   $: d3.select(histp)
@@ -125,7 +138,7 @@
   .attr("height", (d) => yScale(0) - yScale(d.length))
   .attr("opacity", "0.5");
 
-  $: medianq = d3.median(dataq, d => d.revenue);
+  $: medianq = d3.median(dataq, d => d.profit);
 
   $: d3.select(histq)
   .select('line.medianline')
@@ -145,15 +158,15 @@
   .text(medianq ? `median = ${medianq.toFixed(2)}%` : '');
 
   onMount(async () => {
-	data = await d3.csv('/boston-recent.csv', d => { return {
+	dataraw = await d3.csv('/2022_mapc.csv', d => { return {
 	  ...d,
-	  price: +d.price,
-	  revenue: +d.revenue,
+	  current_price: +d.current_price,
+	  previous_price: +d.previous_price,
 	  investor: d.investor === 'True',
 	  year: +d.year
 	}});
 
-	console.log(data)
+	console.log('Number of data points:', dataraw.length)
   });
 
 </script>
