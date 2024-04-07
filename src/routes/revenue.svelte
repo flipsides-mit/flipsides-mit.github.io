@@ -54,7 +54,7 @@
   $: {
 	let sel = d3.select(yAxis)
 		.style('font-family', 'inherit')
-		.call(d3.axisLeft(yScale).ticks(null, "s"))
+		.call(d3.axisLeft(yScale).ticks(5, "f"))
 	// .call(g => g.selectAll(".domain").remove());
 
 	sel.selectAll('path')
@@ -67,7 +67,7 @@
   let bars;
   $: d3.select(bars)
   .selectAll("g")
-  .data(d3.group(data.filter(x => x.year != 2023), d => d.year))
+  .data(d3.group(data.filter(x => x.year != 2022), d => d.year))
   .join("g")
   .attr("transform", ([year]) => `translate(${fx(year)},0)`)
   .selectAll("rect")
@@ -84,7 +84,7 @@
 
   $: d3.select(bars)
   .selectAll()
-  .data(d3.group(data.filter(x => x.year == 2023), d => d.year))
+  .data(d3.group(data.filter(x => x.year == 2022), d => d.year))
   .join("g")
   .attr("transform", ([year]) => `translate(${fx(year)},0)`)
   .selectAll("rect")
@@ -104,8 +104,9 @@
   onMount(async () => {
 	data = await d3.csv('/revenue.csv', d => { return {
 	  ...d,
-	  revenue: +d.revenue,
-	}});	
+	  revenue: +d.revenue / 1000000,
+	}});
+	data = data.filter(d => d.rate == 0.01)
 	console.log('Loaded revenue data: ', data);
   });
 </script>
