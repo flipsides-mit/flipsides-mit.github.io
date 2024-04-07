@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import * as d3 from 'd3';
+  import { legendColor } from 'd3-svg-legend';
 
   let data = [];
   let width = 0;
@@ -101,6 +102,25 @@
   .attr("y", d => yScale(d.revenue))
   .attr("height", d => yScale(0) - yScale(d.revenue));
 
+  // Legend
+  let legendg;
+
+  let ordinal = d3.scaleOrdinal()
+	  .domain(["residential", "commercial", "unclassified"])
+	  .range(["#6699CC", "#DDCC77", "#44AA99"]);
+
+  $: if (legendColor) {
+	let legend = legendColor()
+		.scale(ordinal);
+
+	d3.select(legendg)
+	  .call(legend);
+
+	d3.select(legendg)
+	  .selectAll("rect")
+	  .attr("opacity", 0.5);
+  }
+
   onMount(async () => {
 	data = await d3.csv('/revenue.csv', d => { return {
 	  ...d,
@@ -126,8 +146,10 @@
 	  </text>
 	</g>
 
-	<g bind:this={bars}>
-	</g>
+	<g bind:this={bars} />
+
+	<g bind:this={legendg}
+	   transform="translate({margin.left + width * 0.6}, {margin.top * 0.8})" />
   </svg>
 </div>
 

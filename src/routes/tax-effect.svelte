@@ -200,18 +200,10 @@
 
   // Legend
   let legendg;
-  
-  let quantize = d3.scaleQuantize()
-      .domain([ 0, 0.15 ])
-      .range(d3.range(9).map(function(i) { return "q" + i + "-9"; }));
 
   let ordinal = d3.scaleOrdinal()
 	  .domain(["<= 1 million $", "> 1 million $"])
 	  .range(["#BBBBBB", "#F67E4B"]);
-
-  // svg.append("g")
-  // .attr("class", "legendQuant")
-  // .attr("transform", "translate(20,20)");
 
   $: if (legendColor) {
 	let legend = legendColor()
