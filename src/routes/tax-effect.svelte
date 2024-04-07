@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import * as d3 from 'd3';
+  import { sliderBottom } from 'd3-simple-slider';
 
   let dataraw = [];
   let color = "#F67E4B";
@@ -16,9 +17,12 @@
 	left: width * 0.1,
   };
 
-  function toProfit(d) {
+  let xrange = [-20, 60];
+
+  $: toProfit = (d) => {
 	let diff = d.current_price - d.previous_price;
-	let taxed = diff - taxrate * d.current_price;
+	let tax = d.current_price > 1000000 ? (d.current_price - 1000000) * taxrate : 0;
+	let taxed = diff - tax;
 	let profit = taxed / d.previous_price / d.year_diff * 100;
 	return {
 	  price: d.current_price,
@@ -33,19 +37,19 @@
   $: console.log(`length = ${datap.length} ${dataq.length}`)
 
   $: binsp = d3.bin()
-  .domain([-20, 60])
+  .domain(xrange)
   // 200 bins
   .thresholds(200)
   .value((d) => d.profit)(datap);
 
   $: binsq = d3.bin()
-  .domain([-20, 60])
+  .domain(xrange)
   // 200 bins
   .thresholds(200)
   .value((d) => d.profit)(dataq);
 
   $: xScale = d3.scaleLinear()
-  .domain([-20, 60])
+  .domain(xrange)
   .range([margin.left, width - margin.right]);
 
   $: yScale = d3.scaleLinear()
@@ -157,16 +161,34 @@
   .attr('y', margin.top)
   .text(medianq ? `median = ${medianq.toFixed(2)}%` : '');
 
+  let sliderg;
+
+  let rates = [0, 0.01, 0.02, 0.03, 0.05, 0.1];
+
+  let slider;
+  $: if (sliderBottom) {
+	slider = sliderBottom()
+	  .min(d3.min(rates))
+	  .max(d3.max(rates))
+	  .width(width / 3)
+	// .tickFormat("%f")
+	  .tickValues(rates)
+	  .on("onchange", (d, e) => taxrate = d);
+	d3.select(sliderg).call(slider);
+  }
+
   onMount(async () => {
 	dataraw = await d3.csv('/2022_mapc.csv', d => { return {
 	  ...d,
 	  current_price: +d.current_price,
 	  previous_price: +d.previous_price,
 	  investor: d.investor === 'True',
-	  year: +d.year
+	  year_diff: +d.year_diff
 	}});
 
-	console.log('Number of data points:', dataraw.length)
+	// dataraw = dataraw.filter(d => d.year_diff <= 2);
+
+	console.log('Number of data points:', dataraw.length);
   });
 
 </script>
@@ -190,6 +212,10 @@
 	  <line class="medianline" />
 	  <text class="mediantext"></text>
 	</g>
+
+	<g bind:this={sliderg}
+	   class="slider"
+	   transform="translate({margin.left + width * 1 / 2}, {margin.bottom})" />
   </svg>
 </div>
 
@@ -224,5 +250,8 @@
 	font-weight: 300;
 	stroke: black;
 	opacity: 0.8;
+  }
+  .slider {
+	
   }
 </style>

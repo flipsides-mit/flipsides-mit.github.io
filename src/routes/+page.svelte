@@ -11,7 +11,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 2;
+  let curframe = 5;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
   let icollage = 1;
