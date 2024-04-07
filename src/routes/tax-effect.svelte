@@ -213,7 +213,7 @@
   </label>
   <label id="fpbox">
 	<input type="checkbox" bind:checked={flipped} />
-	Show flipped transaction only
+	Show flipped transactions only
   </label>
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 	<g transform="translate(0, {height - margin.bottom})"

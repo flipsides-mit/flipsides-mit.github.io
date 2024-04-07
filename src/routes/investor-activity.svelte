@@ -28,7 +28,7 @@
 	top: height * 0.1,
 	right: width * 0.05,
 	bottom: height * 0.1,
-	left: width * 0.1,
+	left: width * 0.05,
   };
 
   $: xScale = d3.scaleLinear()
@@ -51,7 +51,7 @@
 	let sel = d3.select(xAxis)
 		.style('font-family', 'inherit')
 		.transition().duration(300)
-		.call(d3.axisBottom(xScale).ticks(5, "f"))
+		.call(d3.axisBottom(xScale).ticks(5).tickFormat((d, i) => d / 1000000))
 
 	// Update the thickness of the axis line
 	sel.selectAll('path')
@@ -308,10 +308,22 @@
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
   <svg bind:this={svg} width="100%" height="100%" font-weight="300">
 	<g transform="translate(0, {height - margin.bottom})"
-	   bind:this={xAxis} />
+	   bind:this={xAxis}>
+	  <text class="axislabel"
+			x={width} y={margin.bottom * 0.8}
+			style="text-anchor: end; font-size: {width * 0.03}px">
+		sale price (million $) →
+	  </text>
+	</g>
 
 	<g transform="translate({margin.left}, 0)"
-	   bind:this={yAxis} />
+	   bind:this={yAxis}>
+	  <text class="axislabel"
+			x={-margin.left} y={margin.top * 0.6}
+			style="text-anchor: start; font-size: {width * 0.03}px">
+		↑ flip horizon (year)
+	  </text>
+	</g>
 
 	<g bind:this={brushp} />
 	<g bind:this={brushq} />
@@ -325,5 +337,10 @@
 	align-items: center;
 	width: 100%;
 	height: 100%;
+  }
+  .axislabel {
+	fill: currentColor;
+	font-size: 20px;
+	font-weight: normal;
   }
 </style>
