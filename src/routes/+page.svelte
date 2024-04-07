@@ -11,7 +11,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 2;
+  let curframe = 1;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -323,7 +323,7 @@
 		  style="width: 90%; top: 8%; margin-left: 5%; margin-right: 5%; display: {1 <= phase ? "inline" : "none"};">
 	  <tspan style="font-weight: bold;">Finding 1:</tspan>
 	  <tspan >
-		There are more investors in the high-end housing markets.
+		More investors in the high-end housing markets (as they are more profitable).
 	  </tspan>
 	</text>
 	<text class="annotation" style="width: 90%; top: 15%; margin-left: 5%; margin-right: 5%;">
@@ -335,7 +335,7 @@
 		especially for investors,
 	  </tspan>
 	  <tspan style="display: {phase >= 6 ? "inline" : "none"};">
-		and even more in the high-end housing markets.
+		and even more so in the high-end housing markets.
 	  </tspan>
 	</text>
 	<div class="flexpage">
