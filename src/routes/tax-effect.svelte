@@ -9,15 +9,16 @@
   let width = 0;
   let height = 0;
   let taxrate = 0.01;
+  let flipped = false;
 
   $: margin = {
-	top: height * 0.25,
+	top: height * 0.15,
 	right: width * 0.05,
-	bottom: height * 0.25,
+	bottom: height * 0.15,
 	left: width * 0.1,
   };
 
-  let xrange = [-20, 60];
+  $: xrange = flipped ? [-20, 150] : [-20, 60];
 
   $: toProfit = (d) => {
 	let diff = d.current_price - d.previous_price;
@@ -26,14 +27,22 @@
 	let profit = taxed / d.previous_price / d.year_diff * 100;
 	return {
 	  price: d.current_price,
-	  profit: profit
+	  profit: profit,
+	  year: d.year_diff
 	}
   }
 
-  $: data = dataraw.map(toProfit);
+  let data = [];
+  $: {
+	data = dataraw.map(toProfit);
+	if (flipped) {
+	  data = data.filter(d => d.year <= 2);
+	}
+  }
 
   $: datap = data.filter(d => d.price <= 1000000);
   $: dataq = data.filter(d => d.price > 1000000);
+
   $: console.log(`length = ${datap.length} ${dataq.length}`)
 
   $: binsp = d3.bin()
@@ -190,10 +199,13 @@
 
 	console.log('Number of data points:', dataraw.length);
   });
-
 </script>
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
+  <label id="fpbox">
+	<input type="checkbox" bind:checked={flipped} />
+	Show flipped properties only
+  </label>
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 	<g transform="translate(0, {height - margin.bottom})"
 	   bind:this={xAxis} />
@@ -215,7 +227,7 @@
 
 	<g bind:this={sliderg}
 	   class="slider"
-	   transform="translate({margin.left + width * 1 / 2}, {margin.bottom})" />
+	   transform="translate({margin.left + width * 1 / 2}, {margin.top / 2})" />
   </svg>
 </div>
 
@@ -225,7 +237,8 @@
 	justify-content: center;
 	align-items: center;
 	width: 100%;
-	height: 100%;
+	height: 70%;
+	flex-direction: column;
   }
   .medianline {
 	stroke-width: 1px;
@@ -251,7 +264,8 @@
 	stroke: black;
 	opacity: 0.8;
   }
-  .slider {
-	
+  .slider {	
+  }
+  #fpbox {
   }
 </style>

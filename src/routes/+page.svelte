@@ -174,6 +174,7 @@
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	justify-content: center;
 	position: relative;
 	padding-top: 50px;
   }
