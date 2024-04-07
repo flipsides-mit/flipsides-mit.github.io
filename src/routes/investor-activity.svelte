@@ -25,9 +25,9 @@
   let height = 0;
 
   $: margin = {
-	top: height * 0.2,
+	top: height * 0.1,
 	right: width * 0.05,
-	bottom: height * 0.2,
+	bottom: height * 0.1,
 	left: width * 0.1,
   };
 
@@ -82,8 +82,8 @@
   .selectAll('circle')
   .data(data)
   .join('circle')
-  .transition()
-  .duration(1000)
+  // .transition()
+  // .duration(1000)
   .attr('cx', d => xScale(d.price))
   .attr('cy', d => yScale(d.year))
   .attr('r', 1.5)
@@ -219,56 +219,65 @@
 	  .call(brushes[1].move, [[xScale(0),yScale(0)],[xScale(0),yScale(0)]]);
   }
 
+  let d = 300;
+
   function drawFinding(n) {
 	if (n == 0) {
 	  resetBrushesLocation()
 	} else if (n == 1) {
 	  d3.select(brushp)
 		.transition()
-		.duration(1000)
+		.duration(d)
 	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
-		.duration(1000)
+		.duration(d)
 		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
 	} else if (n == 2) {
 	  d3.select(brushp)
 		.transition()
-		.duration(1000)
+		.duration(d)
 	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
-		.duration(1000)
+		.duration(d)
 		.call(brushes[1].move, [[xScale(2000000),yScale(25)],[xScale(3000000),yScale(0)]]);
 	} else if (n == 3) {
 	  d3.select(brushp)
 		.transition()
-		.duration(1000)
+		.duration(d)
 	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
-		.duration(1000)
+		.duration(d)
 		.call(brushes[1].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
 	} else if (n == 4) {
 	  d3.select(brushp)
 		.transition()
-		.duration(1000)
+		.duration(d)
 	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(4000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
-		.duration(1000)
+		.duration(d)
 		.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
 	} else if (n == 5) {
-	  // Nothing to do here.
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
+	  d3.select(brushq)
+		.transition()
+		.duration(d)
+		.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
 	} else if (n == 6) {
 	  d3.select(brushp)
 		.transition()
-		.duration(1000)
-	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(4000000),yScale(0)]]);
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
-		.duration(1000)
-		.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
+		.duration(d)
+		.call(brushes[1].move, [[xScale(1000000),yScale(2)],[xScale(4000000),yScale(0)]]);
 	}
   }
 
@@ -293,7 +302,7 @@
 
   // Debug.
   $: console.log(`Dimension: ${width}, ${height}`);
-  $: console.log(data)
+  // $: console.log(data)
 </script>
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>

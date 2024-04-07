@@ -11,9 +11,9 @@
   let height = 0;
 
   $: margin = {
-	top: height * 0.15,
+	top: height * 0.1,
 	right: width * 0.05,
-	bottom: height * 0.25,
+	bottom: height * 0.1,
 	left: width * 0.1,
   };
 
@@ -29,8 +29,10 @@
 	console.log('invsel = ', $invsel)
   }
 
+  $: xrange = 50 < medianp ? [-20, medianp * 1.5] : [-20, 60];
+
   $: bins = d3.bin()
-  .domain([-20, 60])
+  .domain(xrange)
   // 200 bins
   .thresholds(200)
   .value((d) => d.profit)(datainv);

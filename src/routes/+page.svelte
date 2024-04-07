@@ -43,7 +43,11 @@
   }
 
   function next() {
-	phase = phase + 1;
+	if (curframe == 1) {
+	  if (phase < 6) {
+		phase = phase + 1;
+	  }
+	}
   }
 
   function prev() {
@@ -99,10 +103,10 @@
   .container {
     perspective: 1000px;
     width: 100%;
-    height: 98%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    height: 100%;
+	/* display: flex; */
+	/* align-items: center; */
+	/* justify-content: center; */
 	position: relative;
   }
 
@@ -145,7 +149,6 @@
 
   .prev, .next, .transfer {
 	position: absolute;
-	align-self: flex-end;
 	cursor: pointer;
 	font-size: 20px;
 	color: black;
@@ -155,11 +158,13 @@
   }
 
   .prev {
-	left: 25px;
+	bottom: 15px;
+	left: 15px;
   }
 
   .next {
-	right: 25px;
+	bottom: 15px;
+	right: 15px;
   }
 
   .front {
@@ -195,7 +200,7 @@
 	flex-direction: column;
 	justify-content: center;
 	position: relative;
-	padding-top: 50px;
+	/* padding-top: 50px; */
   }
 
   .desp {
@@ -217,9 +222,8 @@
 
   .histograms {
 	width: 100%;
-	height: 70%;
-	position: absolute;
-	top: 20%;
+	height: 100%;
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -228,7 +232,7 @@
 
   .histpie {
 	width: 100%;
-	height: 50%;
+	height: 45%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -298,6 +302,11 @@
 	height: 100%;
 	flex: 30;
   }
+
+  .annotation {
+	position: absolute;
+	font-size: 200%;
+  }
 </style>
 
 <div class="container">
@@ -307,27 +316,30 @@
 	</div>
 	<!-- <div class="prev" on:click={back}>←</div> -->
 	<div class="next" on:click={forward}>→</div>
+	<text class="annotation"
+		  style="width: 90%; top: 8%; margin-left: 5%; margin-right: 5%; display: {1 <= phase ? "inline" : "none"};">
+	  <tspan style="font-weight: bold;">Finding 1:</tspan>
+	  <tspan >
+		There are more investors in the high-end housing markets.
+	  </tspan>
+	</text>
+	<text class="annotation" style="width: 90%; top: 15%; margin-left: 5%; margin-right: 5%;">
+	  <tspan style="font-weight: bold; display: {phase >= 4 ? "inline" : "none"};">Finding 2:</tspan>
+	  <tspan style="display: {phase >= 4 ? "inline" : "none"};">
+		Properties that are flipped make a significant amount of profit,
+	  </tspan>
+	  <tspan style="display: {phase >= 5 ? "inline" : "none"};">
+		especially for investors,
+	  </tspan>
+	  <tspan style="display: {phase >= 6 ? "inline" : "none"};">
+		and even more in the high-end housing markets.
+	  </tspan>
+	</text>
 	<div class="flexpage">
-	  <div class="section" style="flex: 45;">
-		<!-- <div in:fly={{ y: -200, duration: 1000 }} class="desp"> -->
-		  <!-- 	The luxury housing market, in general, is more profitable than lower-end -->
-		  <!-- 	housing markets, resulting in an influx of investors into the market. -->
-		  <!-- </div> -->
+	  <div class="section" style="flex: 45; height: 70%; top: 10%;">
 		<InvestorActivity {phase} {colorp} {colorq} />
 	  </div>
-	  <div class="section" style="flex: 55;">
-		<!-- <div class="desp"> -->
-		  <!-- 	Overall, investors account for more than 80% of the total transactions -->
-		  <!-- 	in the luxury housing market. The number significantly drops in the -->
-		  <!-- 	lower-end housing markets. -->
-		  <!-- </div> -->
-		<div id="findings">
-		  <ul>
-			<li> Investors dominate the luxury housing market.
-			<li> Flipped properties are much more profitable than overall,
-			<li> especially for investors.
-		  </ul>
-		</div>
+	  <div class="section" style="flex: 55; height: 70%; top: 10%;">
 		<div class="histograms">
 		  <div class="histpie">
 			<div class="pricehist">

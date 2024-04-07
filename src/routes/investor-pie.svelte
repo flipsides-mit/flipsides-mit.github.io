@@ -99,11 +99,15 @@
   $: {
 	if (phase == 0) {
 	  // Do nothing.
-	} else if (phase == 5 && id == 1) {
+	} else if ((phase == 5 || phase == 6) && id == 1) {
 	  investor.sel = true;
 	  noninvestor.sel = false;
 	  updateSel();
-	} else {
+	} else if ((phase == 5 || phase == 6) && id == 0) {
+	  investor.sel = false;
+	  noninvestor.sel = true;
+	  updateSel();
+	}  else {
 	  investor.sel = true;
 	  noninvestor.sel = true;
 	  updateSel();
