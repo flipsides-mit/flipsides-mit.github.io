@@ -339,7 +339,7 @@
 	  <div class="section" style="flex: 45; height: 70%; top: 10%;">
 		<InvestorActivity {phase} {colorp} {colorq} />
 	  </div>
-	  <div class="section" style="flex: 55; height: 70%; top: 10%;">
+	  <div class="section" style="flex: 55; height: 70%; top: 10%; padding-right: 1%;">
 		<div class="histograms">
 		  <div class="histpie">
 			<div class="pricehist">
