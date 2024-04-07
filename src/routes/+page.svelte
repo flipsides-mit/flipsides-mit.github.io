@@ -47,6 +47,10 @@
 	  if (phase < 6) {
 		phase = phase + 1;
 	  }
+	} else if (curframe == 3) {
+	  if (phase < 1) {
+		phase = phase + 1
+	  }
 	}
   }
 
@@ -384,7 +388,11 @@
 	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
 		<TaxEffect />
 	  </div>
-	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
+	  <div class="section"
+		   style="flex: 50; height: 80%; top: 5%;">
+		<img
+		  style="display: {phase > 0 ? "initial" : "none"};"
+		  width="100%" src="/potential-buyer.png" alt="potential buyers">
 	  </div>
 	</div>
   	<div class="prev" on:click={back}>←</div>
