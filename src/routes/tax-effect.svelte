@@ -9,12 +9,12 @@
   let color = "#F67E4B";
   let width = 0;
   let height = 0;
-  let taxrate = 0.01;
+  let taxrate = 0;
   let flipped = false;
   let investor = true;
 
   $: margin = {
-	top: height * 0.05,
+	top: height * 0.1,
 	right: width * 0.05,
 	bottom: height * 0.15,
 	left: width * 0.1,
@@ -186,7 +186,7 @@
 	  .min(d3.min(rates))
 	  .max(d3.max(rates))
 	  .width(width * 0.35)
-	// .tickFormat("%f")
+	  .tickFormat(d => `${d * 100} %`)
 	  .tickValues(rates)
 	  .on("onchange", (d, e) => taxrate = d);
 
@@ -248,7 +248,7 @@
 	   bind:this={xAxis}>
 	  <text class="axislabel"
 			x={width - margin.right * 0.7} y={margin.bottom * 0.5}
-			style="text-anchor: end; font-size: {width * 0.03}px">
+			style="text-anchor: end; font-size: {width * 0.025}px">
 		profit per year (%) →
 	  </text>
 	</g>
@@ -257,7 +257,7 @@
 	   bind:this={yAxis}>
 	  <text class="axislabel"
 			x={-(0.4 * margin.left)} y={margin.top * 0.6}
-			style="text-anchor: start; font-size: {width * 0.03}px">
+			style="text-anchor: start; font-size: {width * 0.025}px">
 		↑ # transactions
 	  </text>
 	</g>
@@ -276,7 +276,14 @@
 
 	<g bind:this={sliderg}
 	   class="slider"
-	   transform="translate({margin.left + width * 0.5}, {margin.top / 2})" />
+	   transform="translate({margin.left + width * 0.5}, {margin.top / 2})">
+	  <text
+		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
+		text-anchor="center"
+		style="font-size: {width * 0.02}px;">
+		tax rate
+	  </text>
+	</g>
 
 	<g bind:this={legendg}
 	   transform="translate({margin.left + width * 0.69}, {margin.top * 2.5})" />

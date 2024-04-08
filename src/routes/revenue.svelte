@@ -141,7 +141,7 @@
 	   bind:this={yAxis}>
 	  <text class="axislabel"
 			x={-(0.3 * margin.left)} y={margin.top * 0.85}
-			style="text-anchor: start; font-size: {width * 0.03}px">
+			style="text-anchor: start; font-size: {width * 0.025}px">
 		↑ revenue (million $)
 	  </text>
 	</g>
