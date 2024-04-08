@@ -422,7 +422,7 @@
 		<ul>
 		  <li>The tax rate of Mass is relatively conservative</li>
 		  <li>Limited impacts to the low-priced market</li>
-		  <li>Limited aid to the 42000 families who need an affordable home</li>
+		  <li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li>
 		</ul>
 	  </div>
   	<div class="prev" on:click={back}>←</div>
