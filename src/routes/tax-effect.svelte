@@ -11,7 +11,7 @@
   let height = 0;
   let taxrate = 0;
   let flipped = false;
-  let investor = true;
+  let investor = false;
 
   $: margin = {
 	top: height * 0.1,
