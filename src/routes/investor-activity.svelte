@@ -307,6 +307,17 @@
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
   <svg bind:this={svg} width="100%" height="100%" font-weight="300">
+	<text
+	  x="{margin.left}" y="{height - 0.3 * margin.bottom}"
+	  text-anchor="start"
+	  style="font-size: 10pt">
+	  <tspan dy="-0.2em">
+		Data processed from MAPC 2022 transactions
+	  </tspan>
+	  <tspan x="{margin.left}" dy="1.2em">
+		(credit: the Warren Group)
+	  </tspan>
+	</text>
 	<g transform="translate(0, {height - margin.bottom})"
 	   bind:this={xAxis}>
 	  <text class="axislabel"
