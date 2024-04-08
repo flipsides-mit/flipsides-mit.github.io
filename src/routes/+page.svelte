@@ -29,7 +29,7 @@
   }
 
   function forward() {
-	if (curframe < 3) {
+	if (curframe < 4) {
 	  curframe = curframe + 1
 	  phase = 0;
 	}
@@ -310,6 +310,17 @@
 	position: absolute;
 	font-size: 200%;
   }
+
+  .slides {
+	position: relative;
+	height: 100%;
+	width: 90%;
+	display: flex;
+	justify-content: center;
+	font-size: 200%;
+	padding-left: 10%;
+	flex-direction: column;
+  }
 </style>
 
 <div class="container">
@@ -396,7 +407,25 @@
 	  </div>
 	</div>
   	<div class="prev" on:click={back}>←</div>
-	<!-- <div class="next" on:click={forward}>→</div> -->
+	<div class="next" on:click={forward}>→</div>
+  {/if}
+  {#if curframe == 4}
+	  <div class="slides">
+		<text style="font-weight: bold; font-size: 120%;">Next Step
+		</text>
+		<ul>
+		  <li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li>
+		  <li>Demand and supply curve</li>
+		</ul>
+		<text style="font-weight: bold; font-size: 120%;">Takeaways
+		</text>
+		<ul>
+		  <li>The tax rate of Mass is relatively conservative</li>
+		  <li>Limited impacts to the low-priced market</li>
+		  <li>Limited aid to the 42000 families who need an affordable home</li>
+		</ul>
+	  </div>
+  	<div class="prev" on:click={back}>←</div>
   {/if}
 </div>
 
