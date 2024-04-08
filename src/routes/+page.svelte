@@ -334,7 +334,7 @@
 		  style="width: 90%; top: 8%; margin-left: 5%; margin-right: 5%; display: {1 <= phase ? "inline" : "none"};">
 	  <tspan style="font-weight: bold;">Finding 1:</tspan>
 	  <tspan >
-		More investors in the high-end housing markets (as they are more profitable).
+		More investors in the high-end housing markets.
 	  </tspan>
 	</text>
 	<text class="annotation" style="width: 90%; top: 15%; margin-left: 5%; margin-right: 5%;">
