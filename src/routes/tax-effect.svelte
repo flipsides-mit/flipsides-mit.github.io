@@ -186,7 +186,7 @@
 	  .min(d3.min(rates))
 	  .max(d3.max(rates))
 	  .width(width * 0.35)
-	  .tickFormat(d => `${d * 100} %`)
+	  .tickFormat(d => `${(d * 100).toFixed(1)} %`)
 	  .tickValues(rates)
 	  .on("onchange", (d, e) => taxrate = d);
 
@@ -195,7 +195,7 @@
 
 	d3.select(sliderg)
 	  .selectAll("text")
-	  .attr("font-size", "12px");
+	  .attr("font-size", `${width * 0.013}px`);
   }
 
   // Legend

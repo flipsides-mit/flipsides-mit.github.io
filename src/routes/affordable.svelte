@@ -27,11 +27,18 @@
 
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
-  <text>
+  <text style="font-size: {width * 0.05}px ;">
 	≈
 	<tspan bind:this={nhomes}>2400</tspan>
   </text>
-  <text>affordable homes
+  <text style="font-size: {width * 0.05}px;">affordable homes*
+  </text>
+
+  <text style="font-size: {width * 0.025}px; margin-top: 40px;">
+	(estimation based on
+	<a href="https://www.boston.gov/sites/default/files/file/2022/04/Income%20Restricted%20Housing%20Report%2C%202021_0.pdf">
+	  Income-Restricted Housing in Boston 2021)
+	</a>
   </text>
 </div>
 
@@ -57,8 +64,5 @@
 	transition:
       .4s ease-in-out transform,
       .4s ease-in-out box-shadow;
-  }
-  text {
-	font: italic 50px sans-serif;
   }
 </style>
