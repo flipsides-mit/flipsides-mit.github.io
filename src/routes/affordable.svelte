@@ -9,7 +9,7 @@
   let nhomes;
 
   const start = 0;
-  const end = 4000;
+  const end = 2400;
 
   onMount(() => {
 	d3.select(nhomes)
@@ -29,7 +29,7 @@
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
   <text>
 	≈
-	<tspan bind:this={nhomes}>4000</tspan>
+	<tspan bind:this={nhomes}>2400</tspan>
   </text>
   <text>affordable homes
   </text>
