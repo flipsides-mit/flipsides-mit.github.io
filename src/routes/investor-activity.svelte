@@ -323,7 +323,7 @@
 	  <text class="axislabel"
 			x={width} y={margin.bottom * 0.8}
 			style="text-anchor: end; font-size: {width * 0.03}px">
-		sale price (million $) →
+		sales price (million $) →
 	  </text>
 	</g>
 
