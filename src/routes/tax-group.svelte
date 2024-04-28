@@ -14,6 +14,7 @@
   let inv = true;
   let colorinv = '#6699CC';
   let colornoninv = '#DDCC77';
+  let thrds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   let miny = 100000000;
   let svg;
@@ -46,18 +47,38 @@
 	console.log(data);
   }
 
-  $: series = d3.stack()
-  .keys(d3.union(data.map(d => d.investor)))
-  .value(([, D], key) => D.get(key))
-  (d3.rollup(data, D => d3.sum(D, d => d.tax), d => d.group, d => d.investor));
+  let series = [];
+  $: {
+	let agg = d3.rollup(data, D => d3.sum(D, d => d.tax), d => d.group, d => d.investor);
+	series = d3.stack()
+	  .keys(d3.union(data.map(d => d.investor)))
+	  .value(([, D], key) => D.get(key) ? D.get(key) : 0) // might have empty group
+	(agg);
+  }
   
   $: console.log(series);
 
+  function toGroup(price) {
+	let p = price / 1000000;
+	for (let i = thrds.length; i > 0; i--) {
+	  if (thrds[i - 1] <= p) {
+		return i;
+	  }
+	}
+	return 0;
+  }
+
+  let groupNames = [`< ${thrds[0]}`];
+  for (let i = 0; i < thrds.length - 1; i++) {
+	groupNames.push(`${thrds[i]}-${thrds[i + 1]}`)
+  }
+  groupNames.push(`> ${thrds[thrds.length - 1]}`)
+
   // X-scale
   $: xScale = d3.scaleBand()
-  .domain(["cheap", "luxury"])
+  .domain(d3.range(0, thrds.length + 1))
   .range([margin.left, width - margin.right])
-  .padding(0.8);
+  .padding(0.2);
 
   // Y-scale
   $: yScale = d3.scaleLinear()
@@ -87,7 +108,7 @@
 	let sel = d3.select(xAxis)
 		.style('font-family', 'inherit')
 		.transition().duration(300)
-		.call(d3.axisBottom(xScale).tickSizeOuter(0));
+		.call(d3.axisBottom(xScale).tickSizeOuter(0).tickFormat(d => groupNames[d]));
 
 	// Update the thickness of the axis line
 	sel.selectAll('path')
@@ -103,7 +124,7 @@
 	let sel = d3.select(yAxis)
 		.style('font-family', 'inherit')
 		.transition().duration(300)
-		.call(d3.axisLeft(yScale).ticks(5).tickFormat((d, i) => (d / 1000000).toFixed(0)));
+		.call(d3.axisLeft(yScale).ticks(5).tickFormat(d => (d / 1000000).toFixed(0)));
 
 	// Update the thickness of the axis line
 	sel.selectAll('path')
@@ -160,7 +181,7 @@
 	  ...d,
 	  price: +d.current_price,
 	  investor: d.investor === 'True',
-	  group: +d.current_price < 2000000 ? 'cheap' : 'luxury',
+	  group: toGroup(+d.current_price),
 	}});
 	console.log('Number of data points:', dataraw.length);
   });
