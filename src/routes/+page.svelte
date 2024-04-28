@@ -430,11 +430,11 @@
   {/if}
   {#if curframe == 5}
 	<div class="flexpage">
-	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
-		<TaxGroup />
-	  </div>
 	  <div class="section"
-		   style="flex: 50; height: 80%; top: 5%;">
+		   style="flex: 0; height: 80%; top: 5%;">
+	  </div>
+	  <div class="section" style="flex: 100; height: 80%; top: 5%;">
+		<TaxGroup />
 	  </div>
 	</div>
 
