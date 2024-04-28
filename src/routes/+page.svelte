@@ -8,10 +8,11 @@
   import Affordable from './affordable.svelte';
   // import TaxRate from './tax-rate.svelte';
   import TaxEffect from './tax-effect.svelte';
+  import TaxGroup from './tax-group.svelte';
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 1;
+  let curframe = 5;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -29,7 +30,7 @@
   }
 
   function forward() {
-	if (curframe < 4) {
+	if (curframe < 5) {
 	  curframe = curframe + 1
 	  phase = 0;
 	}
@@ -410,22 +411,33 @@
 	<div class="next" on:click={forward}>→</div>
   {/if}
   {#if curframe == 4}
-	  <div class="slides">
-		<text style="font-weight: bold; font-size: 120%;">Next Step
-		</text>
-		<ul>
-		  <li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li>
-		  <li>Demand and supply curve</li>
-		</ul>
-		<text style="font-weight: bold; font-size: 120%;">Takeaways
-		</text>
-		<ul>
-		  <li>The tax rate of Mass is relatively conservative</li>
-		  <li>Limited impacts to the low-priced market</li>
-		  <li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li>
-		</ul>
-	  </div>
+	<div class="slides">
+	  <text style="font-weight: bold; font-size: 120%;">Next Step
+	  </text>
+	  <ul>
+		<li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li>
+		<li>Demand and supply curve</li>
+	  </ul>
+	  <text style="font-weight: bold; font-size: 120%;">Takeaways
+	  </text>
+	  <ul>
+		<li>The tax rate of Mass is relatively conservative</li>
+		<li>Limited impacts to the low-priced market</li>
+		<li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li>
+	  </ul>
+	</div>
   	<div class="prev" on:click={back}>←</div>
+  {/if}
+  {#if curframe == 5}
+	<div class="flexpage">
+	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
+		<TaxGroup />
+	  </div>
+	  <div class="section"
+		   style="flex: 50; height: 80%; top: 5%;">
+	  </div>
+	</div>
+
   {/if}
 </div>
 
