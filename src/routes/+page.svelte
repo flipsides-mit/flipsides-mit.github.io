@@ -326,6 +326,9 @@
 
 <div class="container">
   {#if curframe == 1}
+	hello
+  {/if}
+  {#if curframe == 2}
 	<div class="title">
 	  Overall Housing Market and Investor Activity
 	</div>
@@ -376,7 +379,7 @@
 	  </div>
 	</div>
   {/if}
-  {#if curframe == 2}
+  {#if curframe == 3}
 	<div class="title">
 	  Benefit of the Affordable Homes Act
 	</div>
@@ -388,47 +391,44 @@
 		<Affordable />
 	  </div>
 	</div>
-
-  	<div class="prev" on:click={back}>←</div>
-	<div class="next" on:click={forward}>→</div>
   {/if}
-  {#if curframe == 3}
-	<div class="title">
-	  Profit Affected by Transfer Fee and Investor Redistribution
-	</div>
-	<div class="flexpage">
-	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
-		<TaxEffect />
-	  </div>
-	  <div class="section"
-		   style="flex: 50; height: 80%; top: 5%;">
-		<img
-		  style="display: {phase > 0 ? "initial" : "none"};"
-		  width="100%" src="/potential-buyer.png" alt="potential buyers">
-	  </div>
-	</div>
-  	<div class="prev" on:click={back}>←</div>
-	<div class="next" on:click={forward}>→</div>
-  {/if}
+  <!-- {#if curframe == 3} -->
+  <!-- 	<div class="title"> -->
+  <!-- 	  Profit Affected by Transfer Fee and Investor Redistribution -->
+  <!-- 	</div> -->
+  <!-- 	<div class="flexpage"> -->
+  <!-- 	  <div class="section" style="flex: 50; height: 80%; top: 5%;"> -->
+  <!-- 		<TaxEffect /> -->
+  <!-- 	  </div> -->
+  <!-- 	  <div class="section" -->
+  <!-- 		   style="flex: 50; height: 80%; top: 5%;"> -->
+  <!-- 		<img -->
+  <!-- 		  style="display: {phase > 0 ? "initial" : "none"};" -->
+  <!-- 		  width="100%" src="/potential-buyer.png" alt="potential buyers"> -->
+  <!-- 	  </div> -->
+  <!-- 	</div> -->
+  <!-- 	<div class="prev" on:click={back}>←</div> -->
+  <!-- 	<div class="next" on:click={forward}>→</div> -->
+  <!-- {/if} -->
+  <!-- {#if curframe == 4} -->
+  <!-- 	<div class="slides"> -->
+  <!-- 	  <text style="font-weight: bold; font-size: 120%;">Next Step -->
+  <!-- 	  </text> -->
+  <!-- 	  <ul> -->
+  <!-- 		<li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li> -->
+  <!-- 		<li>Demand and supply curve</li> -->
+  <!-- 	  </ul> -->
+  <!-- 	  <text style="font-weight: bold; font-size: 120%;">Takeaways -->
+  <!-- 	  </text> -->
+  <!-- 	  <ul> -->
+  <!-- 		<li>The tax rate of Mass is relatively conservative</li> -->
+  <!-- 		<li>Limited impacts to the low-priced market</li> -->
+  <!-- 		<li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li> -->
+  <!-- 	  </ul> -->
+  <!-- 	</div> -->
+  <!-- 	<div class="prev" on:click={back}>←</div> -->
+  <!-- {/if} -->
   {#if curframe == 4}
-	<div class="slides">
-	  <text style="font-weight: bold; font-size: 120%;">Next Step
-	  </text>
-	  <ul>
-		<li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li>
-		<li>Demand and supply curve</li>
-	  </ul>
-	  <text style="font-weight: bold; font-size: 120%;">Takeaways
-	  </text>
-	  <ul>
-		<li>The tax rate of Mass is relatively conservative</li>
-		<li>Limited impacts to the low-priced market</li>
-		<li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li>
-	  </ul>
-	</div>
-  	<div class="prev" on:click={back}>←</div>
-  {/if}
-  {#if curframe == 5}
 	<div class="flexpage">
 	  <div class="section"
 		   style="flex: 0; height: 80%; top: 5%;">
@@ -437,7 +437,6 @@
 		<TaxGroup />
 	  </div>
 	</div>
-
   {/if}
 </div>
 

@@ -229,7 +229,7 @@
 </script>
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
-  <div style="position: relative; bottom: 5%;">
+  <div>
 	<label style="position: relative; right: 10%;">
 	  <input type="checkbox" bind:checked={noninv} />
 	  Show non-investor transactions

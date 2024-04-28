@@ -6,9 +6,10 @@ html, body {
 
 body {
   color: #333;
-  margin: 0;
-  padding: 8px;
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Neucha", cursive;
   font-weight: 400;
 }
