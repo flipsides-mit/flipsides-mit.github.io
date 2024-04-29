@@ -91,7 +91,8 @@
   .attr("stroke", "#000")
   .attr("stroke-opacity", 0.2)
   .style('fill-opacity', 0.4)
-  .style('fill', d => d.investor ? '#EE8866' : '#DDDDDD');
+  .style('fill', '#DDDDDD');
+  // .style('fill', d => d.investor ? '#EE8866' : '#DDDDDD');
 
   // Grid lines
   $: d3.select(svg)
@@ -289,20 +290,20 @@
 	  d3.select(brushp)
 		.transition()
 		.duration(d)
-	  	.call(brushes[0].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
+	  	.call(brushes[0].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
 		.duration(d)
-		.call(brushes[1].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
+		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
 	} else if (n == 14) {
 	  d3.select(brushp)
 		.transition()
 		.duration(d)
-	  	.call(brushes[0].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
+	  	.call(brushes[0].move, [[xScale(3000000),yScale(2)],[xScale(4000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
 		.duration(d)
-		.call(brushes[1].move, [[xScale(3000000),yScale(2)],[xScale(4000000),yScale(0)]]);
+		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
 
 	}
   }
@@ -351,7 +352,7 @@
 	<g transform="translate(0, {height - margin.bottom})"
 	   bind:this={xAxis}>
 	  <text class="axislabel"
-			x={width} y={margin.bottom * 0.8}
+			x={width} y={margin.bottom * 0.7}
 			style="text-anchor: end; font-size: {width * 0.03}px">
 		sales price (million $) →
 	  </text>

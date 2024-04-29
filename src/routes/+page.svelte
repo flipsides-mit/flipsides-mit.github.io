@@ -12,7 +12,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 13;
+  let curframe = 16;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -31,7 +31,7 @@
   }
 
   function forward() {
-	if (curframe < 15) {
+	if (curframe < 20) {
 	  curframe = curframe + 1
 	  phase = 0;
 	}
@@ -125,6 +125,12 @@
 	stroke: black;
 	/* background: #F7F7F7; */
 	/* box-shadow: 0 5px 15px rgba(0,0,0,0.3); */
+  }
+
+  .flexbox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
   }
 
   .card {
@@ -507,16 +513,6 @@
 	<!-- 	</div> -->
   <!-- 	<div class="prev" on:click={back}>←</div> -->
 <!-- {/if} -->
-{#if curframe == 3}
-  <div class="flexpage bg-dark">
-	<div class="section"
-		 style="flex: 0; height: 80%; top: 5%;">
-	</div>
-	<div class="section" style="flex: 100; height: 80%; top: 5%;">
-	  <TaxGroup />
-	</div>
-  </div>
-{/if}
 {#if curframe == 4}
   <div class="flex-page-col bg-dark">
 	<div style="flex: 1; height: 80%;">
@@ -658,7 +654,15 @@
 	  </div>
 	{/if}
 	{#if curframe == 13 || curframe == 14}
-	  <div class="flexpage" style="position: absolute; top: -15%; color: white;">
+	  <div style="position: absolute; height: 30%; bottom: 3%; left: 15%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/tim.png" style="object-fit: contain;" alt="tim">
+	  </div>
+	  <div style="position: absolute; height: 30%; bottom: 3%; left: 32%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe.png" style="object-fit: contain;" alt="joe">
+	  </div>
+	  <div class="flexpage" style="position: absolute; top: -25%; color: white;">
 		<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
 		  <InvestorActivity {curframe} {colorp} {colorq} />
 		</div>
@@ -669,7 +673,7 @@
 				<PriceHistogram color={colorp} seldata={seldatap} invsel={invselp} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie id={0} color={colorp} data={seldatap} invsel={invselp} />
+				<InvestorPie {curframe} id={0} color={colorp} data={seldatap} invsel={invselp} />
 			  </div>
 			</div>
 			<div class="histpie">
@@ -677,7 +681,7 @@
 				<PriceHistogram color={colorq} seldata={seldataq} invsel={invselq} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie id={1} color={colorq} data={seldataq} invsel={invselq} />
+				<InvestorPie {curframe} id={1} color={colorq} data={seldataq} invsel={invselq} />
 			  </div>
 			</div>
 		  </div>
@@ -717,7 +721,28 @@
 		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
 	{/if}
-
+	{#if curframe == 16}
+	  <div class="flexbox"
+		   style="width: 100%; position: absolute; top: 5%; font-size: 45px; color: white;">
+		How should we adjust the policy, for a more equitable distribution of resources?
+	  </div>
+	  <div style="position: absolute; height: 30%; bottom: 3%; left: 12%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/tim.png" style="object-fit: contain;" alt="tim">
+	  </div>
+	  <div style="position: absolute; height: 30%; bottom: 3%; left: 63%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe.png" style="object-fit: contain;" alt="joe">
+	  </div>
+	  <div class="flexpage" style="color: white; fill: white;">
+		<div class="section"
+			 style="flex: 0; height: 80%; top: 5%;">
+		</div>
+		<div class="section" style="flex: 100; height: 80%; top: 5%;">
+		  <TaxGroup />
+		</div>
+	  </div>
+	{/if}
   </div>
 {/if}
 </div>

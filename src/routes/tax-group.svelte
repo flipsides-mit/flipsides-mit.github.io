@@ -14,7 +14,7 @@
   let noninv = true;
   let inv = true;
   let colorinv = '#6699CC';
-  let colornoninv = '#DDCC77';
+  let colornoninv = '#F67E4B';
   let thrds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   let miny = 100000000;
@@ -158,6 +158,7 @@
 		.scale(ordinal);
 
 	d3.select(legendg)
+	  .style('font-size', `${width * 0.02}px`)
 	  .call(legend);
 
 	d3.select(legendg)
@@ -191,7 +192,6 @@
 
 	d3.select(ratenig)
 	  .selectAll("text")
-	  .style("color", "white")
 	  .attr("font-size", `${width * textRatioSlider}px`);
 
 	slideri = sliderBottom()
@@ -231,11 +231,11 @@
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
   <div>
-	<label style="position: relative; right: 10%;">
+	<label style="position: relative; right: 10%; font-size: {width * 0.015}px;">
 	  <input type="checkbox" bind:checked={noninv} />
 	  Show non-investor transactions
 	</label>
-	<label style="position: relative; left: 10%;">
+	<label style="position: relative; left: 10%; font-size: {width * 0.015}px;">
 	  <input type="checkbox" bind:checked={inv} />
 	  Show investor transactions
 	</label>
@@ -319,14 +319,11 @@
 	stroke-opacity: 0.1;
 	opacity: 0.5;
   }
-  .slider {	
+  .slider {
   }
   .axislabel {
 	fill: currentColor;
 	font-size: 20px;
 	font-weight: normal;
-  }
-  svg {
-	color: white;
   }
 </style>

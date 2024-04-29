@@ -7,6 +7,7 @@
   export let data;
   export let invsel;
   export let color = "#CCCCCC";
+  export let curframe = 0;
   let nscolor = "#CCCCCC";
   let width = 0;
   let height = 0;
@@ -27,8 +28,13 @@
 	  investor.value = x / n;
 	  noninvestor.value = (n - x) / n;
 	  if (emptydata) {
-		investor.sel = true;
-		noninvestor.sel = true;
+		if (id == 0) {
+		  investor.sel = true;
+		  noninvestor.sel = false;
+		} else {
+		  investor.sel = false;
+		  noninvestor.sel = true;
+		}
 		updateSel();
 	  }
 	  emptydata = false;
@@ -120,15 +126,7 @@
   }
 
   onMount(() => {
-	if (id == 0) {
-	  investor.sel = false;
-	  noninvestor.sel = true;
-	  updateSel();
-	} else {
-	  investor.sel = false;
-	  noninvestor.sel = true;
-	  updateSel();
-	}
+	console.log('onmount')
   });
 </script>
 
