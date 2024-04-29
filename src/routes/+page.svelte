@@ -12,7 +12,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 16;
+  let curframe = 4;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -406,125 +406,68 @@
 </style>
 
 <div class="container">
-  {#if curframe == 1}
-    <div class="curtain">
-        <div class="curtain-content">
-            <img src="/houses-all.png" class="move" alt="Moving figure">
-        </div>
-    </div>
-  {/if}
-  {#if curframe == 2}
-	<!-- <div class="title"> -->
-	<!--   Overall Housing Market and Investor Activity -->
-	<!-- </div> -->
-  <!-- <div class="prev" on:click={back}>←</div> -->
-  <div class="next" on:click={forward}>→</div>
-  <text class="annotation"
-		style="width: 90%; top: 8%; margin-left: 5%; margin-right: 5%; display: {1 <= phase ? "inline" : "none"};">
-	<tspan style="font-weight: bold;">Finding 1:</tspan>
-	<tspan >
-	  More investors in the high-end housing markets.
-	</tspan>
-  </text>
-  <text class="annotation" style="width: 90%; top: 15%; margin-left: 5%; margin-right: 5%;">
-	<tspan style="font-weight: bold; display: {phase >= 4 ? "inline" : "none"};">Finding 2:</tspan>
-	<tspan style="display: {phase >= 4 ? "inline" : "none"};">
-	  Properties that are flipped make a significant amount of profit,
-	</tspan>
-	<tspan style="display: {phase >= 5 ? "inline" : "none"};">
-	  especially for investors,
-	</tspan>
-	<tspan style="display: {phase >= 6 ? "inline" : "none"};">
-	  and even more so in the high-end housing markets.
-	</tspan>
-  </text>
-  <div class="flexpage">
-	<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
-	  <InvestorActivity {phase} {colorp} {colorq} />
-	</div>
-	<div class="section" style="flex: 55; height: 70%; top: 10%; padding-right: 2%;">
-	  <div class="histograms">
-		<div class="histpie">
-		  <div class="pricehist">
-			<PriceHistogram color={colorp} seldata={seldatap} invsel={invselp} />
-		  </div>
-		  <div class="invpie">
-			<InvestorPie {phase} id={0} color={colorp} data={seldatap} invsel={invselp} />
-		  </div>
+  <div class="relative-page bg-dark">
+	{#if curframe == 1}
+	  <div class="flex-page-col bg-dark">
+		<div style="flex: 1; height: 80%;">
+		  <img height="100%" src="/intro-1.png" alt="act">
 		</div>
-		<div class="histpie">
-		  <div class="pricehist">
-			<PriceHistogram color={colorq} seldata={seldataq} invsel={invselq} />
-		  </div>
-		  <div class="invpie">
-			<InvestorPie {phase} id={1} color={colorq} data={seldataq} invsel={invselq} />
-		  </div>
+		<div class="text-light" style="flex: 1; font-size: 40px; height: 20%; width: 80%;">
+		  In 2023, Massachusetts published the Affordable Homes Acts, introducing the transfer fee to MA for the first time.
 		</div>
 	  </div>
-	</div>
-  </div>
-{/if}
-{#if curframe == 3}
-  <div class="title">
-	Benefit of the Affordable Homes Act
-  </div>
-  <div class="flexpage bg-dark">
-	<div class="section" style="flex: 50; height: 80%; top: 5%;">
-	  <Revenue />
-	</div>
-	<div class="section" style="flex: 50; height: 80%; top: 5%;">
-	  <Affordable />
-	</div>
-  </div>
-{/if}
-<!-- {#if curframe == 3} -->
-  <!-- 	<div class="title"> -->
-	<!-- 	  Profit Affected by Transfer Fee and Investor Redistribution -->
-	<!-- 	</div> -->
-  <!-- 	<div class="flexpage"> -->
-	<!-- 	  <div class="section" style="flex: 50; height: 80%; top: 5%;"> -->
-	  <!-- 		<TaxEffect /> -->
-	  <!-- 	  </div> -->
-	<!-- 	  <div class="section" -->
-	<!-- 		   style="flex: 50; height: 80%; top: 5%;"> -->
-	  <!-- 		<img -->
-	  <!-- 		  style="display: {phase > 0 ? "initial" : "none"};" -->
-	  <!-- 		  width="100%" src="/potential-buyer.png" alt="potential buyers"> -->
-	  <!-- 	  </div> -->
-	<!-- 	</div> -->
-  <!-- 	<div class="prev" on:click={back}>←</div> -->
-  <!-- 	<div class="next" on:click={forward}>→</div> -->
-<!-- {/if} -->
-<!-- {#if curframe == 4} -->
-  <!-- 	<div class="slides"> -->
-	<!-- 	  <text style="font-weight: bold; font-size: 120%;">Next Step -->
-	  <!-- 	  </text> -->
-	<!-- 	  <ul> -->
-	  <!-- 		<li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li> -->
-	  <!-- 		<li>Demand and supply curve</li> -->
-	  <!-- 	  </ul> -->
-	<!-- 	  <text style="font-weight: bold; font-size: 120%;">Takeaways -->
-	  <!-- 	  </text> -->
-	<!-- 	  <ul> -->
-	  <!-- 		<li>The tax rate of Mass is relatively conservative</li> -->
-	  <!-- 		<li>Limited impacts to the low-priced market</li> -->
-	  <!-- 		<li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li> -->
-	  <!-- 	  </ul> -->
-	<!-- 	</div> -->
-  <!-- 	<div class="prev" on:click={back}>←</div> -->
-<!-- {/if} -->
-{#if curframe == 4}
-  <div class="flex-page-col bg-dark">
-	<div style="flex: 1; height: 80%;">
-	  <img height="100%" src="/intro-1.png" alt="act">
-	</div>
-	<div class="text-light" style="flex: 1; font-size: 40px; height: 20%; width: 80%;">
-	  In 2023, Massachusetts published the Affordable Homes Acts, introducing the transfer fee to MA for the first time.
-	</div>
-  </div>
-{/if}
-{#if curframe >= 5}
-  <div class="relative-page bg-dark">
+	{/if}
+	{#if curframe == 2}
+	  <div class="flexbox"
+		   style="width: 70%; position: absolute; bottom: 45%; left: 15%;
+				  font-size: 40px; color: white;"
+		   transition:fade={{ duration: 300 }}>
+		The Affordable Homes Act includes a provision that would grant
+		Massachusetts municipalities the authority to implement a real estate
+		transfer fee of 0.5% to 2.0% on transactions or more than $1M or the
+		county median single family home price, whichever is greater.
+	  </div>
+      <div class="curtain">
+		<div class="curtain-content">
+          <img src="/houses-all.png" class="move" alt="Moving figure">
+		</div>
+      </div>
+	{/if}
+	{#if curframe == 3 || curframe == 4}
+	  <div class="flexbox"
+		   style="width: 47%; position: absolute; bottom: 70%; left: 3%;
+				  font-size: 36px; color: white;"
+		   transition:fade={{ duration: 300 }}>
+		According to the 2022 Greater Boston Area housing transaction data, it
+		is preliminarily estimated that the implementation of this policy in
+		2023 will generate $208 million in revenue for affordable housing.
+	  </div>
+	  <div class="flexbox"
+		   style="width: 47%; position: absolute; bottom: 20%; left: 3%;
+				  font-size: 80px; color: white;"
+		   transition:fade={{ duration: 300 }}>
+		<center>
+		  $208M<br>
+		  <tspan style="visibility: {curframe == 4 ? 'visible' : 'hidden'};">=<br>
+			2000 units</tspan>
+		  <tspan style="font-size: 25px; visibility: {curframe == 4 ? 'visible' : 'hidden'};">
+			<br>(estimation based on
+			<a href="https://www.boston.gov/sites/default/files/file/2022/04/Income%20Restricted%20Housing%20Report%2C%202021_0.pdf">
+			  Income-Restricted Housing in Boston 2021)
+			</a>
+		  </tspan>
+	  </div>
+	  <div style="position: absolute; right: 3%; bottom: 0%; width: 45%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/base.png" alt="act">
+	  </div>
+	{/if}
+	{#if curframe == 4}
+	  <div style="position: absolute; right: 2%; bottom: 20%; width: 42%;"
+		   transition:fly={{ duration: 300, y: '-30%' }}>
+		<img src="/addition.png" alt="act">
+	  </div>
+	{/if}
 	{#if (5 <= curframe && 8 >= curframe) || (10 == curframe )}
 	  <div style="position: absolute; width: 100%; height: 99%;">
 		<img src="/houses-dark.png" alt="act">
@@ -544,7 +487,8 @@
 	{/if}
 	{#if curframe == 5}
 	  <div class="text-light"
-		   style="position: absolute; width: 40%; top: 40%; left: 30%; font-size: 35pt;">
+		   style="position: absolute; width: 40%; top: 40%; left: 30%; font-size: 35pt;"
+		   transition:fade={{ duration: 300 }}>
 		But who's actually paying for the 2000 units of affordable housing?
 	  </div>
 	{/if}
@@ -646,7 +590,7 @@
 	  <div class="text-light"
 		   style="position: absolute; width: 59%; height: 24%; bottom: 0%;
 				  right: 30%; font-size: 25pt;" transition:fade={{ duration: 300
-				  }}> Ultimately, Joe set his sights on a house priced at $6~7
+		   }}> Ultimately, Joe set his sights on a house priced at $6~7
 		million-which means they has to pay about $550000 as the
 		transfer fee.  Meanwhile, they can earn $5000000 as profit by
 		flipping house, which is 10 times than their cost of transfer
@@ -699,7 +643,7 @@
 		   transition:fade={{ duration: 300 }}>
 		<center>
 		  It seems that the <tspan style="color: red;">middle-class
-		  majority</tspan>, represented by Tim, are paying a significant amount
+			majority</tspan>, represented by Tim, are paying a significant amount
 		  of transfer fees; <br><br>meanwhile,
 		  <tspan style="color: cyan;">investors</tspan> are able to cover their
 		  transfer fee expenses through the profits gained from flipping houses.
@@ -723,16 +667,18 @@
 	{/if}
 	{#if curframe == 16}
 	  <div class="flexbox"
-		   style="width: 100%; position: absolute; top: 5%; font-size: 45px; color: white;">
-		How should we adjust the policy, for a more equitable distribution of resources?
+		   style="width: 42%; position: absolute; bottom: 38%; left: 15%;
+				  font-size: 35px; color: white;"
+		   transition:fade={{ duration: 300 }}>
+		Due to the large number of the middle class, people like Tim, who
+		purchase homes in the 1M to 2M (and even 2M to 3M) range, have become
+		the primary group paying the transfer fee.
 	  </div>
+	{/if}
+	{#if curframe == 16 || curframe == 17}
 	  <div style="position: absolute; height: 30%; bottom: 3%; left: 12%;"
 		   transition:fade={{ duration: 300 }}>
 		<img src="/tim.png" style="object-fit: contain;" alt="tim">
-	  </div>
-	  <div style="position: absolute; height: 30%; bottom: 3%; left: 63%;"
-		   transition:fade={{ duration: 300 }}>
-		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
 	  <div class="flexpage" style="color: white; fill: white;">
 		<div class="section"
@@ -743,8 +689,17 @@
 		</div>
 	  </div>
 	{/if}
+	{#if curframe == 17}
+	  <div class="flexbox"
+		   style="width: 100%; position: absolute; top: 5%; font-size: 45px; color: white;">
+		How should we adjust the policy, for a more equitable distribution of resources?
+	  </div>
+	  <div style="position: absolute; height: 30%; bottom: 3%; left: 63%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe.png" style="object-fit: contain;" alt="joe">
+	  </div>
+	{/if}
   </div>
-{/if}
 </div>
 
 <svelte:window
