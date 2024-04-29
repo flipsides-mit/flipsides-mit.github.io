@@ -18,6 +18,7 @@
   let colorq = "#F67E4B";
   let icollage = 1;
   let curfinding = 0;
+  let showtool = false;
   export let duration = 5; // Animation duration in seconds
 
   function toggleFlip() {
@@ -103,6 +104,8 @@
   onMount(() => {
 	animateIntroCollage()
   })
+
+  $: showtool = curframe != 16;
 </script>
 
 <style>
@@ -703,7 +706,7 @@
 	  </div>
 	  <div class="flexpage" style="color: white; fill: white;">
 		<div class="section" style="flex: 1; height: 80%; top: 4%;">
-		  <TaxGroup />
+		  <TaxGroup {showtool} />
 		</div>
 	  </div>
 	{/if}

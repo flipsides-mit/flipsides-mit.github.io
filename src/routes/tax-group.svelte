@@ -5,6 +5,7 @@
   import { sliderBottom } from 'd3-simple-slider';
   import { legendColor } from 'd3-svg-legend';
 
+  export let showtool = true;
   let dataraw = [];
   let width = 0;
   let height = 0;
@@ -230,7 +231,7 @@
 </script>
 
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
-  <div>
+  <div style="visibility: {showtool ? 'visibile' : 'hidden'};">
 	<label style="position: relative; right: 10%; font-size: {width * 0.015}px;">
 	  <input type="checkbox" bind:checked={noninv} />
 	  Show non-investor transactions
@@ -240,6 +241,7 @@
 	  Show investor transactions
 	</label>
   </div>
+  
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 
 	<g bind:this={barsg} class="bars" />
@@ -264,7 +266,8 @@
 
 	<g bind:this={exemptiong}
 	   class="slider"
-	   transform="translate({margin.left + width * 0.5}, {margin.top / 2})">
+	   transform="translate({margin.left + width * 0.5}, {margin.top / 2})"
+	   style="visibility: {showtool ? 'visibile' : 'hidden'};">
 	  <text
 		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
 		text-anchor="center"
@@ -275,7 +278,8 @@
 
 	<g bind:this={ratenig}
 	   class="slider"
-	   transform="translate({margin.left + width * 0.5}, {margin.top / 2 + 0.15 * height})">
+	   transform="translate({margin.left + width * 0.5}, {margin.top / 2 + 0.15 * height})"
+	   style="visibility: {showtool ? 'visibile' : 'hidden'};">
 	  <text
 		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
 		text-anchor="center"
@@ -286,7 +290,8 @@
 
 	<g bind:this={rateig}
 	   class="slider"
-	   transform="translate({margin.left + width * 0.5}, {margin.top / 2 + 0.3 * height})">
+	   transform="translate({margin.left + width * 0.5}, {margin.top / 2 + 0.3 * height})"
+	   style="visibility: {showtool ? 'visibile' : 'hidden'};">
 	  <text
 		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
 		text-anchor="center"
