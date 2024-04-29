@@ -155,7 +155,7 @@
 	stroke-dasharray: 3, 1;
 	stroke-opacity: 0.8;
 	stroke-width: 2px;
-	stroke: black;
+	stroke: white;
   }
   .bars {
 	stroke-opacity: 0.1;
@@ -165,7 +165,7 @@
 	transform-box: fill-box;
 	transform-origin: bottom left;
 	font-weight: 300;
-	stroke: black;
+	stroke: white;
 	opacity: 0.8;
   }
   .axislabel {

@@ -12,7 +12,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 10;
+  let curframe = 13;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -371,7 +371,7 @@
   }
 
   .bg-dark {
-	background-color: black;
+	background: black;
   }
 
   .relative-page {
@@ -462,7 +462,7 @@
   <div class="title">
 	Benefit of the Affordable Homes Act
   </div>
-  <div class="flexpage">
+  <div class="flexpage bg-dark">
 	<div class="section" style="flex: 50; height: 80%; top: 5%;">
 	  <Revenue />
 	</div>
@@ -508,7 +508,7 @@
   <!-- 	<div class="prev" on:click={back}>←</div> -->
 <!-- {/if} -->
 {#if curframe == 3}
-  <div class="flexpage">
+  <div class="flexpage bg-dark">
 	<div class="section"
 		 style="flex: 0; height: 80%; top: 5%;">
 	</div>
@@ -648,15 +648,76 @@
 		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
 	  <div class="text-light"
-		   style="position: absolute; width: 59%; height: 24%; bottom: 0%; right: 30%;
-				  font-size: 25pt;"
-		   transition:fade={{ duration: 300 }}>
-		Ultimately, Joe set his sights on a house priced at $6~7 million 
-		-which means they has to pay about $550000 as the transfer fee.
-		Meanwhile, they can earn $5000000 as profit by flipping house,
-		which is 10 times than their cost of transfer fee.
+		   style="position: absolute; width: 59%; height: 24%; bottom: 0%;
+				  right: 30%; font-size: 25pt;" transition:fade={{ duration: 300
+				  }}> Ultimately, Joe set his sights on a house priced at $6~7
+		million-which means they has to pay about $550000 as the
+		transfer fee.  Meanwhile, they can earn $5000000 as profit by
+		flipping house, which is 10 times than their cost of transfer
+		fee.
 	  </div>
 	{/if}
+	{#if curframe == 13 || curframe == 14}
+	  <div class="flexpage" style="position: absolute; top: -15%; color: white;">
+		<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
+		  <InvestorActivity {curframe} {colorp} {colorq} />
+		</div>
+		<div class="section" style="flex: 55; height: 70%; top: 10%; padding-right: 2%;">
+		  <div class="histograms">
+			<div class="histpie">
+			  <div class="pricehist">
+				<PriceHistogram color={colorp} seldata={seldatap} invsel={invselp} />
+			  </div>
+			  <div class="invpie">
+				<InvestorPie id={0} color={colorp} data={seldatap} invsel={invselp} />
+			  </div>
+			</div>
+			<div class="histpie">
+			  <div class="pricehist">
+				<PriceHistogram color={colorq} seldata={seldataq} invsel={invselq} />
+			  </div>
+			  <div class="invpie">
+				<InvestorPie id={1} color={colorq} data={seldataq} invsel={invselq} />
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	{/if}
+	{#if curframe == 15}
+	  <div class="bg-dark"
+		   style="position: absolute; width: 100%; height: 99%; bottom: 0%; font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+	  </div>
+	  <div class="text-light"
+		   style="position: absolute; width: 40%; height: 34%; bottom: 30%; left: 28%;
+				  font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+		<center>
+		  It seems that the <tspan style="color: red;">middle-class
+		  majority</tspan>, represented by Tim, are paying a significant amount
+		  of transfer fees; <br><br>meanwhile,
+		  <tspan style="color: cyan;">investors</tspan> are able to cover their
+		  transfer fee expenses through the profits gained from flipping houses.
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 16%; left: 5%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 20%; left: 15%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/tim.png" style="object-fit: contain;" alt="tim">
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 16%; right: 5%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe.png" style="object-fit: contain;" alt="joe">
+	  </div>
+	{/if}
+
   </div>
 {/if}
 </div>

@@ -96,23 +96,23 @@
   .select("tspan.pct")
   .text(d => emptydata ? "" : `${(d.data.value * 100).toFixed(0)}%`);
 
-  $: {
-	if (phase == 0) {
-	  // Do nothing.
-	} else if ((phase == 5 || phase == 6) && id == 1) {
-	  investor.sel = true;
-	  noninvestor.sel = false;
-	  updateSel();
-	} else if ((phase == 5 || phase == 6) && id == 0) {
-	  investor.sel = false;
-	  noninvestor.sel = true;
-	  updateSel();
-	}  else {
-	  investor.sel = true;
-	  noninvestor.sel = true;
-	  updateSel();
-	}
-  }
+  // $: {
+  // 	if (phase == 0) {
+  // 	  // Do nothing.
+  // 	} else if ((phase == 5 || phase == 6) && id == 1) {
+  // 	  investor.sel = true;
+  // 	  noninvestor.sel = false;
+  // 	  updateSel();
+  // 	} else if ((phase == 5 || phase == 6) && id == 0) {
+  // 	  investor.sel = false;
+  // 	  noninvestor.sel = true;
+  // 	  updateSel();
+  // 	}  else {
+  // 	  investor.sel = true;
+  // 	  noninvestor.sel = true;
+  // 	  updateSel();
+  // 	}
+  // }
 
   function updateSel(seli, seln) {
 	$invsel[0] = investor.sel;
@@ -120,6 +120,15 @@
   }
 
   onMount(() => {
+	if (id == 0) {
+	  investor.sel = false;
+	  noninvestor.sel = true;
+	  updateSel();
+	} else {
+	  investor.sel = false;
+	  noninvestor.sel = true;
+	  updateSel();
+	}
   });
 </script>
 

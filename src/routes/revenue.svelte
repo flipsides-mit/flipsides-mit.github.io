@@ -166,4 +166,7 @@
 	font-size: 20px;
 	font-weight: normal;
   }
+  svg {
+	color: white;
+  }
 </style>

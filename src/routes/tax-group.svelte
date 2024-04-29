@@ -191,6 +191,7 @@
 
 	d3.select(ratenig)
 	  .selectAll("text")
+	  .style("color", "white")
 	  .attr("font-size", `${width * textRatioSlider}px`);
 
 	slideri = sliderBottom()
@@ -324,5 +325,8 @@
 	fill: currentColor;
 	font-size: 20px;
 	font-weight: normal;
+  }
+  svg {
+	color: white;
   }
 </style>

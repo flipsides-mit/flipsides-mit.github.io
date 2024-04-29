@@ -6,6 +6,7 @@
 
   export let phase = 0;
   export let colorp, colorq;
+  export let curframe = 0;
   let dataraw = [];
   
   function toProfit(d) {
@@ -281,6 +282,32 @@
 	}
   }
 
+  function drawFindingByFrame(n) {
+	if (n == 0) {
+	  resetBrushesLocation()
+	} else if (n == 13) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
+	  d3.select(brushq)
+		.transition()
+		.duration(d)
+		.call(brushes[1].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
+	} else if (n == 14) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
+	  d3.select(brushq)
+		.transition()
+		.duration(d)
+		.call(brushes[1].move, [[xScale(3000000),yScale(2)],[xScale(4000000),yScale(0)]]);
+
+	}
+  }
+
+
   // Actions performed when this component is created.
   onMount(async () => {
 	dataraw = await d3.csv('/2022_mapc.csv', d => { return {
@@ -296,9 +323,12 @@
 	// Disable the second brush.
 	resetBrushesLocation();
 	disableBrush(1);
+	drawFindingByFrame(13);
   });
 
   $: drawFinding(phase);
+
+  $: drawFindingByFrame(curframe);
 
   // Debug.
   $: console.log(`Dimension: ${width}, ${height}`);
