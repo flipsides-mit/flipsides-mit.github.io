@@ -603,6 +603,10 @@
 		flipping house, which is 10 times than their cost of transfer
 		fee.
 	  </div>
+	  <div style="position: absolute; width: 100%; height: 65%;"
+		   transition:fly={{ duration: 300, y: '-30%' }}>
+		<img src="/single-family.png" style="object-fit: contain;" alt="act">
+	  </div>
 	{/if}
 	{#if curframe == 13 || curframe == 14}
 	  <div style="position: absolute; height: 30%; bottom: 3%; left: 15%;"
