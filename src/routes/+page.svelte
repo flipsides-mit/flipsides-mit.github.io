@@ -12,7 +12,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 4;
+  let curframe = 1;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -31,7 +31,7 @@
   }
 
   function forward() {
-	if (curframe < 20) {
+	if (curframe < 19) {
 	  curframe = curframe + 1
 	  phase = 0;
 	}
@@ -189,7 +189,10 @@
   }
 
   .front, .back, .next, .prev, .transfer {
-	box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+	background-color: black;
+	font-size: 30px;
+	opacity: 50%;
+	color: white;
   }
 
   @keyframes shaking {
@@ -681,10 +684,7 @@
 		<img src="/tim.png" style="object-fit: contain;" alt="tim">
 	  </div>
 	  <div class="flexpage" style="color: white; fill: white;">
-		<div class="section"
-			 style="flex: 0; height: 80%; top: 5%;">
-		</div>
-		<div class="section" style="flex: 100; height: 80%; top: 5%;">
+		<div class="section" style="flex: 1; height: 80%; top: 4%;">
 		  <TaxGroup />
 		</div>
 	  </div>
@@ -698,6 +698,26 @@
 		   transition:fade={{ duration: 300 }}>
 		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
+	{/if}
+	{#if curframe == 18}
+	  <div class="flexpage" style="position: absolute; left: 10%; width: 80%; font-size: 45px; color: white;">
+		The initial intent of this tool is to present some information more
+		openly to the vast group of the middle class, and it is also hoped to
+		serve as one of the reference elements for government policy regulation.
+	  </div>
+	{/if}
+	{#if curframe == 19}
+	  <div class="flexpage" style="position: absolute; left: 10%; width: 80%; font-size: 45px; color: white;">
+		Balancing the interests of multiple parties is very complex and faces
+		many risks. With this tool, we hope that Boston's housing market can
+		gradually move towards a more harmonious and fair state.
+	  </div>
+	{/if}
+	{#if curframe > 0}
+	  <div class="prev" on:click={back}>←</div>
+	{/if}
+	{#if curframe < 19}
+	  <div class="next" on:click={forward}>→</div>
 	{/if}
   </div>
 </div>
