@@ -12,7 +12,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 5;
+  let curframe = 10;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -31,7 +31,7 @@
   }
 
   function forward() {
-	if (curframe < 5) {
+	if (curframe < 15) {
 	  curframe = curframe + 1
 	  phase = 0;
 	}
@@ -347,128 +347,320 @@
       transform: translateX(-500%);
     }
   }
+
+  .flex-page-col {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+  }
+
+  .flex-page-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	flex-direction: row;
+  }
+
+  .text-light {
+	color: white;
+  }
+
+  .bg-dark {
+	background-color: black;
+  }
+
+  .relative-page {
+	position: relative;
+	width: 100%;
+	height: 100%;
+  }
+
+  .absolute-page {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintains aspect ratio, but crops the image if necessary */
+  }
+  /* dont crop the image if the class is "move" */
+  .move {
+    width: 400%;
+    height: 400%;
+    object-fit: contain;
+  }
 </style>
 
 <div class="container">
   {#if curframe == 1}
     <div class="curtain">
         <div class="curtain-content">
-            <img src="/houses-all.png" alt="Moving figure" width="400%">
+            <img src="/houses-all.png" class="move" alt="Moving figure">
         </div>
     </div>
   {/if}
   {#if curframe == 2}
-	<div class="title">
-	  Overall Housing Market and Investor Activity
+	<!-- <div class="title"> -->
+	<!--   Overall Housing Market and Investor Activity -->
+	<!-- </div> -->
+  <!-- <div class="prev" on:click={back}>←</div> -->
+  <div class="next" on:click={forward}>→</div>
+  <text class="annotation"
+		style="width: 90%; top: 8%; margin-left: 5%; margin-right: 5%; display: {1 <= phase ? "inline" : "none"};">
+	<tspan style="font-weight: bold;">Finding 1:</tspan>
+	<tspan >
+	  More investors in the high-end housing markets.
+	</tspan>
+  </text>
+  <text class="annotation" style="width: 90%; top: 15%; margin-left: 5%; margin-right: 5%;">
+	<tspan style="font-weight: bold; display: {phase >= 4 ? "inline" : "none"};">Finding 2:</tspan>
+	<tspan style="display: {phase >= 4 ? "inline" : "none"};">
+	  Properties that are flipped make a significant amount of profit,
+	</tspan>
+	<tspan style="display: {phase >= 5 ? "inline" : "none"};">
+	  especially for investors,
+	</tspan>
+	<tspan style="display: {phase >= 6 ? "inline" : "none"};">
+	  and even more so in the high-end housing markets.
+	</tspan>
+  </text>
+  <div class="flexpage">
+	<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
+	  <InvestorActivity {phase} {colorp} {colorq} />
 	</div>
-	<!-- <div class="prev" on:click={back}>←</div> -->
-	<div class="next" on:click={forward}>→</div>
-	<text class="annotation"
-		  style="width: 90%; top: 8%; margin-left: 5%; margin-right: 5%; display: {1 <= phase ? "inline" : "none"};">
-	  <tspan style="font-weight: bold;">Finding 1:</tspan>
-	  <tspan >
-		More investors in the high-end housing markets.
-	  </tspan>
-	</text>
-	<text class="annotation" style="width: 90%; top: 15%; margin-left: 5%; margin-right: 5%;">
-	  <tspan style="font-weight: bold; display: {phase >= 4 ? "inline" : "none"};">Finding 2:</tspan>
-	  <tspan style="display: {phase >= 4 ? "inline" : "none"};">
-		Properties that are flipped make a significant amount of profit,
-	  </tspan>
-	  <tspan style="display: {phase >= 5 ? "inline" : "none"};">
-		especially for investors,
-	  </tspan>
-	  <tspan style="display: {phase >= 6 ? "inline" : "none"};">
-		and even more so in the high-end housing markets.
-	  </tspan>
-	</text>
-	<div class="flexpage">
-	  <div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
-		<InvestorActivity {phase} {colorp} {colorq} />
-	  </div>
-	  <div class="section" style="flex: 55; height: 70%; top: 10%; padding-right: 2%;">
-		<div class="histograms">
-		  <div class="histpie">
-			<div class="pricehist">
-			  <PriceHistogram color={colorp} seldata={seldatap} invsel={invselp} />
-			</div>
-			<div class="invpie">
-			  <InvestorPie {phase} id={0} color={colorp} data={seldatap} invsel={invselp} />
-			</div>
+	<div class="section" style="flex: 55; height: 70%; top: 10%; padding-right: 2%;">
+	  <div class="histograms">
+		<div class="histpie">
+		  <div class="pricehist">
+			<PriceHistogram color={colorp} seldata={seldatap} invsel={invselp} />
 		  </div>
-		  <div class="histpie">
-			<div class="pricehist">
-			  <PriceHistogram color={colorq} seldata={seldataq} invsel={invselq} />
-			</div>
-			<div class="invpie">
-			  <InvestorPie {phase} id={1} color={colorq} data={seldataq} invsel={invselq} />
-			</div>
+		  <div class="invpie">
+			<InvestorPie {phase} id={0} color={colorp} data={seldatap} invsel={invselp} />
+		  </div>
+		</div>
+		<div class="histpie">
+		  <div class="pricehist">
+			<PriceHistogram color={colorq} seldata={seldataq} invsel={invselq} />
+		  </div>
+		  <div class="invpie">
+			<InvestorPie {phase} id={1} color={colorq} data={seldataq} invsel={invselq} />
 		  </div>
 		</div>
 	  </div>
 	</div>
-  {/if}
-  {#if curframe == 3}
-	<div class="title">
-	  Benefit of the Affordable Homes Act
+  </div>
+{/if}
+{#if curframe == 3}
+  <div class="title">
+	Benefit of the Affordable Homes Act
+  </div>
+  <div class="flexpage">
+	<div class="section" style="flex: 50; height: 80%; top: 5%;">
+	  <Revenue />
 	</div>
-	<div class="flexpage">
-	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
-		<Revenue />
-	  </div>
-	  <div class="section" style="flex: 50; height: 80%; top: 5%;">
-		<Affordable />
-	  </div>
+	<div class="section" style="flex: 50; height: 80%; top: 5%;">
+	  <Affordable />
 	</div>
-  {/if}
-  <!-- {#if curframe == 3} -->
+  </div>
+{/if}
+<!-- {#if curframe == 3} -->
   <!-- 	<div class="title"> -->
-  <!-- 	  Profit Affected by Transfer Fee and Investor Redistribution -->
-  <!-- 	</div> -->
+	<!-- 	  Profit Affected by Transfer Fee and Investor Redistribution -->
+	<!-- 	</div> -->
   <!-- 	<div class="flexpage"> -->
-  <!-- 	  <div class="section" style="flex: 50; height: 80%; top: 5%;"> -->
-  <!-- 		<TaxEffect /> -->
-  <!-- 	  </div> -->
-  <!-- 	  <div class="section" -->
-  <!-- 		   style="flex: 50; height: 80%; top: 5%;"> -->
-  <!-- 		<img -->
-  <!-- 		  style="display: {phase > 0 ? "initial" : "none"};" -->
-  <!-- 		  width="100%" src="/potential-buyer.png" alt="potential buyers"> -->
-  <!-- 	  </div> -->
-  <!-- 	</div> -->
+	<!-- 	  <div class="section" style="flex: 50; height: 80%; top: 5%;"> -->
+	  <!-- 		<TaxEffect /> -->
+	  <!-- 	  </div> -->
+	<!-- 	  <div class="section" -->
+	<!-- 		   style="flex: 50; height: 80%; top: 5%;"> -->
+	  <!-- 		<img -->
+	  <!-- 		  style="display: {phase > 0 ? "initial" : "none"};" -->
+	  <!-- 		  width="100%" src="/potential-buyer.png" alt="potential buyers"> -->
+	  <!-- 	  </div> -->
+	<!-- 	</div> -->
   <!-- 	<div class="prev" on:click={back}>←</div> -->
   <!-- 	<div class="next" on:click={forward}>→</div> -->
-  <!-- {/if} -->
-  <!-- {#if curframe == 4} -->
+<!-- {/if} -->
+<!-- {#if curframe == 4} -->
   <!-- 	<div class="slides"> -->
-  <!-- 	  <text style="font-weight: bold; font-size: 120%;">Next Step -->
-  <!-- 	  </text> -->
-  <!-- 	  <ul> -->
-  <!-- 		<li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li> -->
-  <!-- 		<li>Demand and supply curve</li> -->
-  <!-- 	  </ul> -->
-  <!-- 	  <text style="font-weight: bold; font-size: 120%;">Takeaways -->
-  <!-- 	  </text> -->
-  <!-- 	  <ul> -->
-  <!-- 		<li>The tax rate of Mass is relatively conservative</li> -->
-  <!-- 		<li>Limited impacts to the low-priced market</li> -->
-  <!-- 		<li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li> -->
-  <!-- 	  </ul> -->
-  <!-- 	</div> -->
+	<!-- 	  <text style="font-weight: bold; font-size: 120%;">Next Step -->
+	  <!-- 	  </text> -->
+	<!-- 	  <ul> -->
+	  <!-- 		<li>More complex models like <a href="https://en.wikipedia.org/wiki/Ordinary_least_squares">OLS</a></li> -->
+	  <!-- 		<li>Demand and supply curve</li> -->
+	  <!-- 	  </ul> -->
+	<!-- 	  <text style="font-weight: bold; font-size: 120%;">Takeaways -->
+	  <!-- 	  </text> -->
+	<!-- 	  <ul> -->
+	  <!-- 		<li>The tax rate of Mass is relatively conservative</li> -->
+	  <!-- 		<li>Limited impacts to the low-priced market</li> -->
+	  <!-- 		<li>Limited aid to the <a href="https://www.wcvb.com/article/more-than-42k-families-waiting-for-massachusetts-housing-how-much-it-would-cost-to-house-them/45702471">42000 families</a> who need an affordable home</li> -->
+	  <!-- 	  </ul> -->
+	<!-- 	</div> -->
   <!-- 	<div class="prev" on:click={back}>←</div> -->
-  <!-- {/if} -->
-  {#if curframe == 4}
-	<div class="flexpage">
-	  <div class="section"
-		   style="flex: 0; height: 80%; top: 5%;">
-	  </div>
-	  <div class="section" style="flex: 100; height: 80%; top: 5%;">
-		<TaxGroup />
-	  </div>
+<!-- {/if} -->
+{#if curframe == 3}
+  <div class="flexpage">
+	<div class="section"
+		 style="flex: 0; height: 80%; top: 5%;">
 	</div>
-  {/if}
+	<div class="section" style="flex: 100; height: 80%; top: 5%;">
+	  <TaxGroup />
+	</div>
+  </div>
+{/if}
+{#if curframe == 4}
+  <div class="flex-page-col bg-dark">
+	<div style="flex: 1; height: 80%;">
+	  <img height="100%" src="/intro-1.png" alt="act">
+	</div>
+	<div class="text-light" style="flex: 1; font-size: 40px; height: 20%; width: 80%;">
+	  In 2023, Massachusetts published the Affordable Homes Acts, introducing the transfer fee to MA for the first time.
+	</div>
+  </div>
+{/if}
+{#if curframe >= 5}
+  <div class="relative-page bg-dark">
+	{#if (5 <= curframe && 8 >= curframe) || (10 == curframe )}
+	  <div style="position: absolute; width: 100%; height: 99%;">
+		<img src="/houses-dark.png" alt="act">
+	  </div>
+	{/if}
+	{#if curframe == 5 || curframe == 6}
+	  <div style="position: absolute; width: 100%; height: 99%; opacity: 30%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/people.png" alt="act">
+	  </div>
+	{/if}
+	{#if (6 <= curframe) && (8 >= curframe)}
+	  <div style="position: absolute; width: 100%; height: 99%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/people-red.png" alt="act">
+	  </div>
+	{/if}
+	{#if curframe == 5}
+	  <div class="text-light"
+		   style="position: absolute; width: 40%; top: 40%; left: 30%; font-size: 35pt;">
+		But who's actually paying for the 2000 units of affordable housing?
+	  </div>
+	{/if}
+	{#if curframe >= 8 && curframe <= 9}
+	  <div class="bg-dark"
+		   style="position: absolute; width: 100%; height: 30%; bottom: 0%; font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+	  </div>
+	{/if}
+	{#if curframe == 7}
+	  <div class="bg-dark"
+		   style="position: absolute; width: 100%; height: 99%; bottom: 0%; font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+	  </div>
+	  <div class="text-light"
+		   style="position: absolute; width: 45%; height: 34%; bottom: 25%; left: 40%;
+				  font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+		<center>
+		  -- Tim --<br><br>
+		  An MIT graduate, the middle class represent, just got an offer
+		  from a tech company in Boston whose annual household income is
+		  around $150k~200k. Tim is looking for a house in Boston with his
+		  family.
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 16%; left: 10%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 20%; left: 20%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/tim.png" style="object-fit: contain;" alt="tim">
+	  </div>
+	{/if}
+	{#if curframe >= 8 && curframe <= 9}
+	  <div style="position: absolute; height: 40%; bottom: 1%; left: 15%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/tim.png" style="object-fit: contain;" alt="tim">
+	  </div>
+	{/if}
+	{#if curframe == 8}
+	  <div class="text-light"
+		   style="position: absolute; width: 59%; height: 24%; bottom: 0%; left: 35%;
+				  font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+		Tim finds out that if he wants to keep his round-trip commute time to
+		work under 1 hour while also being able to support his household and
+		lifestyle needs, there were not many options for houses under $1million.
+	  </div>
+	{/if}
+	{#if curframe == 9}
+	  <div class="text-light"
+		   style="position: absolute; width: 59%; height: 24%; bottom: 0%; left: 35%;
+				  font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+		Ultimately, Tim set his sights on a house priced at $1.3 million -
+		which means he has to pay $30000 as the transfer fee, about his 2
+		months salary.
+	  </div>
+	  <div style="position: absolute; width: 100%; height: 65%;"
+		   transition:fly={{ duration: 300, y: '-30%' }}>
+		<img src="/condo.png" style="object-fit: contain;" alt="act">
+	  </div>
+	{/if}
+	{#if curframe == 10}
+	  <div style="position: absolute; width: 100%; height: 99%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/people-blue.png" alt="act">
+	  </div>
+	{/if}
+	{#if curframe == 11}
+	  <div class="bg-dark"
+		   style="position: absolute; width: 100%; height: 99%; bottom: 0%; font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+	  </div>
+	  <div class="text-light"
+		   style="position: absolute; width: 45%; height: 34%; bottom: 25%; left: 40%;
+				  font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+		<center>
+		  -- Joe -- <br><br> An agency from an investor company, pays more
+		  attention in looking for a luxury house here, aiming around $6~7
+		  million.
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 16%; left: 10%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
+	  </div>
+	  <div style="position: absolute; height: 60%; bottom: 20%; left: 20%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe.png" style="object-fit: contain;" alt="joe">
+	  </div>
+	{/if}
+	{#if curframe == 12}
+	  <div style="position: absolute; height: 40%; bottom: 1%; right: 10%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe.png" style="object-fit: contain;" alt="joe">
+	  </div>
+	  <div class="text-light"
+		   style="position: absolute; width: 59%; height: 24%; bottom: 0%; right: 30%;
+				  font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+		Ultimately, Joe set his sights on a house priced at $6~7 million 
+		-which means they has to pay about $550000 as the transfer fee.
+		Meanwhile, they can earn $5000000 as profit by flipping house,
+		which is 10 times than their cost of transfer fee.
+	  </div>
+	{/if}
+  </div>
+{/if}
 </div>
 
 <svelte:window
   on:keydown={handleKeydown}
-/>
+  />
