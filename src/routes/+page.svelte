@@ -18,6 +18,7 @@
   let colorq = "#F67E4B";
   let icollage = 1;
   let curfinding = 0;
+  export let duration = 5; // Animation duration in seconds
 
   function toggleFlip() {
     flipped = !flipped;
@@ -322,11 +323,39 @@
 	padding-left: 10%;
 	flex-direction: column;
   }
+
+  .curtain {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+  .curtain-content {
+    position: absolute;
+    top: 70%;
+    transform: translateY(-100%);
+    animation: move-left linear infinite;
+    animation-duration: 30s;
+  }
+
+  @keyframes move-left {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-500%);
+    }
+  }
 </style>
 
 <div class="container">
   {#if curframe == 1}
-	hello
+    <div class="curtain">
+        <div class="curtain-content">
+            <img src="/houses-all.png" alt="Moving figure" width="400%">
+        </div>
+    </div>
   {/if}
   {#if curframe == 2}
 	<div class="title">
