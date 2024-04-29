@@ -446,12 +446,12 @@
 		2023 will generate $208 million in revenue for affordable housing.
 	  </div>
 	  <div class="flexbox"
-		   style="width: 47%; position: absolute; bottom: 20%; left: 3%;
+		   style="width: 47%; position: absolute; bottom: 15%; left: 3%;
 				  font-size: 80px; color: white;"
 		   transition:fade={{ duration: 300 }}>
 		<center>
 		  $208M<br>
-		  <tspan style="visibility: {curframe == 4 ? 'visible' : 'hidden'};">=<br>
+		  <tspan style="visibility: {curframe == 4 ? 'visible' : 'hidden'};">≈<br>
 			2000 units</tspan>
 		  <tspan style="font-size: 25px; visibility: {curframe == 4 ? 'visible' : 'hidden'};">
 			<br>(estimation based on
@@ -471,7 +471,7 @@
 		<img src="/addition.png" alt="act">
 	  </div>
 	{/if}
-	{#if (5 <= curframe && 8 >= curframe) || (10 == curframe )}
+	{#if (5 <= curframe && 7 >= curframe) || (10 == curframe )}
 	  <div style="position: absolute; width: 100%; height: 99%;">
 		<img src="/houses-dark.png" alt="act">
 	  </div>
@@ -482,7 +482,7 @@
 		<img src="/people.png" alt="act">
 	  </div>
 	{/if}
-	{#if (6 <= curframe) && (8 >= curframe)}
+	{#if curframe == 6 || curframe == 7}
 	  <div style="position: absolute; width: 100%; height: 99%;"
 		   transition:fade={{ duration: 300 }}>
 		<img src="/people-red.png" alt="act">
@@ -490,15 +490,9 @@
 	{/if}
 	{#if curframe == 5}
 	  <div class="text-light"
-		   style="position: absolute; width: 40%; top: 40%; left: 30%; font-size: 35pt;"
+		   style="position: absolute; width: 60%; top: 40%; left: 20%; font-size: 50pt;"
 		   transition:fade={{ duration: 300 }}>
 		But who's actually paying for the 2000 units of affordable housing?
-	  </div>
-	{/if}
-	{#if curframe >= 8 && curframe <= 9}
-	  <div class="bg-dark"
-		   style="position: absolute; width: 100%; height: 30%; bottom: 0%; font-size: 25pt;"
-		   transition:fade={{ duration: 300 }}>
 	  </div>
 	{/if}
 	{#if curframe == 7}
@@ -526,7 +520,17 @@
 		<img src="/tim.png" style="object-fit: contain;" alt="tim">
 	  </div>
 	{/if}
+	{#if curframe == 8}
+	  <div style="position: absolute; width: 100%; height: 99%; opacity: 60%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/map.jpg" alt="act">
+	  </div>
+	{/if}
 	{#if curframe >= 8 && curframe <= 9}
+	  <div class="bg-dark"
+		   style="position: absolute; width: 100%; height: 30%; bottom: 0%; font-size: 25pt;"
+		   transition:fade={{ duration: 300 }}>
+	  </div>
 	  <div style="position: absolute; height: 40%; bottom: 1%; left: 15%;"
 		   transition:fade={{ duration: 300 }}>
 		<img src="/tim.png" style="object-fit: contain;" alt="tim">
@@ -609,6 +613,16 @@
 		   transition:fade={{ duration: 300 }}>
 		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
+	  <div style="width: 42%; position: absolute; bottom: 10%; right: 10%;
+				  font-size: 30px; color: white;"
+		   transition:fade={{ duration: 300 }}>
+		Key findings:<br>
+		1. Investors dominate the luxury housing markets (73%)<br>
+		2. Investors make much more profits than non-investors (median: 23% vs. 9.2%),
+		<tspan style="visibility: {curframe == 14 ? 'visible' : 'hidden'};">
+		  espeically with flipped properties
+		</tspan>
+	  </div>
 	  <div class="flexpage" style="position: absolute; top: -25%; color: white;">
 		<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
 		  <InvestorActivity {curframe} {colorp} {colorq} />
@@ -634,7 +648,7 @@
 		  </div>
 		</div>
 	  </div>
-	{/if}
+	{/if}		  
 	{#if curframe == 15}
 	  <div class="bg-dark"
 		   style="position: absolute; width: 100%; height: 99%; bottom: 0%; font-size: 25pt;"
@@ -713,7 +727,7 @@
 		gradually move towards a more harmonious and fair state.
 	  </div>
 	{/if}
-	{#if curframe > 0}
+	{#if curframe > 1}
 	  <div class="prev" on:click={back}>←</div>
 	{/if}
 	{#if curframe < 19}
