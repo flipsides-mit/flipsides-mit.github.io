@@ -5,7 +5,7 @@
   import { seldatap, seldataq } from './stores.js';
 
   export let phase = 0;
-  export let colorp, colorq;
+  export let colorjoe, colortim;
   export let curframe = 0;
   let dataraw = [];
   
@@ -207,11 +207,11 @@
 
 	d3.select(brushp)
 	  .select('.selection')
-	  .attr('fill', colorp);
+	  .attr('fill', colorjoe);
 
 	d3.select(brushq)
 	  .select('.selection')
-	  .attr('fill', colorq);
+	  .attr('fill', colortim);
   }
 
   function resetBrushesLocation() {

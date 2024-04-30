@@ -624,7 +624,7 @@
 		1. Investors dominate the luxury housing markets (73%)<br>
 		2. Investors make much more profits than non-investors (median: 23% vs. 9.2%),
 		<tspan style="visibility: {curframe == 14 ? 'visible' : 'hidden'};">
-		  espeically with flipped properties
+		  especially with flipped properties
 		</tspan>
 	  </div>
 	  <div class="flexpage" style="position: absolute; top: -25%; color: white; fill: white;">
@@ -635,18 +635,18 @@
 		  <div class="histograms">
 			<div class="histpie">
 			  <div class="pricehist">
-				<PriceHistogram color={colortim} seldata={seldatap} invsel={invselp} />
+				<PriceHistogram color={colorjoe} seldata={seldatap} invsel={invselp} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie {curframe} id={0} color={colortim} data={seldatap} invsel={invselp} />
+				<InvestorPie {curframe} id={0} color={colorjoe} data={seldatap} invsel={invselp} />
 			  </div>
 			</div>
 			<div class="histpie">
 			  <div class="pricehist">
-				<PriceHistogram color={colorjoe} seldata={seldataq} invsel={invselq} />
+				<PriceHistogram color={colortim} seldata={seldataq} invsel={invselq} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie {curframe} id={1} color={colorjoe} data={seldataq} invsel={invselq} />
+				<InvestorPie {curframe} id={1} color={colortim} data={seldataq} invsel={invselq} />
 			  </div>
 			</div>
 		  </div>
