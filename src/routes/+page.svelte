@@ -706,15 +706,15 @@
 		  <TaxGroup {showtool} {colortim} {colorjoe} />
 		</div>
 	  </div>
+	  <div style="position: absolute; height: 30%; bottom: 3%; left: 63%;"
+		   transition:fade={{ duration: 300 }}>
+		<img src="/joe.png" style="object-fit: contain;" alt="joe">
+	  </div>
 	{/if}
 	{#if curframe == 17}
 	  <div class="flexbox"
 		   style="width: 100%; position: absolute; top: 5%; font-size: 45px; color: white;">
 		How should we adjust the policy, for a more equitable distribution of resources?
-	  </div>
-	  <div style="position: absolute; height: 30%; bottom: 3%; left: 63%;"
-		   transition:fade={{ duration: 300 }}>
-		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
 	{/if}
 	{#if curframe == 18}
