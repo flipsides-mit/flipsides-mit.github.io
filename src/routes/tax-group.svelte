@@ -45,8 +45,10 @@
   }
 
   let data = [];
+  let sum = 0;
   $: {
 	data = dataraw.map(computeTax);
+	sum = d3.sum(data, d => d.tax);
 	console.log(data);
   }
 
@@ -302,6 +304,14 @@
 
 	<g bind:this={legendg}
 	   transform="translate({margin.left + width * 0.1}, {margin.top * 1})" />
+
+	<text
+	  x="{0.35 * width}px"
+	  y="{0.3 * height}px"
+	  style="font-size: {width * 0.025}px;
+			 visibility: {showtool ? 'visibile' : 'hidden'};">
+	  Total revenue: ${(sum / 1000000).toFixed(0)} M
+	</text>
   </svg>
 </div>
 

@@ -12,7 +12,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 13;
+  let curframe = 1;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
