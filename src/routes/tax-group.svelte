@@ -118,7 +118,7 @@
 	  .attr('stroke-width', '1px');
 
 	sel.selectAll('.tick > text')
-	  .attr('font-size', `${width * 0.02}px`);
+	  .attr('font-size', `${width * 0.015}px`);
   }
 
   // Y-axis
@@ -134,7 +134,7 @@
 	  .style('stroke-width', '1px');
 
 	sel.selectAll('.tick > text')
-	  .style('font-size', `${width * 0.02}px`);
+	  .style('font-size', `${width * 0.015}px`);
   }
 
   // Rate slider

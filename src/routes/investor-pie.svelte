@@ -157,7 +157,7 @@
 <div class="container" bind:clientWidth={width} bind:clientHeight={height}>
   <svg bind:this={svg} {width} {height} viewBox="{-width / 2}, {-height / 2}, {width}, {height}" style="font-weight: 300;">
 	<g bind:this={arcsg} class="arc" />
-	<g bind:this={arcslabel} class="arclabel">
+	<g bind:this={arcslabel} class="arclabel" style="font-size: {width * 0.08}px;">
 	  <text>
 		<tspan y="-0.4em" class="cat">Investor</tspan>
 		<tspan x="0" y="0.7em" class="pct"></tspan>

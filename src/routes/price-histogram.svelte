@@ -106,6 +106,9 @@
 
   $: d3.select(histp)
   .select('text.mediantext')
+  .style('stroke', 'white')
+  .style('fill', 'white')
+  .style('font-size', `${width * 0.03}px`)
   .transition()
   .duration(300)
   .attr('x', xScale(medianp))

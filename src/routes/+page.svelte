@@ -12,7 +12,7 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
   
   let flipped = false;
-  let curframe = 1;
+  let curframe = 13;
   let phase = 0;
   let colorp = "#4393C3";
   let colorq = "#F67E4B";
@@ -419,18 +419,17 @@
 		  <img height="100%" src="/intro-1.png" alt="act">
 		</div>
 		<div class="text-light" style="flex: 1; font-size: 40px; height: 20%; width: 80%;">
-		  In 2023, Massachusetts published the Affordable Homes Acts, introducing the transfer fee to MA for the first time.
+		  In 2023, Massachusetts published the Affordable Homes Acts, introducing the <tspan style="color: #EE7733;">transfer fee</tspan> to MA for the first time.
 		</div>
 	  </div>
 	{/if}
 	{#if curframe == 2}
-	  <div class="flexbox"
-		   style="width: 70%; position: absolute; bottom: 45%; left: 15%;
+	  <div style="width: 70%; position: absolute; bottom: 45%; left: 15%;
 				  font-size: 40px; color: white;"
 		   transition:fade={{ duration: 300 }}>
 		The Affordable Homes Act includes a provision that would grant
 		Massachusetts municipalities the authority to implement a real estate
-		transfer fee of 0.5% to 2.0% on transactions or more than $1M or the
+		transfer fee of <tspan style="color: #EE7733;">0.5% to 2.0%</tspan> on transactions of more than $1M or the
 		county median single family home price, whichever is greater.
 	  </div>
       <div class="curtain">
@@ -440,23 +439,23 @@
       </div>
 	{/if}
 	{#if curframe == 3 || curframe == 4}
-	  <div class="flexbox"
-		   style="width: 47%; position: absolute; bottom: 70%; left: 3%;
+	  <div style="width: 47%; position: absolute; bottom: 70%; left: 3%;
 				  font-size: 36px; color: white;"
 		   transition:fade={{ duration: 300 }}>
 		According to the 2022 Greater Boston Area housing transaction data, it
 		is preliminarily estimated that the implementation of this policy in
-		2023 will generate $208 million in revenue for affordable housing.
+		2023 will generate <tspan style="color: #EE7733;">$208 million</tspan> in revenue for affordable housing.
 	  </div>
 	  <div class="flexbox"
 		   style="width: 47%; position: absolute; bottom: 15%; left: 3%;
-				  font-size: 80px; color: white;"
+				  font-size: 80px; color: white;
+				  visibility: {curframe == 4 ? 'visible' : 'hidden'};"
 		   transition:fade={{ duration: 300 }}>
 		<center>
 		  $208M<br>
-		  <tspan style="visibility: {curframe == 4 ? 'visible' : 'hidden'};">≈<br>
-			2000 units</tspan>
-		  <tspan style="font-size: 25px; visibility: {curframe == 4 ? 'visible' : 'hidden'};">
+		  ≈<br>
+		  2000 units
+		  <tspan style="font-size: 25px;">
 			<br>(estimation based on
 			<a href="https://www.boston.gov/sites/default/files/file/2022/04/Income%20Restricted%20Housing%20Report%2C%202021_0.pdf">
 			  Income-Restricted Housing in Boston 2021)
@@ -495,7 +494,7 @@
 	  <div class="text-light"
 		   style="position: absolute; width: 60%; top: 40%; left: 20%; font-size: 50pt;"
 		   transition:fade={{ duration: 300 }}>
-		But who's actually paying for the 2000 units of affordable housing?
+		But <tspan style="color: #EE7733;">who's</tspan> actually paying for the 2000 units of affordable housing?
 	  </div>
 	{/if}
 	{#if curframe == 7}
@@ -509,7 +508,7 @@
 		   transition:fade={{ duration: 300 }}>
 		<center>
 		  -- Tim --<br><br>
-		  An MIT graduate, the middle class represent, just got an offer
+		  An MIT graduate, the <tspan style="color: red;">middle class</tspan> represent, just got an offer
 		  from a tech company in Boston whose annual household income is
 		  around $150k~200k. Tim is looking for a house in Boston with his
 		  family.
@@ -554,8 +553,8 @@
 		   style="position: absolute; width: 59%; height: 24%; bottom: 0%; left: 35%;
 				  font-size: 25pt;"
 		   transition:fade={{ duration: 300 }}>
-		Ultimately, Tim set his sights on a house priced at $1.3 million -
-		which means he has to pay $30000 as the transfer fee, about his 2
+		Ultimately, Tim set his sights on a house priced at <tspan style="color: #EE7733;">$1.3 million</tspan> -
+		which means he has to pay <tspan style="color: #EE7733;">$30000</tspan> as the transfer fee, about his 2
 		months salary.
 	  </div>
 	  <div style="position: absolute; width: 100%; height: 65%;"
@@ -580,8 +579,8 @@
 		   transition:fade={{ duration: 300 }}>
 		<center>
 		  -- Joe -- <br><br> An agency from an investor company, pays more
-		  attention in looking for a luxury house here, aiming around $6~7
-		  million.
+		  attention in looking for a luxury house here, aiming around <tspan style="color: #EE7733;">$6~7
+			million</tspan>.
 	  </div>
 	  <div style="position: absolute; height: 60%; bottom: 16%; left: 10%;"
 		   transition:fade={{ duration: 300 }}>
@@ -597,14 +596,12 @@
 		   transition:fade={{ duration: 300 }}>
 		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
-	  <div class="text-light"
-		   style="position: absolute; width: 59%; height: 24%; bottom: 0%;
-				  right: 30%; font-size: 25pt;" transition:fade={{ duration: 300
-		   }}> Ultimately, Joe set his sights on a house priced at $6~7
-		million-which means they has to pay about $550000 as the
-		transfer fee.  Meanwhile, they can earn $5000000 as profit by
-		flipping house, which is 10 times than their cost of transfer
-		fee.
+	  <div class="text-light" style="position: absolute; width: 59%; height:
+		   24%; bottom: 0%; right: 30%; font-size: 25pt;" transition:fade={{
+		   duration: 300 }}>
+		
+		On average, investors like Joe can earn <tspan style="color: #EE7733;">$5 million</tspan> as profit by flipping
+		house, which is 10 times than their cost of transfer fee.
 	  </div>
 	  <div style="position: absolute; width: 100%; height: 65%;"
 		   transition:fly={{ duration: 300, y: '-30%' }}>
@@ -630,7 +627,7 @@
 		  espeically with flipped properties
 		</tspan>
 	  </div>
-	  <div class="flexpage" style="position: absolute; top: -25%; color: white;">
+	  <div class="flexpage" style="position: absolute; top: -25%; color: white; fill: white;">
 		<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
 		  <InvestorActivity {curframe} {colorp} {colorq} />
 		</div>
