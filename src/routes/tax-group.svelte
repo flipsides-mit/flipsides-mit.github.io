@@ -6,6 +6,8 @@
   import { legendColor } from 'd3-svg-legend';
 
   export let showtool = true;
+  export let colortim;
+  export let colorjoe;
   let dataraw = [];
   let width = 0;
   let height = 0;
@@ -14,8 +16,6 @@
   let taxthrd = 1000000;
   let noninv = true;
   let inv = true;
-  let colorinv = '#6699CC';
-  let colornoninv = '#F67E4B';
   let thrds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   let miny = 100000000;
@@ -96,7 +96,7 @@
   .selectAll("g")
   .data(series)
   .join("g")
-  .attr("fill", d => d.key ? colorinv : colornoninv)
+  .attr("fill", d => d.key ? colorjoe : colortim)
   .selectAll("rect")
   .data(D => D.map(d => (d.key = D.key, d)))
   .join("rect")
@@ -154,7 +154,7 @@
 
   let ordinal = d3.scaleOrdinal()
 	  .domain(["non-investor", "investor"])
-	  .range([colornoninv, colorinv]);
+	  .range([colortim, colorjoe]);
 
   $: if (legendColor) {
 	let legend = legendColor()

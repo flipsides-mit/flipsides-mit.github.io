@@ -14,8 +14,8 @@
   let flipped = false;
   let curframe = 1;
   let phase = 0;
-  let colorp = "#4393C3";
-  let colorq = "#F67E4B";
+  let colortim = "#CF1F3F";
+  let colorjoe = "#77ABD3";
   let icollage = 1;
   let curfinding = 0;
   let showtool = false;
@@ -508,7 +508,7 @@
 		   transition:fade={{ duration: 300 }}>
 		<center>
 		  -- Tim --<br><br>
-		  An MIT graduate, the <tspan style="color: red;">middle class</tspan> represent, just got an offer
+		  An MIT graduate, the <tspan style="color: {colortim};">middle class</tspan> represent, just got an offer
 		  from a tech company in Boston whose annual household income is
 		  around $150k~200k. Tim is looking for a house in Boston with his
 		  family.
@@ -600,8 +600,8 @@
 		   24%; bottom: 0%; right: 30%; font-size: 25pt;" transition:fade={{
 		   duration: 300 }}>
 		
-		On average, investors like Joe can earn <tspan style="color: #EE7733;">$5 million</tspan> as profit by flipping
-		house, which is 10 times than their cost of transfer fee.
+		On average, investors like Joe can earn <tspan style="color: #EE7733;">$1.2 million</tspan> as profit by flipping
+		house, which is 10 times more than their cost of transfer fee.
 	  </div>
 	  <div style="position: absolute; width: 100%; height: 65%;"
 		   transition:fly={{ duration: 300, y: '-30%' }}>
@@ -629,24 +629,24 @@
 	  </div>
 	  <div class="flexpage" style="position: absolute; top: -25%; color: white; fill: white;">
 		<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
-		  <InvestorActivity {curframe} {colorp} {colorq} />
+		  <InvestorActivity {curframe} {colortim} {colorjoe} />
 		</div>
 		<div class="section" style="flex: 55; height: 70%; top: 10%; padding-right: 2%;">
 		  <div class="histograms">
 			<div class="histpie">
 			  <div class="pricehist">
-				<PriceHistogram color={colorp} seldata={seldatap} invsel={invselp} />
+				<PriceHistogram color={colortim} seldata={seldatap} invsel={invselp} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie {curframe} id={0} color={colorp} data={seldatap} invsel={invselp} />
+				<InvestorPie {curframe} id={0} color={colortim} data={seldatap} invsel={invselp} />
 			  </div>
 			</div>
 			<div class="histpie">
 			  <div class="pricehist">
-				<PriceHistogram color={colorq} seldata={seldataq} invsel={invselq} />
+				<PriceHistogram color={colorjoe} seldata={seldataq} invsel={invselq} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie {curframe} id={1} color={colorq} data={seldataq} invsel={invselq} />
+				<InvestorPie {curframe} id={1} color={colorjoe} data={seldataq} invsel={invselq} />
 			  </div>
 			</div>
 		  </div>
@@ -663,7 +663,7 @@
 				  font-size: 25pt;"
 		   transition:fade={{ duration: 300 }}>
 		<center>
-		  It seems that the <tspan style="color: red;">middle-class
+		  It seems that the <tspan style="color: {colortim};">middle-class
 			majority</tspan>, represented by Tim, are paying a significant amount
 		  of transfer fees; <br><br>meanwhile,
 		  <tspan style="color: cyan;">investors</tspan> are able to cover their
@@ -703,7 +703,7 @@
 	  </div>
 	  <div class="flexpage" style="color: white; fill: white;">
 		<div class="section" style="flex: 1; height: 80%; top: 4%;">
-		  <TaxGroup {showtool} />
+		  <TaxGroup {showtool} {colortim} {colorjoe} />
 		</div>
 	  </div>
 	{/if}
