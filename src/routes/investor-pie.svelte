@@ -7,7 +7,6 @@
   export let data;
   export let invsel;
   export let color = "#CCCCCC";
-  export let curframe = 0;
   let nscolor = "#CCCCCC";
   let width = 0;
   let height = 0;

@@ -6,7 +6,6 @@
 
   export let phase = 0;
   export let colorjoe, colortim;
-  export let curframe = 0;
   let dataraw = [];
   
   function toProfit(d) {
@@ -222,71 +221,10 @@
   }
 
   let d = 300;
-
   function drawFinding(n) {
 	if (n == 0) {
 	  resetBrushesLocation()
 	} else if (n == 1) {
-	  d3.select(brushp)
-		.transition()
-		.duration(d)
-	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
-	  d3.select(brushq)
-		.transition()
-		.duration(d)
-		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
-	} else if (n == 2) {
-	  d3.select(brushp)
-		.transition()
-		.duration(d)
-	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
-	  d3.select(brushq)
-		.transition()
-		.duration(d)
-		.call(brushes[1].move, [[xScale(2000000),yScale(25)],[xScale(3000000),yScale(0)]]);
-	} else if (n == 3) {
-	  d3.select(brushp)
-		.transition()
-		.duration(d)
-	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
-	  d3.select(brushq)
-		.transition()
-		.duration(d)
-		.call(brushes[1].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
-	} else if (n == 4) {
-	  d3.select(brushp)
-		.transition()
-		.duration(d)
-	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(4000000),yScale(0)]]);
-	  d3.select(brushq)
-		.transition()
-		.duration(d)
-		.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
-	} else if (n == 5) {
-	  d3.select(brushp)
-		.transition()
-		.duration(d)
-	  	.call(brushes[0].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
-	  d3.select(brushq)
-		.transition()
-		.duration(d)
-		.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
-	} else if (n == 6) {
-	  d3.select(brushp)
-		.transition()
-		.duration(d)
-	  	.call(brushes[0].move, [[xScale(0),yScale(2)],[xScale(4000000),yScale(0)]]);
-	  d3.select(brushq)
-		.transition()
-		.duration(d)
-		.call(brushes[1].move, [[xScale(1000000),yScale(2)],[xScale(4000000),yScale(0)]]);
-	}
-  }
-
-  function drawFindingByFrame(n) {
-	if (n == 0) {
-	  resetBrushesLocation()
-	} else if (n == 13) {
 	  d3.select(brushp)
 		.transition()
 		.duration(d)
@@ -295,7 +233,7 @@
 		.transition()
 		.duration(d)
 		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
-	} else if (n == 14) {
+	} else if (n == 2) {
 	  d3.select(brushp)
 		.transition()
 		.duration(d)
@@ -324,12 +262,10 @@
 	// Disable the second brush.
 	resetBrushesLocation();
 	disableBrush(1);
-	drawFindingByFrame(13);
+	drawFinding(1);
   });
 
   $: drawFinding(phase);
-
-  $: drawFindingByFrame(curframe);
 
   // Debug.
   $: console.log(`Dimension: ${width}, ${height}`);

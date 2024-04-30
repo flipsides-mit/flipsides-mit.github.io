@@ -348,7 +348,7 @@
     top: 70%;
     transform: translateY(-100%);
     animation: move-left linear infinite;
-    animation-duration: 30s;
+    animation-duration: 20s;
   }
 
   @keyframes move-left {
@@ -553,9 +553,10 @@
 		   style="position: absolute; width: 59%; height: 24%; bottom: 0%; left: 35%;
 				  font-size: 25pt;"
 		   transition:fade={{ duration: 300 }}>
-		Ultimately, Tim set his sights on a house priced at <tspan style="color: #EE7733;">$1.3 million</tspan> -
-		which means he has to pay <tspan style="color: #EE7733;">$30000</tspan> as the transfer fee, about his 2
-		months salary.
+		Ultimately, Tim sets his sights on a house priced
+		at <tspan style="color: #EE7733;">$1.3 million</tspan> - which means he
+		has to pay <tspan style="color: #EE7733;">$30000</tspan> as the transfer
+		(assuming an 1% tax rate), about his 2 months salary.
 	  </div>
 	  <div style="position: absolute; width: 100%; height: 65%;"
 		   transition:fly={{ duration: 300, y: '-30%' }}>
@@ -578,9 +579,8 @@
 				  font-size: 25pt;"
 		   transition:fade={{ duration: 300 }}>
 		<center>
-		  -- Joe -- <br><br> An agency from an investor company, pays more
-		  attention in looking for a luxury house here, aiming around <tspan style="color: #EE7733;">$6~7
-			million</tspan>.
+		  -- Joe -- <br><br> An agency from an investor company, looking for
+		  properties to invest in the Great Boston Area.
 	  </div>
 	  <div style="position: absolute; height: 60%; bottom: 16%; left: 10%;"
 		   transition:fade={{ duration: 300 }}>
@@ -591,7 +591,7 @@
 		<img src="/joe.png" style="object-fit: contain;" alt="joe">
 	  </div>
 	{/if}
-	{#if curframe == 12}
+	{#if curframe == 14}
 	  <div style="position: absolute; height: 40%; bottom: 1%; right: 10%;"
 		   transition:fade={{ duration: 300 }}>
 		<img src="/joe.png" style="object-fit: contain;" alt="joe">
@@ -599,16 +599,19 @@
 	  <div class="text-light" style="position: absolute; width: 59%; height:
 		   24%; bottom: 0%; right: 30%; font-size: 25pt;" transition:fade={{
 		   duration: 300 }}>
-		
-		On average, investors like Joe can earn <tspan style="color: #EE7733;">$1.2 million</tspan> as profit by flipping
-		house, which is 10 times more than their cost of transfer fee.
+
+		Joe sets his sight on a house priced around
+		<tspan style="color: #EE7733;">$6 millions</tspan>.  On average,
+		investors like Joe can earn <tspan style="color: #EE7733;">$1.2
+		millions/year</tspan> as profit, which is 20 times more than
+		their cost of transfer fee (assuming an 1% tax rate).
 	  </div>
 	  <div style="position: absolute; width: 100%; height: 65%;"
 		   transition:fly={{ duration: 300, y: '-30%' }}>
 		<img src="/single-family.png" style="object-fit: contain;" alt="act">
 	  </div>
 	{/if}
-	{#if curframe == 13 || curframe == 14}
+	{#if curframe == 12 || curframe == 13}
 	  <div style="position: absolute; height: 30%; bottom: 3%; left: 15%;"
 		   transition:fade={{ duration: 300 }}>
 		<img src="/tim.png" style="object-fit: contain;" alt="tim">
@@ -621,15 +624,15 @@
 				  font-size: 30px; color: white;"
 		   transition:fade={{ duration: 300 }}>
 		Key findings:<br>
-		1. Investors dominate the luxury housing markets (73%)<br>
+		1. Investors generally prefer the luxury housing market<br>
 		2. Investors make much more profits than non-investors (median: 23% vs. 9.2%),
-		<tspan style="visibility: {curframe == 14 ? 'visible' : 'hidden'};">
+		<tspan style="visibility: {curframe == 13 ? 'visible' : 'hidden'};">
 		  especially with flipped properties
 		</tspan>
 	  </div>
 	  <div class="flexpage" style="position: absolute; top: -25%; color: white; fill: white;">
 		<div class="section" style="flex: 45; height: 70%; top: 10%; padding-left: 2%;">
-		  <InvestorActivity {curframe} {colortim} {colorjoe} />
+		  <InvestorActivity phase={curframe == 12 ? 1 : 2} {colortim} {colorjoe} />
 		</div>
 		<div class="section" style="flex: 55; height: 70%; top: 10%; padding-right: 2%;">
 		  <div class="histograms">
@@ -638,7 +641,7 @@
 				<PriceHistogram color={colorjoe} seldata={seldatap} invsel={invselp} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie {curframe} id={0} color={colorjoe} data={seldatap} invsel={invselp} />
+				<InvestorPie id={0} color={colorjoe} data={seldatap} invsel={invselp} />
 			  </div>
 			</div>
 			<div class="histpie">
@@ -646,7 +649,7 @@
 				<PriceHistogram color={colortim} seldata={seldataq} invsel={invselq} />
 			  </div>
 			  <div class="invpie">
-				<InvestorPie {curframe} id={1} color={colortim} data={seldataq} invsel={invselq} />
+				<InvestorPie id={1} color={colortim} data={seldataq} invsel={invselq} />
 			  </div>
 			</div>
 		  </div>
@@ -667,7 +670,8 @@
 			majority</tspan>, represented by Tim, are paying a significant amount
 		  of transfer fees; <br><br>meanwhile,
 		  <tspan style="color: cyan;">investors</tspan> are able to cover their
-		  transfer fee expenses through the profits gained from flipping houses.
+		  transfer fee expenses through the much higher profits, potentially
+		  from flipping houses.
 	  </div>
 	  <div style="position: absolute; height: 60%; bottom: 16%; left: 5%;"
 		   transition:fade={{ duration: 300 }}>
