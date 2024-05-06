@@ -53,18 +53,19 @@
 
   let taxGroupTran = createUpDownTransition(20, 50, 70, 90);
   $: alphaBg = 1 - taxGroupTran(progressTax);
+  $: opacityBg = 0.3 * alphaBg;
   $: opacityTaxGroup = taxGroupTran(progressTax);
 
   let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
   let peopleColorPhase2Tran = createUpDownTransition(60, 70, 80, 90);
   $: opacityPeopleColor = 0.3 * peopleColorPhase1Tran(progressQuestion) + 0.7 * peopleColorPhase2Tran(progressQuestion);
-  let peopleRedTran = createUpDownTransition(80, 90, 95, 100);
+  let peopleRedTran = createUpDownTransition(75, 75, 95, 100);
   $: opacityPeopleRed = peopleRedTran(progressQuestion);
   let peopleTextTran = createUpTransition(60, 70);
-  $: opacityPeopleText = peopleTextTran(progressQuestion);
+  $: opacityPeopleText = 1 - peopleTextTran(progressQuestion);
 
   // Tim
-  let timTran = createUpDownTransition(0, 50, 90, 100);
+  let timTran = createUpDownTransition(0, 20, 90, 100);
   $: opacityTim = timTran(progressTim);
 
   // color
@@ -78,7 +79,7 @@
 </script>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {0.3 * alphaBg}; z-index: 1;">
+			opacity: {opacityBg}; z-index: 1;">
   <img src="/houses-dark.png" alt="houses-bg">
 </div>
 
@@ -161,7 +162,7 @@
 	<div class="relpage" style="height: 300vh;">
 	  <div class="stickybox textbox"
 		   style="top: 20%; font-size: 50pt; padding: 15%;
-				  opacity: {1 - opacityPeopleText};">
+				  opacity: {opacityPeopleText};">
 		But <tspan style="color: #EE7733;">who's</tspan> actually paying for the 2000 units of affordable housing?
 	  </div>
 	</div>
