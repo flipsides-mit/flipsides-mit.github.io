@@ -11,11 +11,17 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
 
   let innerHeight;
-  let index, offset, progress;
+  let progressTax;
+  let progressQuestion;
+  let progressTim;
 
-  $: console.log(progress);
+  $: console.log('tax prog', progressTax);
 
-  function createTransition(begin, peakb, peake, end) {
+  $: console.log('question prog', progressQuestion);
+
+  $: console.log('tim prog', progressTim);
+
+  function createUpDownTransition(begin, peakb, peake, end) {
 	return (progress) => {
 	  if (progress < begin) {
 		return 0;
@@ -33,19 +39,33 @@
 	}
   }
 
-  let taxGroupTran = createTransition(20, 50, 70, 90);
-  $: alphaBg = 1 - taxGroupTran(progress);
-  $: opacityTaxGroup = taxGroupTran(progress);
+  function createUpTransition(begin, peak) {
+	return (progress) => {
+	  if (progress < begin) {
+		return 0;
+	  }
+	  if (progress < peak) {
+		return (progress - begin) / (peak - begin);
+	  }
+	  return 1;
+	}
+  }
 
-  // $: {
-  // 	if (progress <= 30) {
-  // 	  bgalpha = (30 - progress) / 30 * 1;
-  // 	} else if (progress <= 70) {
-  // 	  bgalpha = 0;
-  // 	} else {
-  // 	  bgalpha = (progress - 70) / 30 * 1;
-  // 	}
-  // }
+  let taxGroupTran = createUpDownTransition(20, 50, 70, 90);
+  $: alphaBg = 1 - taxGroupTran(progressTax);
+  $: opacityTaxGroup = taxGroupTran(progressTax);
+
+  let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
+  let peopleColorPhase2Tran = createUpDownTransition(60, 70, 80, 90);
+  $: opacityPeopleColor = 0.3 * peopleColorPhase1Tran(progressQuestion) + 0.7 * peopleColorPhase2Tran(progressQuestion);
+  let peopleRedTran = createUpDownTransition(80, 90, 95, 100);
+  $: opacityPeopleRed = peopleRedTran(progressQuestion);
+  let peopleTextTran = createUpTransition(60, 70);
+  $: opacityPeopleText = peopleTextTran(progressQuestion);
+
+  // Tim
+  let timTran = createUpDownTransition(0, 50, 90, 100);
+  $: opacityTim = timTran(progressTim);
 
   // color
   let colortim = "#CF1F3F";
@@ -57,9 +77,34 @@
   let colorq = "#F67E4B";
 </script>
 
-<div style="color: white; background-color: rgb(0 0 0 / {alphaBg});">
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {0.3 * alphaBg}; z-index: 1;">
+  <img src="/houses-dark.png" alt="houses-bg">
+</div>
 
-  <!-- Intro -->
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityPeopleColor}; z-index: 1;">
+  <img src="/people.png" alt="people-bg">
+</div>
+
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityPeopleRed}; z-index: 1;">
+  <img src="/people-red.png" alt="people-red-bg">
+</div>
+
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityTim}; z-index: 1;">
+  <div style="position: absolute; height: 60%; bottom: 16%; left: 10%;">
+	<img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
+  </div>
+  <div style="position: absolute; height: 60%; bottom: 20%; left: 20%;">
+	<img src="/tim.png" style="object-fit: contain;" alt="tim">
+  </div>
+</div>
+
+<div style="position: relative; color: white; background-color: rgb(0 0 0 / {alphaBg});">
+
+  <!-- Intro of Affordable Homes Act -->
   <div class="flexpage flex-col">
 	<div style="flex: 1; height: 80%;">
 	  <img height="100%" src="/intro-1.png" alt="act">
@@ -69,7 +114,90 @@
 	</div>
   </div>
 
-  <Scrolly bind:progress={progress} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
+  <!-- Transfer fee -->
+  <div class="relpage">
+	<div style="width: 70%; position: absolute; bottom: 45%; left: 15%;
+				font-size: 40px;">
+
+	  The Affordable Homes Act includes a provision that would grant
+	  Massachusetts municipalities the authority to implement a real estate
+	  transfer fee of <tspan style="color: #EE7733;">0.5% to 2.0%</tspan> on
+	  transactions of more than $1M or the county median single family home
+	  price, whichever is greater.
+	</div>
+  </div>
+
+  <!-- New affordable homes -->
+  <div class="relpage">
+	<div style="width: 47%; position: absolute; bottom: 70%; left: 3%;
+				font-size: 36px;">
+
+	  According to the 2022 Greater Boston Area housing transaction data, it is
+	  preliminarily estimated that the implementation of this policy in 2023
+	  will generate <tspan style="color: #EE7733;">$208 million</tspan> in
+	  revenue for affordable housing.
+	</div>
+	<div class="flexbox flex-row"
+		 style="width: 47%; position: absolute; bottom: 15%; left: 3%;
+				font-size: 80px;">
+	  <center>
+		$208M<br>
+		≈<br>
+		2000 units
+		<tspan style="font-size: 25px;">
+		  <br>(estimation based on
+		  <a href="https://www.boston.gov/sites/default/files/file/2022/04/Income%20Restricted%20Housing%20Report%2C%202021_0.pdf">
+			Income-Restricted Housing in Boston 2021)
+		  </a>
+		</tspan>
+	</div>
+	<div style="position: absolute; right: 3%; bottom: 0%; width: 45%;">
+	  <img src="/base.png" alt="act">
+	</div>
+  </div>
+
+  <!-- Main question -->
+  <Scrolly bind:progress={progressQuestion} threshold={1} margin={0} --scrolly-layout="overlap" >
+	<div class="relpage" style="height: 300vh;">
+	  <div class="stickybox textbox"
+		   style="top: 20%; font-size: 50pt; padding: 15%;
+				  opacity: {1 - opacityPeopleText};">
+		But <tspan style="color: #EE7733;">who's</tspan> actually paying for the 2000 units of affordable housing?
+	  </div>
+	</div>
+	<svelte:fragment slot="viz">
+	</svelte:fragment>
+  </Scrolly>
+
+  <!-- Tim -->
+  <Scrolly bind:progress={progressTim} threshold={1} margin={0} --scrolly-layout="overlap" >
+	<div class="relpage" style="height: 80vh;">
+	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 40%;
+				  font-size: 25pt;">
+		<center>
+		  -- Tim --<br><br>
+		  An MIT graduate, the <tspan style="color: {colortim};">middle class</tspan> represent, just got an offer
+		  from a tech company in Boston whose annual household income is
+		  around $150k~200k. Tim is looking for a house in Boston with his
+		  family.
+	  </div>
+	</div>
+	<div class="relpage" style="height: 80vh;">
+	  <div style="position: absolute; width: 59%; height: 24%; bottom: 0%; left: 35%;
+				  font-size: 25pt;">
+		Ultimately, Tim sets his sights on a house priced
+		at <tspan style="color: #EE7733;">$1.3M</tspan> - which means he
+		has to pay <tspan style="color: #EE7733;">$3K</tspan> as the transfer
+		(assuming an 1% tax rate).
+	  </div>
+	  <div style="position: absolute; height: 80%; left: 30%;">
+		<img src="/condo.png" style="object-fit: contain;" alt="act">
+	  </div>
+	</div>
+	<div style="height: 100vh;" />
+  </Scrolly>
+
+  <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
 	<!-- Key result: Non-investors paying too much fee -->
 	<div class="relpage" style="height: 250vh">
   	  <div style="position: absolute; width: 40%; height: 40%; top: 15%; left: 29%;
@@ -133,17 +261,31 @@
   .relpage {
 	position: relative;
 	width: 100%;
+	height: 100vh;
+	z-index: 2;
   }
   .flexpage {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
 	height: 100vh;
+	z-index: 2;
+  }
+  .stickybox {
+	position: sticky;
+	width: 100%;
+	z-index: 2;
   }
   .textbox {
 	box-sizing: border-box;
 	padding: 10%;
+  }
+  .flexbox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
   }
   .flex-row {
 	flex-direction: row;
