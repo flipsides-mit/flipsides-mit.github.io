@@ -106,8 +106,8 @@
 
   $: d3.select(histp)
   .select('text.mediantext')
-  .style('stroke', 'white')
-  .style('fill', 'white')
+  .style('stroke', 'black')
+  .style('fill', 'black')
   .style('font-size', `${width * 0.03}px`)
   .transition()
   .duration(300)
@@ -158,7 +158,7 @@
 	stroke-dasharray: 3, 1;
 	stroke-opacity: 0.8;
 	stroke-width: 2px;
-	stroke: white;
+	stroke: black;
   }
   .bars {
 	stroke-opacity: 0.1;

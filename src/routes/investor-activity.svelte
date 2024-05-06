@@ -33,7 +33,7 @@
 
   $: xScale = d3.scaleLinear()
   // .domain([0, d3.max(data, d => d.price)])
-  .domain([0, 4000000]).nice()
+  .domain([0, 6000000]).nice()
   .range([margin.left, width - margin.right])
   .clamp(true);
 

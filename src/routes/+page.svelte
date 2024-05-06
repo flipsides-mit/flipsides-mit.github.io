@@ -54,11 +54,6 @@
 	}
   }
 
-  let taxGroupTran = createUpDownTransition(20, 50, 70, 90);
-  $: alphaBg = 1 - taxGroupTran(progressTax);
-  $: opacityBg = 0.3 * alphaBg;
-  $: opacityTaxGroup = taxGroupTran(progressTax);
-
   // Questions
   let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
   let peopleColorPhase2Tran = createUpDownTransition(60, 70, 80, 90);
@@ -73,10 +68,33 @@
   $: opacityTim = timTran(progressTim);
 
   // Investors and Joe
-  let peopleBlueTran = createUpDownTransition(0, 5, 20, 30);
+  let peopleBlueTran = createUpDownTransition(0, 5, 15, 20);
   $: opacityPeopleBlue = peopleBlueTran(progressJoe)
-  let joeTran = createUpDownTransition(25, 35, 90, 100);
+  let joeTran = createUpDownTransition(20, 25, 90, 100);
   $: opacityJoe = joeTran(progressJoe);
+  let joeBgTran = createUpTransition(60, 70);
+  $: opacityJoeBg = progressJoe <= 60 ? opacityJoe : 1 - joeBgTran(progressJoe);
+
+  // Housing market
+  let marketTran = createUpDownTransition(60, 70, 95, 100);
+  $: opacityMarket = marketTran(progressJoe);
+
+  // Tax group
+  let taxGroupTran = createUpDownTransition(20, 50, 70, 90);
+  $: opacityTaxGroup = taxGroupTran(progressTax);
+
+  // Backgroud
+  $: alphaBg = 1 - opacityTaxGroup - opacityMarket;
+  $: opacityBg = 0.3 * alphaBg;
+
+  let zidxBg = 1;
+  $: {
+	if (70 <= progressJoe && progressJoe < 100) {
+	  zidxBg = 0;
+	} else {
+	  zidxBg = 1;
+	}
+  }
 
   // color
   let colortim = "#CF1F3F";
@@ -89,22 +107,22 @@
 </script>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityBg}; z-index: 1;">
+			opacity: {opacityBg}; z-index: {zidxBg};">
   <img src="/houses-dark.png" alt="houses-bg">
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityPeopleColor}; z-index: 1;">
+			opacity: {opacityPeopleColor}; z-index: {zidxBg};">
   <img src="/people.png" alt="people-bg">
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityPeopleRed}; z-index: 1;">
+			opacity: {opacityPeopleRed}; z-index: {zidxBg};">
   <img src="/people-red.png" alt="people-red-bg">
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityTim}; z-index: 1;">
+			opacity: {opacityTim}; z-index: {zidxBg};">
   <div style="position: absolute; height: 60%; bottom: 16%; left: 10%;">
 	<img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
   </div>
@@ -114,15 +132,19 @@
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityPeopleBlue}; z-index: 1;">
+			opacity: {opacityPeopleBlue}; z-index: {zidxBg};">
   <img src="/people-blue.png" alt="people-blue-bg">
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityJoe}; z-index: 1;">
+			opacity: {opacityJoeBg}; z-index: {zidxBg};">
   <div style="position: absolute; height: 60%; bottom: 16%; right: 15%;">
 	<img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
   </div>
+</div>
+
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityJoe}; z-index: {zidxBg};">
   <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;">
 	<img src="/joe.png" style="object-fit: contain;" alt="joe">
   </div>
@@ -224,7 +246,7 @@
   </Scrolly>
 
   <!-- Joe -->
-  <Scrolly bind:progress={progressJoe} threshold={1} margin={0} --scrolly-layout="overlap" >
+  <Scrolly bind:progress={progressJoe} threshold={0.95} margin={innerHeight * 0.05} --scrolly-layout="overlap" >
 	<div style="height: 100vh;" />
 	<div class="relpage" style="height: 80vh;">
 	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 5%;
@@ -245,9 +267,29 @@
 		<img src="/single-family.png" style="object-fit: contain;" alt="single-family">
 	  </div>
 	</div>
-	<div style="height: 100vh;" />
-  </Scrolly>
+	<div style="height: 300vh;" />
 
+	<!-- Interactive visualization: Housing market and investor activity -->
+	<svelte:fragment slot="viz">
+	  <div class="text-dark" style="opacity: {opacityMarket};">
+		<div style="position: absolute; height: 50%; width: 50%; left: 25%;">
+		  <InvestorActivity phase={1} {colortim} {colorjoe} />
+		</div>
+		<div style="position: absolute; height: 30%; width: 40%; right: 5%; bottom: 10%;">
+		  <PriceHistogram color={colorjoe} seldata={seldatap} invsel={invselp} />
+		</div>
+		<div style="position: absolute; height: 30%; width: 20%; right: 0%; bottom: 20%;">
+		  <InvestorPie id={0} color={colorjoe} data={seldatap} invsel={invselp} />
+		</div>
+		<div style="position: absolute; height: 30%; width: 40%; left: 5%; bottom: 10%;">
+		  <PriceHistogram color={colortim} seldata={seldataq} invsel={invselq} />
+		</div>
+		<div style="position: absolute; height: 30%; width: 20%; left: 30%; bottom: 20%;">
+		  <InvestorPie id={1} color={colortim} data={seldataq} invsel={invselq} />
+		</div>
+	  </div>
+	</svelte:fragment>
+  </Scrolly>
 
   <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
 	<!-- Key result: Non-investors paying too much fee -->
@@ -277,17 +319,10 @@
 	</div>
 
 	<!-- Interactive visualization: Tax group breakdown -->
-	<div style="height: 300vh;">
-	</div>
+	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="position: relative; height: 80vh; opacity: {opacityTaxGroup};">
-		<TaxGroup {colortim} {colorjoe} showtool={false} />
-		<!-- <div style="position: absolute; height: 40%; bottom: 10%; left: 12%;"> -->
-		  <!--   <img src="/tim.png" style="object-fit: contain;" alt="tim"> -->
-		  <!-- </div> -->
-		<!-- <div style="position: absolute; height: 40%; bottom: 10%; left: 63%;"> -->
-		  <!--   <img src="/joe.png" style="object-fit: contain;" alt="joe"> -->
-		  <!-- </div> -->
+		<TaxGroup {colortim} {colorjoe} showtool={true} />
 	  </div>
 	</svelte:fragment>
   </Scrolly>
@@ -302,6 +337,9 @@
   	Balancing the interests of multiple parties is very complex and faces
 	many risks. With this tool, we hope that Boston's housing market can
 	gradually move towards a more harmonious and fair state.
+  </div>
+  <div class="flexpage textbox" style="font-size: 45px;">
+  	Credit (TODO): 6.C85 staffs, MAPC, and Warren Group.
   </div>
 
   <div style="height: 50%;" />
