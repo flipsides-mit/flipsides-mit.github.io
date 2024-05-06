@@ -54,10 +54,19 @@
 	}
   }
 
+  function scaleTran(begin, end, tran) {
+	return (progress) => {
+	  let d = end - begin;
+	  return begin + tran(progress) * d;
+	}
+  }
+
   // Questions
   let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
   let peopleColorPhase2Tran = createUpDownTransition(60, 70, 80, 90);
-  $: opacityPeopleColor = 0.3 * peopleColorPhase1Tran(progressQuestion) + 0.7 * peopleColorPhase2Tran(progressQuestion);
+  $: opacityPeopleColor =
+  0.3 * peopleColorPhase1Tran(progressQuestion) +
+  0.7 * peopleColorPhase2Tran(progressQuestion);
   let peopleTextTran = createUpTransition(60, 70);
   $: opacityPeopleText = 1 - peopleTextTran(progressQuestion);
 
@@ -78,10 +87,16 @@
   // Housing market
   let marketTran = createUpDownTransition(60, 70, 95, 100);
   $: opacityMarket = marketTran(progressJoe);
+  let topMarketCard1Tran = scaleTran(0, 60, createUpDownTransition(60, 65, 70, 75));
+  $: topMarketCard1 = topMarketCard1Tran(progressJoe);
+  let topMarketCard2Tran = scaleTran(0, 60, createUpDownTransition(75, 80, 85, 90));
+  $: topMarketCard2 = topMarketCard2Tran(progressJoe);
 
   // Tax group
   let taxGroupTran = createUpDownTransition(20, 50, 70, 90);
   $: opacityTaxGroup = taxGroupTran(progressTax);
+  let topTaxGroupCard1Tran = scaleTran(0, 60, createUpDownTransition(50, 60, 70, 80));
+  $: topTaxGroupCard1 = topTaxGroupCard1Tran(progressTax);
 
   // Backgroud
   $: alphaBg = 1 - opacityTaxGroup - opacityMarket;
@@ -291,6 +306,20 @@
 	</svelte:fragment>
   </Scrolly>
 
+  <!-- Housing market cards -->
+  <div class="card"
+	   style="position: fixed; font-size: 20pt; color: black;
+			  width: 30%; right: 5%; top: {topMarketCard1}%; transform: translateY(-100%);">
+	<tspan style="font-weight: bold;">Key finding 1: </tspan> Investors make ~2x profit as non-investors,
+	<tspan>and this gap becomes even larger when it comes to flipped properties.</tspan>
+  </div>
+
+  <div class="card"
+	   style="position: fixed; font-size: 20pt; color: black;
+			  width: 30%; right: 5%; top: {topMarketCard2}%; transform: translateY(-100%);">
+	<tspan style="font-weight: bold;">Key finding 2: </tspan> Investors generally prefer the luxury housing markets.
+  </div>
+
   <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
 	<!-- Key result: Non-investors paying too much fee -->
 	<div class="relpage" style="height: 250vh">
@@ -322,10 +351,19 @@
 	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="position: relative; height: 80vh; opacity: {opacityTaxGroup};">
-		<TaxGroup {colortim} {colorjoe} showtool={true} />
+		<TaxGroup {colortim} {colorjoe} showtool={false} />
 	  </div>
 	</svelte:fragment>
   </Scrolly>
+
+  <!-- Tax group cards -->
+  <div class="card"
+	   style="position: fixed; font-size: 20pt; color: black;
+			  width: 40%; left: 24%; top: {topTaxGroupCard1}%; transform: translateY(-100%);">
+	Due to the large number of the middle class, people like Tim, who
+	purchase homes in the 1M to 2M (and even 2M to 3M) range, have become
+	the primary group paying the transfer fee.
+  </div>
 
   <!-- Conclusions -->
   <div class="flexpage textbox" style="font-size: 45px;">
@@ -385,6 +423,13 @@
   }
   .text-dark {
 	color: black;
+  }
+  .card {
+	background: #F7F7F7;
+	color: black;
+    font-size: 20px;
+	border-radius: 20px;
+	padding: 25px;
   }
   #page-payer {
 	font-size: 50px;
