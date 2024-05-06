@@ -14,12 +14,15 @@
   let progressTax;
   let progressQuestion;
   let progressTim;
+  let progressJoe;
 
   $: console.log('tax prog', progressTax);
 
   $: console.log('question prog', progressQuestion);
 
   $: console.log('tim prog', progressTim);
+
+  $: console.log('joe prog', progressJoe);
 
   function createUpDownTransition(begin, peakb, peake, end) {
 	return (progress) => {
@@ -56,17 +59,24 @@
   $: opacityBg = 0.3 * alphaBg;
   $: opacityTaxGroup = taxGroupTran(progressTax);
 
+  // Questions
   let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
   let peopleColorPhase2Tran = createUpDownTransition(60, 70, 80, 90);
   $: opacityPeopleColor = 0.3 * peopleColorPhase1Tran(progressQuestion) + 0.7 * peopleColorPhase2Tran(progressQuestion);
-  let peopleRedTran = createUpDownTransition(75, 75, 95, 100);
-  $: opacityPeopleRed = peopleRedTran(progressQuestion);
   let peopleTextTran = createUpTransition(60, 70);
   $: opacityPeopleText = 1 - peopleTextTran(progressQuestion);
 
   // Tim
+  let peopleRedTran = createUpDownTransition(75, 75, 95, 100);
+  $: opacityPeopleRed = peopleRedTran(progressQuestion);
   let timTran = createUpDownTransition(0, 20, 90, 100);
   $: opacityTim = timTran(progressTim);
+
+  // Investors and Joe
+  let peopleBlueTran = createUpDownTransition(0, 5, 20, 30);
+  $: opacityPeopleBlue = peopleBlueTran(progressJoe)
+  let joeTran = createUpDownTransition(25, 35, 90, 100);
+  $: opacityJoe = joeTran(progressJoe);
 
   // color
   let colortim = "#CF1F3F";
@@ -100,6 +110,21 @@
   </div>
   <div style="position: absolute; height: 60%; bottom: 20%; left: 20%;">
 	<img src="/tim.png" style="object-fit: contain;" alt="tim">
+  </div>
+</div>
+
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityPeopleBlue}; z-index: 1;">
+  <img src="/people-blue.png" alt="people-blue-bg">
+</div>
+
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityJoe}; z-index: 1;">
+  <div style="position: absolute; height: 60%; bottom: 16%; right: 15%;">
+	<img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
+  </div>
+  <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;">
+	<img src="/joe.png" style="object-fit: contain;" alt="joe">
   </div>
 </div>
 
@@ -184,7 +209,7 @@
 	  </div>
 	</div>
 	<div class="relpage" style="height: 80vh;">
-	  <div style="position: absolute; width: 59%; height: 24%; bottom: 0%; left: 35%;
+	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 40%;
 				  font-size: 25pt;">
 		Ultimately, Tim sets his sights on a house priced
 		at <tspan style="color: #EE7733;">$1.3M</tspan> - which means he
@@ -192,11 +217,37 @@
 		(assuming an 1% tax rate).
 	  </div>
 	  <div style="position: absolute; height: 80%; left: 30%;">
-		<img src="/condo.png" style="object-fit: contain;" alt="act">
+		<img src="/condo.png" style="object-fit: contain;" alt="condo">
 	  </div>
 	</div>
 	<div style="height: 100vh;" />
   </Scrolly>
+
+  <!-- Joe -->
+  <Scrolly bind:progress={progressJoe} threshold={1} margin={0} --scrolly-layout="overlap" >
+	<div style="height: 100vh;" />
+	<div class="relpage" style="height: 80vh;">
+	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 5%;
+				  font-size: 25pt;">
+		<center>
+		  -- Joe -- <br><br> An agency from an investor company, looking for
+		  properties to invest in the Great Boston Area.
+	  </div>
+	</div>
+	<div class="relpage" style="height: 80vh;">
+	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 5%;
+				  font-size: 25pt;">
+		
+		Now, let's take a look what kinds of properties investors like and how much
+		profit they can make in the housing market!
+	  </div>
+	  <div style="position: absolute; height: 80%; left: -5%; bottom: 25%;">
+		<img src="/single-family.png" style="object-fit: contain;" alt="single-family">
+	  </div>
+	</div>
+	<div style="height: 100vh;" />
+  </Scrolly>
+
 
   <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
 	<!-- Key result: Non-investors paying too much fee -->
