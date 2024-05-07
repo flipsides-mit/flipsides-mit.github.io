@@ -11,10 +11,13 @@
   import { seldatap, seldataq, invselp, invselq } from './stores.js';
 
   let innerHeight;
+  let progressOpening;
   let progressTax;
   let progressQuestion;
   let progressTim;
   let progressJoe;
+
+  $: console.log('opening prog', progressOpening);
 
   $: console.log('tax prog', progressTax);
 
@@ -60,6 +63,10 @@
 	  return begin + tran(progress) * d;
 	}
   }
+
+  // Opening
+  let openingTran = createUpTransition(0, 80);
+  $: opacityOpening = 1 - openingTran(progressOpening);
 
   // Questions
   let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
@@ -122,6 +129,11 @@
 </script>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityOpening}; z-index: {zidxBg};">
+  <img src="/houses.png" alt="houses-color-bg">
+</div>
+
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
 			opacity: {opacityBg}; z-index: {zidxBg};">
   <img src="/houses-dark.png" alt="houses-bg">
 </div>
@@ -166,6 +178,13 @@
 </div>
 
 <div style="position: relative; color: white; background-color: rgb(0 0 0 / {alphaBg});">
+
+  <!-- Opening -->
+  <Scrolly bind:progress={progressOpening} threshold={0} margin={0} --scrolly-layout="overlap" >
+	<div style="height: 120vh;" />
+	<svelte:fragment slot="viz">
+	</svelte:fragment>
+  </Scrolly>
 
   <!-- Intro of Affordable Homes Act -->
   <div class="flexpage flex-col">
