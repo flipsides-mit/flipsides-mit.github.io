@@ -3,6 +3,7 @@
   import Scrolly from 'svelte-scrolly';
   import Scroller from "@sveltejs/svelte-scroller";
   import TaxGroup from './tax-group.svelte';
+  import TaxControl from './tax-control.svelte';
   import Revenue from './revenue.svelte';
   // housing market and investor activity
   import InvestorActivity from './investor-activity.svelte';
@@ -95,10 +96,12 @@
   // Housing market
   let marketTran = createUpDownTransition(10, 20, 90, 100);
   $: opacityMarket = marketTran(progressHousing);
-  let topMarketCard1Tran = scaleTran(0, 60, createUpDownTransition(60, 65, 70, 75));
+  let topMarketCard1Tran = scaleTran(0, 40, createUpDownTransition(30, 35, 45, 50));
   $: topMarketCard1 = topMarketCard1Tran(progressHousing);
-  let topMarketCard2Tran = scaleTran(0, 60, createUpDownTransition(75, 80, 85, 90));
+  let topMarketCard2Tran = scaleTran(0, 40, createUpDownTransition(50, 55, 65, 70));
   $: topMarketCard2 = topMarketCard2Tran(progressHousing);
+  let topMarketCard3Tran = scaleTran(0, 40, createUpDownTransition(70, 75, 85, 90));
+  $: topMarketCard3 = topMarketCard3Tran(progressHousing);
 
   // Tax group
   let taxGroupTran = createUpDownTransition(40, 50, 70, 90);
@@ -112,7 +115,7 @@
 
   let zidxBg = 1;
   $: {
-	if (70 <= progressHousing && progressHousing < 100) {
+	if ((70 <= progressHousing && progressHousing < 100) || (50 <= progressTax && progressTax < 80)) {
 	  zidxBg = 0;
 	} else {
 	  zidxBg = 1;
@@ -308,7 +311,7 @@
 	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="opacity: {opacityMarket};">
-		<div style="position: absolute; height: 50%; width: 50%; left: 25%;">
+		<div style="position: absolute; height: 50%; width: 50%; left: 5%;">
 		  <InvestorActivity phase={1} {colortim} {colorjoe} />
 		</div>
 		<div style="position: absolute; height: 30%; width: 40%; right: 5%; bottom: 10%;">
@@ -339,6 +342,12 @@
 	   style="position: fixed; font-size: 20pt; color: black;
 			  width: 30%; right: 5%; top: {topMarketCard2}%; transform: translateY(-100%);">
 	<tspan style="font-weight: bold;">Key finding 2: </tspan> Investors generally prefer the luxury housing markets.
+  </div>
+
+  <div class="card"
+	   style="position: fixed; font-size: 20pt; color: black;
+			  width: 30%; right: 5%; top: {topMarketCard3}%; transform: translateY(-100%);">
+	Select two markets and compare their revenue on your own!
   </div>
 
   <!-- Key result: Non-investors paying too much fee -->
@@ -374,8 +383,14 @@
 	</div>
 	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
-	  <div class="text-dark" style="position: relative; height: 80vh; opacity: {opacityTaxGroup};">
+	  <div class="text-dark" style="position: aboslute; height: 80vh; width: 65%; opacity: {opacityTaxGroup};">
 		<TaxGroup {colortim} {colorjoe} showtool={false} />
+	  </div>
+	  <div class="text-dark" style="position: fixed; top: 25%; right: 2%; height: 50vh; width: 30%; opacity: {opacityTaxGroup};">
+		<TaxControl />
+	  </div>
+	  <div class="text-dark" style="position: fixed; bottom: 15%; right: 5%; opacity: {opacityTaxGroup}; font-size: {innerHeight * 0.05}px;">
+		Total revenue: $100M
 	  </div>
 	</svelte:fragment>
   </Scrolly>

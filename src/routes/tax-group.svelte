@@ -26,7 +26,7 @@
 	top: height * 0.1,
 	right: width * 0.05,
 	bottom: height * 0.15,
-	left: width * 0.1,
+	left: width * 0.08,
   };
 
   // Computing tax revenue for each transaction
