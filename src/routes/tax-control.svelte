@@ -11,6 +11,7 @@
   export let rateNoninv = 0.01;
   export let rateInv = 0.01;
   export let taxThrd = 1000000;
+  let rateBoth = 0.01;
   let width = 0;
   let height = 0;
 
@@ -28,17 +29,41 @@
   // Rate slider
   let ratenig;
   let rateig;
+  let ratebothg;
   let exemptiong;
   let rates = [0, 0.01, 0.02, 0.03, 0.05, 0.1];
   let exempts = [1, 2, 3, 5, 10].map(d => d * 1000000);
   let sliderni;
   let slideri;
+  let sliderboth;
   let slidere;
   
   // Data loading
   onMount(async () => {
 	// setup sliders
 	let textRatioSlider = 0.03;
+
+	// rate slider for both investors and non-investors
+	sliderboth = sliderBottom()
+	  .min(d3.min(rates))
+	  .max(d3.max(rates))
+	  .width(width * 0.8)
+	  .tickFormat(d => `${(d * 100).toFixed(1)}%`)
+	  .tickValues(rates)
+	  .value(rateBoth)
+	  .on("onchange", (d, e) => {
+		rateNoninv = d;
+		rateInv = d;
+	  });
+	
+	d3.select(ratebothg)
+	  .call(sliderboth);
+
+	d3.select(ratebothg)
+	  .selectAll("text")
+	  .attr("font-size", `${width * textRatioSlider}px`);
+
+	// non-investor rate slider
 	sliderni = sliderBottom()
 	  .min(d3.min(rates))
 	  .max(d3.max(rates))
@@ -55,6 +80,7 @@
 	  .selectAll("text")
 	  .attr("font-size", `${width * textRatioSlider}px`);
 
+	// investor rate slider
 	slideri = sliderBottom()
 	  .min(d3.min(rates))
 	  .max(d3.max(rates))
@@ -112,9 +138,22 @@
 	  </text>
 	</g>
 
+	<g bind:this={ratebothg}
+	   class="slider"
+	   transform="translate({margin.left}, {margin.top / 2 + 0.55 * height})"
+	   display="{sepTax ? 'default' : 'none'}">
+	  <text
+		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
+		text-anchor="center"
+		style="font-size: {width * 0.05}px;">
+		tax rate
+	  </text>
+	</g>
+
 	<g bind:this={ratenig}
 	   class="slider"
-	   transform="translate({margin.left}, {margin.top / 2 + 0.55 * height})">
+	   transform="translate({margin.left}, {margin.top / 2 + 0.55 * height})"
+	   display="{sepTax ? 'none' : 'default'}">
 	  <text
 		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
 		text-anchor="center"
@@ -126,7 +165,7 @@
 	<g bind:this={rateig}
 	   class="slider"
 	   transform="translate({margin.left}, {margin.top / 2 + 0.80 * height})"
-	   display="{sepTax ? 'default' : 'none'}">
+	   display="{sepTax ? 'none' : 'default'}">
 	  <text
 		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
 		text-anchor="center"

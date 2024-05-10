@@ -110,6 +110,7 @@
   $: topTaxGroupCard1 = topTaxGroupCard1Tran(progressTax);
   let taxControlHeightTran = scaleTran(50 * 0.75, 50, createUpTransition(50, 55));
   $: taxControlHeight = taxControlHeightTran(progressTax);
+  $: sepTax = progressTax < 55 ? true : false;
 
   // Tax group control variables
   let noninv = true;
@@ -117,7 +118,9 @@
   let rateNoninv = 0.01;
   let rateInv = 0.01;
   let taxThrd = 1000000;
-  let sum = 0;
+  let sumInv = 0;
+  let sumNoninv = 0;
+  $: sum = sumInv + sumNoninv;
 
   // Backgroud
   $: alphaBg = 1 - opacityTaxGroup - opacityMarket;
@@ -395,7 +398,7 @@
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="position: aboslute; height: 80vh; width: 65%; opacity: {opacityTaxGroup};">
 		<TaxGroup
-		  bind:sum
+		  bind:sumNoninv bind:sumInv
 		  {colortim} {colorjoe} {noninv} {inv} {rateNoninv} {rateInv} {taxThrd}
 		  showtool={false} />
 	  </div>
@@ -403,9 +406,11 @@
 	  </div>
 	  <div class="text-dark" style="position: fixed; top: 25%; right: 2%; height: 50vh; width: 30%; opacity: {opacityTaxGroup};">
 		<TaxControl
-		  bind:noninv bind:inv bind:rateNoninv bind:rateInv bind:taxThrd />
+		  bind:noninv bind:inv bind:rateNoninv bind:rateInv bind:taxThrd bind:sepTax />
 	  </div>
-	  <div class="text-dark" style="position: fixed; bottom: 15%; right: 5%; opacity: {opacityTaxGroup}; font-size: {innerHeight * 0.05}px;">
+	  <div class="text-dark" style="position: fixed; bottom: 10%; right: 5%; opacity: {opacityTaxGroup}; font-size: {innerHeight * 0.04}px;">
+		Revenue (non-investors): ${(sumNoninv / 1000000).toFixed(0)} M ({((sumNoninv / sum) * 100).toFixed(0)}%)<br>
+		Revenue (investors): ${(sumInv / 1000000).toFixed(0)} M ({((sumInv / sum) * 100).toFixed(0)}%)<br>
 		Total revenue: ${(sum / 1000000).toFixed(0)} M
 	  </div>
 	</svelte:fragment>

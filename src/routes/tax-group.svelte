@@ -7,7 +7,9 @@
   export let showtool = true;
   export let colortim;
   export let colorjoe;
-  export let sum = 0;
+  // export let sum = 0;
+  export let sumInv = 0;
+  export let sumNoninv = 0;
   export let noninv = true;
   export let inv = true;
   export let rateNoninv = 0.01;
@@ -47,7 +49,10 @@
   let data = [];
   $: {
 	data = dataraw.map(computeTax);
-	sum = d3.sum(data, d => d.tax);
+	sumInv = d3.sum(data, d => d.investor ? d.tax : 0);
+	sumNoninv = d3.sum(data, d => d.investor ? 0 : d.tax);
+	// sum = d3.sum(data, d => d.tax);
+	// sum = sumInv + sumNoninv;
 	console.log(data);
   }
 
@@ -193,14 +198,6 @@
 		↑ total transfer fee (million $)
 	  </text>
 	</g>
-
-	<text
-	  x="{0.35 * width}px"
-	  y="{0.3 * height}px"
-	  style="font-size: {width * 0.025}px;
-			 visibility: {showtool ? 'visibile' : 'hidden'};">
-	  Total revenue: ${(sum / 1000000).toFixed(0)} M
-	</text>
   </svg>
 </div>
 
