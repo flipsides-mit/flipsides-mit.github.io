@@ -2,20 +2,20 @@
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import * as d3 from 'd3';
-  import { sliderBottom } from 'd3-simple-slider';
   import { legendColor } from 'd3-svg-legend';
 
   export let showtool = true;
   export let colortim;
   export let colorjoe;
+  export let sum = 0;
+  export let noninv = true;
+  export let inv = true;
+  export let rateNoninv = 0.01;
+  export let rateInv = 0.01;
+  export let taxThrd = 1000000;
   let dataraw = [];
   let width = 0;
   let height = 0;
-  let rateNoninv = 0.01;
-  let rateInv = 0.01;
-  let taxthrd = 1000000;
-  let noninv = true;
-  let inv = true;
   let thrds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   let miny = 100000000;
@@ -32,7 +32,7 @@
   // Computing tax revenue for each transaction
   $: computeTax = (d) => {
 	let rate = d.investor ? rateInv : rateNoninv;
-	let tax = d.price > taxthrd ? (d.price - taxthrd) * rate : 0;
+	let tax = d.price > taxThrd ? (d.price - taxThrd) * rate : 0;
 	if (d.investor && !inv || !d.investor && !noninv) {
 	  tax = 0;
 	}
@@ -45,7 +45,6 @@
   }
 
   let data = [];
-  let sum = 0;
   $: {
 	data = dataraw.map(computeTax);
 	sum = d3.sum(data, d => d.tax);
@@ -139,16 +138,6 @@
 	  .style('font-size', `${width * 0.015}px`);
   }
 
-  // Rate slider
-  let ratenig;
-  let rateig;
-  let exemptiong;
-  let rates = [0, 0.01, 0.02, 0.03, 0.05, 0.1];
-  let exempts = [1, 2, 3, 5, 10].map(d => d * 1000000);
-  let sliderni;
-  let slideri;
-  let slidere;
-
   // Legend
   let legendg;
 
@@ -178,72 +167,11 @@
 	  group: toGroup(+d.current_price),
 	}});
 	console.log('Number of data points:', dataraw.length);
-
-	// setup sliders
-	let textRatioSlider = 0.01;
-	sliderni = sliderBottom()
-	  .min(d3.min(rates))
-	  .max(d3.max(rates))
-	  .width(width * 0.35)
-	  .tickFormat(d => `${(d * 100).toFixed(1)} %`)
-	  .tickValues(rates)
-	  .value(rateNoninv)
-	  .on("onchange", (d, e) => rateNoninv = d);
-	
-	d3.select(ratenig)
-	  .call(sliderni);
-
-	d3.select(ratenig)
-	  .selectAll("text")
-	  .attr("font-size", `${width * textRatioSlider}px`);
-
-	slideri = sliderBottom()
-	  .min(d3.min(rates))
-	  .max(d3.max(rates))
-	  .width(width * 0.35)
-	  .tickFormat(d => `${(d * 100).toFixed(1)} %`)
-	  .tickValues(rates)
-	  .value(rateInv)
-	  .on("onchange", (d, e) => rateInv = d);
-
-	d3.select(rateig)
-	  .call(slideri);
-
-	d3.select(rateig)
-	  .selectAll("text")
-	  .attr("font-size", `${width * textRatioSlider}px`);
-
-	slidere = sliderBottom()
-	  .min(d3.min(exempts))
-	  .max(d3.max(exempts))
-	  .width(width * 0.35)
-	  .tickFormat(d => `${(d / 1000000).toFixed(1)} M$`)
-	  .tickValues(exempts)
-	  .value(rateInv)
-	  .on("onchange", (d, e) => taxthrd = d);
-
-	d3.select(exemptiong)
-	  .call(slidere);
-
-	d3.select(exemptiong)
-	  .selectAll("text")
-	  .attr("font-size", `${width * textRatioSlider}px`);
   });
 
 </script>
 
-<div class="container" bind:clientWidth={width} bind:clientHeight={height}>
-  <div style="visibility: {showtool ? 'visibile' : 'hidden'};">
-	<label style="position: relative; right: 10%; font-size: {width * 0.015}px;">
-	  <input type="checkbox" bind:checked={noninv} />
-	  Show non-investor transactions
-	</label>
-	<label style="position: relative; left: 10%; font-size: {width * 0.015}px;">
-	  <input type="checkbox" bind:checked={inv} />
-	  Show investor transactions
-	</label>
-  </div>
-  
+<div class="container" bind:clientWidth={width} bind:clientHeight={height}>  
   <svg bind:this={svg} width="100%" height="100%" style="font-weight: 300;">
 
 	<g bind:this={barsg} class="bars" />
@@ -265,45 +193,6 @@
 		↑ total transfer fee (million $)
 	  </text>
 	</g>
-
-	<g bind:this={exemptiong}
-	   class="slider"
-	   transform="translate({margin.left + width * 0.5}, {margin.top / 2})"
-	   style="visibility: {showtool ? 'visibile' : 'hidden'};">
-	  <text
-		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
-		text-anchor="center"
-		style="font-size: {width * 0.015}px;">
-		exemption threshold
-	  </text>
-	</g>
-
-	<g bind:this={ratenig}
-	   class="slider"
-	   transform="translate({margin.left + width * 0.5}, {margin.top / 2 + 0.15 * height})"
-	   style="visibility: {showtool ? 'visibile' : 'hidden'};">
-	  <text
-		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
-		text-anchor="center"
-		style="font-size: {width * 0.015}px;">
-		tax rate (non-investor)
-	  </text>
-	</g>
-
-	<g bind:this={rateig}
-	   class="slider"
-	   transform="translate({margin.left + width * 0.5}, {margin.top / 2 + 0.3 * height})"
-	   style="visibility: {showtool ? 'visibile' : 'hidden'};">
-	  <text
-		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
-		text-anchor="center"
-		style="font-size: {width * 0.015}px;">
-		tax rate (investor)
-	  </text>
-	</g>
-
-	<g bind:this={legendg}
-	   transform="translate({margin.left + width * 0.1}, {margin.top * 1})" />
 
 	<text
 	  x="{0.35 * width}px"
@@ -333,8 +222,6 @@
   .bars {
 	stroke-opacity: 0.1;
 	opacity: 0.5;
-  }
-  .slider {
   }
   .axislabel {
 	fill: currentColor;

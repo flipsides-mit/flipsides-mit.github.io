@@ -5,13 +5,14 @@
   import { sliderBottom } from 'd3-simple-slider';
   import { legendColor } from 'd3-svg-legend';
 
+  export let sepTax = false;
+  export let noninv = true;
+  export let inv = true;
+  export let rateNoninv = 0.01;
+  export let rateInv = 0.01;
+  export let taxThrd = 1000000;
   let width = 0;
   let height = 0;
-  let rateNoninv = 0.01;
-  let rateInv = 0.01;
-  let taxthrd = 1000000;
-  let noninv = true;
-  let inv = true;
 
   let miny = 100000000;
   let svg;
@@ -77,7 +78,7 @@
 	  .tickFormat(d => `${(d / 1000000).toFixed(1)}M$`)
 	  .tickValues(exempts)
 	  .value(rateInv)
-	  .on("onchange", (d, e) => taxthrd = d);
+	  .on("onchange", (d, e) => taxThrd = d);
 
 	d3.select(exemptiong)
 	  .call(slidere);
@@ -124,7 +125,8 @@
 
 	<g bind:this={rateig}
 	   class="slider"
-	   transform="translate({margin.left}, {margin.top / 2 + 0.80 * height})">
+	   transform="translate({margin.left}, {margin.top / 2 + 0.80 * height})"
+	   display="{sepTax ? 'default' : 'none'}">
 	  <text
 		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
 		text-anchor="center"
@@ -151,8 +153,6 @@
 	width: 100%;
 	height: 100%;
 	flex-direction: column;
-	border-radius: 25px;
-	box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
   }
   #normal {
 	stroke: #BBBBBB;

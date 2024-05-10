@@ -108,6 +108,16 @@
   $: opacityTaxGroup = taxGroupTran(progressTax);
   let topTaxGroupCard1Tran = scaleTran(0, 60, createUpDownTransition(50, 60, 70, 80));
   $: topTaxGroupCard1 = topTaxGroupCard1Tran(progressTax);
+  let taxControlHeightTran = scaleTran(50 * 0.75, 50, createUpTransition(50, 55));
+  $: taxControlHeight = taxControlHeightTran(progressTax);
+
+  // Tax group control variables
+  let noninv = true;
+  let inv = true;
+  let rateNoninv = 0.01;
+  let rateInv = 0.01;
+  let taxThrd = 1000000;
+  let sum = 0;
 
   // Backgroud
   $: alphaBg = 1 - opacityTaxGroup - opacityMarket;
@@ -384,13 +394,19 @@
 	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="position: aboslute; height: 80vh; width: 65%; opacity: {opacityTaxGroup};">
-		<TaxGroup {colortim} {colorjoe} showtool={false} />
+		<TaxGroup
+		  bind:sum
+		  {colortim} {colorjoe} {noninv} {inv} {rateNoninv} {rateInv} {taxThrd}
+		  showtool={false} />
+	  </div>
+	  <div class="shaded" style="position: fixed; top: 25%; right: 2%; height: {taxControlHeight}vh; width: 30%; opacity: {opacityTaxGroup};">
 	  </div>
 	  <div class="text-dark" style="position: fixed; top: 25%; right: 2%; height: 50vh; width: 30%; opacity: {opacityTaxGroup};">
-		<TaxControl />
+		<TaxControl
+		  bind:noninv bind:inv bind:rateNoninv bind:rateInv bind:taxThrd />
 	  </div>
 	  <div class="text-dark" style="position: fixed; bottom: 15%; right: 5%; opacity: {opacityTaxGroup}; font-size: {innerHeight * 0.05}px;">
-		Total revenue: $100M
+		Total revenue: ${(sum / 1000000).toFixed(0)} M
 	  </div>
 	</svelte:fragment>
   </Scrolly>
@@ -469,6 +485,10 @@
     font-size: 20px;
 	border-radius: 20px;
 	padding: 25px;
+  }
+  .shaded {
+	border-radius: 25px;
+	box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
   }
   #page-payer {
 	font-size: 50px;
