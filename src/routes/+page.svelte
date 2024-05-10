@@ -12,20 +12,23 @@
 
   let innerHeight;
   let progressOpening;
-  let progressTax;
   let progressQuestion;
   let progressTim;
   let progressJoe;
+  let progressHousing;
+  let progressTax;
 
   $: console.log('opening prog', progressOpening);
-
-  $: console.log('tax prog', progressTax);
 
   $: console.log('question prog', progressQuestion);
 
   $: console.log('tim prog', progressTim);
 
   $: console.log('joe prog', progressJoe);
+
+  $: console.log('housing prog', progressHousing);
+
+  $: console.log('tax prog', progressTax);
 
   function createUpDownTransition(begin, peakb, peake, end) {
 	return (progress) => {
@@ -88,19 +91,17 @@
   $: opacityPeopleBlue = peopleBlueTran(progressJoe)
   let joeTran = createUpDownTransition(20, 25, 90, 100);
   $: opacityJoe = joeTran(progressJoe);
-  let joeBgTran = createUpTransition(60, 70);
-  $: opacityJoeBg = progressJoe <= 60 ? opacityJoe : 1 - joeBgTran(progressJoe);
 
   // Housing market
-  let marketTran = createUpDownTransition(60, 70, 95, 100);
-  $: opacityMarket = marketTran(progressJoe);
+  let marketTran = createUpDownTransition(10, 20, 90, 100);
+  $: opacityMarket = marketTran(progressHousing);
   let topMarketCard1Tran = scaleTran(0, 60, createUpDownTransition(60, 65, 70, 75));
-  $: topMarketCard1 = topMarketCard1Tran(progressJoe);
+  $: topMarketCard1 = topMarketCard1Tran(progressHousing);
   let topMarketCard2Tran = scaleTran(0, 60, createUpDownTransition(75, 80, 85, 90));
-  $: topMarketCard2 = topMarketCard2Tran(progressJoe);
+  $: topMarketCard2 = topMarketCard2Tran(progressHousing);
 
   // Tax group
-  let taxGroupTran = createUpDownTransition(20, 50, 70, 90);
+  let taxGroupTran = createUpDownTransition(40, 50, 70, 90);
   $: opacityTaxGroup = taxGroupTran(progressTax);
   let topTaxGroupCard1Tran = scaleTran(0, 60, createUpDownTransition(50, 60, 70, 80));
   $: topTaxGroupCard1 = topTaxGroupCard1Tran(progressTax);
@@ -111,7 +112,7 @@
 
   let zidxBg = 1;
   $: {
-	if (70 <= progressJoe && progressJoe < 100) {
+	if (70 <= progressHousing && progressHousing < 100) {
 	  zidxBg = 0;
 	} else {
 	  zidxBg = 1;
@@ -164,14 +165,10 @@
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityJoeBg}; z-index: {zidxBg};">
+			opacity: {opacityJoe}; z-index: {zidxBg};">
   <div style="position: absolute; height: 60%; bottom: 16%; right: 15%;">
 	<img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
   </div>
-</div>
-
-<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityJoe}; z-index: {zidxBg};">
   <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;">
 	<img src="/joe.png" style="object-fit: contain;" alt="joe">
   </div>
@@ -280,7 +277,7 @@
   </Scrolly>
 
   <!-- Joe -->
-  <Scrolly bind:progress={progressJoe} threshold={0.95} margin={innerHeight * 0.05} --scrolly-layout="overlap" >
+  <Scrolly bind:progress={progressJoe} threshold={1} margin={0} --scrolly-layout="overlap" >
 	<div style="height: 100vh;" />
 	<div class="relpage" style="height: 80vh;">
 	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 5%;
@@ -301,9 +298,14 @@
 		<img src="/single-family.png" style="object-fit: contain;" alt="single-family">
 	  </div>
 	</div>
-	<div style="height: 300vh;" />
+	<div style="height: 100vh;" />
+	<svelte:fragment slot="viz">
+	</svelte:fragment>
+  </Scrolly>
 
-	<!-- Interactive visualization: Housing market and investor activity -->
+  <!-- Interactive visualization: Housing market and investor activity -->
+  <Scrolly bind:progress={progressHousing} threshold={0.95} margin={innerHeight * 0.05} --scrolly-layout="overlap" >
+	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="opacity: {opacityMarket};">
 		<div style="position: absolute; height: 50%; width: 50%; left: 25%;">
@@ -339,34 +341,37 @@
 	<tspan style="font-weight: bold;">Key finding 2: </tspan> Investors generally prefer the luxury housing markets.
   </div>
 
-  <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
-	<!-- Key result: Non-investors paying too much fee -->
-	<div class="relpage" style="height: 250vh">
-  	  <div style="position: absolute; width: 40%; height: 40%; top: 15%; left: 29%;
-				  font-size: 25pt;">
-		<center>
-		  It seems that the <tspan style="color: {colortim};">middle-class
-			majority</tspan>, represented by Tim, are paying a significant amount
-		  of transfer fees; <br><br>meanwhile,
-		  <tspan style="color: cyan;">investors</tspan> are able to cover their
-		  transfer fee expenses through the much higher profits, potentially
-		  from flipping houses.
-	  </div>
-	  <div style="position: absolute; height: 20%; width: 30%; transform: translate(0%, 50%);">
-		<img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
-	  </div>
-	  <div style="position: sticky; float: left; height: 20%; width: 30%; top: 0%; transform: translate(0%, 50%);">
-		<img src="/tim.png" style="object-fit: contain;" alt="tim">
-	  </div>
-	  <div style="position: absolute; height: 20%; width: 30%; transform: translate(230%, 50%);">
-		<img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
-	  </div>
-	  <div style="position: sticky; float: right; height: 20%; width: 30%; top: 0%; transform: translate(0%, 50%);">
-		<img src="/joe.png" style="object-fit: contain;" alt="joe">
-	  </div>
+  <!-- Key result: Non-investors paying too much fee -->
+  <div class="relpage" style="height: 100vh">
+  	<div style="position: absolute; width: 40%; height: 40%; top: 35%; left: 29%;
+				font-size: 25pt;">
+	  <center>
+		It seems that the <tspan style="color: {colortim};">middle-class
+		  majority</tspan>, represented by Tim, are paying a significant amount
+		of transfer fees; <br><br>meanwhile,
+		<tspan style="color: cyan;">investors</tspan> are able to cover their
+		transfer fee expenses through the much higher profits, potentially
+		from flipping houses.
 	</div>
+	<div style="position: absolute; height: 50%; width: 30%; top: 25%; transform: translate(0%, 10%);">
+	  <img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
+	</div>
+	<div style="position: absolute; height: 50%; width: 30%; top: 25%; transform: translate(0%, 10%);">
+	  <img src="/tim.png" style="object-fit: contain;" alt="tim">
+	</div>
+	<div style="position: absolute; height: 50%; width: 30%; top: 25%; transform: translate(230%, 10%);">
+	  <img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
+	</div>
+	<div style="position: absolute; height: 50%; width: 30%; top: 25%; transform: translate(230%, 10%);">
+	  <img src="/joe.png" style="object-fit: contain;" alt="joe">
+	</div>
+  </div>
 
-	<!-- Interactive visualization: Tax group breakdown -->
+  <!-- Interactive visualization: Tax group breakdown -->
+  <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
+	<div class="flexpage textbox" style="font-size: 45px;">
+	  Let's dive into who's actually paying for the transfer fee!
+	</div>
 	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="position: relative; height: 80vh; opacity: {opacityTaxGroup};">
