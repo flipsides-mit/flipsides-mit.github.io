@@ -384,7 +384,7 @@
 		Meanwhile,
 		<tspan style="color: cyan;">investors</tspan> are able to cover their
 		transfer fee expenses through the much higher profits, potentially from
-		flipping houses.Not to mention they still have priority trading rights
+		flipping houses. Not to mention they still have priority trading rights
 		in the housing market
 		with <a href="https://homesforprofit.mapc.org/report#the-investor-advantage">cash offers</a>.
 	</div>
@@ -437,18 +437,19 @@
 	the primary group paying the transfer fee (31%).
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard2}%);">
-	Now, let's pretend we're the policy makers! If the exemption threshold were
-	increased to 2M, and the tax rate to 2%, the portion of non-investors would
-	significantly reduce to 8%.
+	If the exemption threshold were increased to 2M, and the tax rate to 2%, the
+	portion of non-investors would significantly reduce to 8%.
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard3}%);">
-	If you were the policy maker, how should you adjust the policy, for a more
-	equitable distribution of resources?
+	Now, let's pretend we're the policy makers!  How would you adjust the
+	policy, for a more equitable distribution of resources?
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard4}%);">
 	<text>
-	  How about a more fine-grained policy that distinguishes between investors
-	  and non-investors? (See <a href="https://homesforprofit.mapc.org/report#data-and-definitions">here</a> for the definition of investors.)
+	  How about a more fine-grained policy that collects different rates of
+	  transfer fee from investors and non-investors?
+	  (See <a href="https://homesforprofit.mapc.org/report#data-and-definitions">here</a>
+	  for the definition of investors)
 	</text>
   </div>
 
