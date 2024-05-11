@@ -116,26 +116,29 @@
   let yMarketCard4Tran = scaleTran(-120, 0, createUpDownTransition(75, 80, 90, 92));
   $: yMarketCard4 = yMarketCard4Tran(progressHousing);
 
-
   // Housing market phase
   let phaseHousingTran = createPhase([20, 30, 40, 50, 60, 65, 70, 75, 80, 90])
   $: phaseHousing = phaseHousingTran(progressHousing)
 
   // Tax group
-  let taxGroupTran = createUpDownTransition(40, 50, 70, 90);
+  let taxGroupTran = createUpDownTransition(10, 20, 90, 100);
   $: opacityTaxGroup = taxGroupTran(progressTax);
-  let taxControlHeightTran = scaleTran(50 * 0.75, 50, createUpTransition(50, 55));
+
+  // Tax group phase
+  let taxControlTopTran = scaleTran(-40, 30, createUpTransition(30, 35));
+  $: taxControlTop = taxControlTopTran(progressTax);
+  let taxControlHeightTran = scaleTran(50 * 0.75, 50, createUpTransition(70, 75));
   $: taxControlHeight = taxControlHeightTran(progressTax);
-  $: sepTax = progressTax < 55 ? true : false;
+  $: sepTax = progressTax < 75 ? true : false;
 
   // Tax group cards
-  let yTaxGroupCard1Tran = scaleTran(-120, 0, createUpDownTransition(30, 35, 40, 45));
+  let yTaxGroupCard1Tran = scaleTran(-120, 0, createUpDownTransition(20, 25, 33, 35));
   $: yTaxGroupCard1 = yTaxGroupCard1Tran(progressTax);
-  let yTaxGroupCard2Tran = scaleTran(-120, 0, createUpDownTransition(45, 50, 55, 60));
+  let yTaxGroupCard2Tran = scaleTran(-120, 0, createUpDownTransition(30, 35, 58, 60));
   $: yTaxGroupCard2 = yTaxGroupCard2Tran(progressTax);
-  let yTaxGroupCard3Tran = scaleTran(-120, 0, createUpDownTransition(60, 65, 70, 75));
+  let yTaxGroupCard3Tran = scaleTran(-120, 0, createUpDownTransition(55, 60, 73, 75));
   $: yTaxGroupCard3 = yTaxGroupCard3Tran(progressTax);
-  let yTaxGroupCard4Tran = scaleTran(-120, 0, createUpDownTransition(75, 80, 85, 90));
+  let yTaxGroupCard4Tran = scaleTran(-120, 0, createUpDownTransition(70, 75, 90, 92));
   $: yTaxGroupCard4 = yTaxGroupCard4Tran(progressTax);
 
   // Tax group control variables
@@ -143,18 +146,26 @@
   let inv = true;
   let rateNoninv = 0.01;
   let rateInv = 0.01;
+  let rateBoth = 0.01;
   let taxThrd = 1000000;
   let sumInv = 0;
   let sumNoninv = 0;
   $: sum = sumInv + sumNoninv;
 
+  // Changing tax threshold and rate
+  let taxThrdTran = scaleTran(1000000, 2000000, createUpTransition(40, 45));
+  $: taxThrd = taxThrdTran(progressTax);
+  let rateTran = scaleTran(0.01, 0.02, createUpTransition(45, 50));
+  $: rateBoth = rateTran(progressTax);
+
   // Backgroud
-  $: alphaBg = 1 - opacityTaxGroup - opacityMarket;
+  $: alphaBg = 1 - opacityMarket - opacityTaxGroup;
   $: opacityBg = 0.3 * alphaBg;
 
   let zidxBg = 1;
   $: {
-	if ((80 <= progressHousing && progressHousing < 100) || (50 <= progressTax && progressTax < 90)) {
+	if ((80 <= progressHousing && progressHousing < 100) ||
+		(60 <= progressTax && progressTax < 100)) {
 	  zidxBg = 0;
 	} else {
 	  zidxBg = 1;
@@ -427,12 +438,14 @@
 	</div>
   </div>
 
+  <div class="flexpage textbox" style="font-size: 45px;">
+	Now, let's dive into who's actually paying for the transfer fee!
+  </div>
+
+
   <!-- Interactive visualization: Tax group breakdown -->
   <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
-	<div class="flexpage textbox" style="font-size: 45px;">
-	  Now, let's dive into who's actually paying for the transfer fee!
-	</div>
-	<div style="height: 600vh;" />
+	<div style="height: 400vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="position: absolute; top: 10%; height: 80vh; width: 65%; opacity: {opacityTaxGroup};">
 		<TaxGroup
@@ -440,11 +453,19 @@
 		  {colortim} {colorjoe} {noninv} {inv} {rateNoninv} {rateInv} {taxThrd}
 		  showtool={false} />
 	  </div>
-	  <div class="shaded" style="position: fixed; top: 30%; right: 2%; height: {taxControlHeight}vh; width: 32%; opacity: {opacityTaxGroup};">
+	  <div class="shaded"
+		   style="position: fixed;
+				  top: {taxControlTop}%;
+				  right: 2%; height: {taxControlHeight}vh; width: 32%;
+				  opacity: {opacityTaxGroup};">
 	  </div>
-	  <div class="text-dark" style="position: fixed; top: 30%; right: 2%; height: 50vh; width: 32%; opacity: {opacityTaxGroup};">
+	  <div class="text-dark"
+		   style="position: fixed;
+				  top: {taxControlTop}%;
+				  right: 2%; height: 50vh; width: 32%;
+				  opacity: {opacityTaxGroup};">
 		<TaxControl
-		  bind:noninv bind:inv bind:rateNoninv bind:rateInv bind:taxThrd bind:sepTax />
+		  bind:noninv bind:inv bind:rateBoth bind:rateNoninv bind:rateInv bind:taxThrd bind:sepTax />
 	  </div>
 	  <div class="text-dark" style="position: fixed; bottom: 10%; right: 5%; opacity: {opacityTaxGroup}; font-size: {innerHeight * 0.04}px;">
 		Total revenue: ${(sum / 1000000).toFixed(0)} M (
@@ -458,16 +479,17 @@
   <!-- Tax group cards -->
   <div class="card" style="transform: translateY({yTaxGroupCard1}%);">
 	Due to the large number of the non-investor home buyers, people like Tim,
-	who purchase homes in the 1M to 2M (and even 2M to 3M) range, have become
+	who purchase homes in the 1M-2M (and even 2M-3M) range, have become
 	the primary group paying the transfer fee (31%).
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard2}%);">
 	If the exemption threshold were increased to 2M, and the tax rate to 2%, the
-	portion of non-investors would significantly reduce to 8%.
+	portion of non-investors would significantly reduce to 8% while maintaining
+	the same level of revenue.
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard3}%);">
-	Now, let's pretend we're the policy makers!  How would you adjust the
-	policy, for a more equitable distribution of resources?
+	Let's pretend we're the policy makers!  How would you adjust the policy to
+	achieve a more equitable distribution of resources?
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard4}%);">
 	<text>
@@ -479,12 +501,12 @@
   </div>
 
   <!-- Conclusions -->
-  <div class="flexpage textbox" style="font-size: 45px;">
+  <div class="flexpage textbox" style="font-size: 42px;">
 	The initial intent of this tool is to present some information more openly
 	to the vast group of the non-investor home buyers, and it is also hoped to
 	serve as one of the reference elements for government policy regulation.
   </div>
-  <div class="flexpage textbox" style="font-size: 45px;">
+  <div class="flexpage textbox" style="font-size: 42px;">
   	Balancing the interests of multiple parties is very complex and faces
 	many risks. With this tool, we hope that Boston's housing market can
 	gradually move towards a more harmonious and fair state.

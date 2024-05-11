@@ -9,8 +9,8 @@
   export let inv = true;
   export let rateNoninv = 0.01;
   export let rateInv = 0.01;
+  export let rateBoth = 0.01;
   export let taxThrd = 1000000;
-  let rateBoth = 0.01;
   let width = 0;
   let height = 0;
 
@@ -36,6 +36,22 @@
   let slideri;
   let sliderboth;
   let slidere;
+
+  $: if (slidere) {
+	slidere.value(taxThrd);
+  }
+
+  $: if (sliderboth) {
+	sliderboth.value(rateBoth);
+  }
+
+  $: if (sliderni) {
+	sliderni.value(rateNoninv);
+  }
+
+  $: if (slideri) {
+	slideri.value(rateInv);
+  }
   
   // Data loading
   onMount(async () => {
@@ -53,6 +69,7 @@
 	  .on("onchange", (d, e) => {
 		rateNoninv = d;
 		rateInv = d;
+		rateBoth = d;
 	  });
 	
 	d3.select(ratebothg)
@@ -105,7 +122,7 @@
 	  .width(width * 0.8)
 	  .tickFormat(d => `${(d / 1000000).toFixed(1)}M$`)
 	  .tickValues(exempts)
-	  .value(rateInv)
+	  .value(taxThrd)
 	  .on("onchange", (d, e) => taxThrd = d);
 
 	d3.select(exemptiong)
