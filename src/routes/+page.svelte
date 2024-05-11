@@ -79,6 +79,13 @@
 	}
   }
 
+  function scaleDiscreteTran(begin, end, tran) {
+	return (progress) => {
+	  let d = end - begin;
+	  return begin + Math.floor(tran(progress) * d);
+	}
+  }
+
   // Opening
   let openingTran = createUpTransition(0, 80);
   $: opacityOpening = 1 - openingTran(progressOpening);
@@ -97,6 +104,12 @@
   $: opacityPeopleRed = peopleRedTran(progressQuestion);
   let timTran = createUpDownTransition(0, 20, 90, 100);
   $: opacityTim = timTran(progressTim);
+
+  // Tim animation
+  let walkingTimTran = scaleDiscreteTran(1, 14, createUpTransition(10, 30))
+  $: walkingTim = walkingTimTran(progressTim);
+
+  $: console.log(walkingTim);
 
   // Investors and Joe
   let peopleBlueTran = createUpDownTransition(0, 5, 15, 20);
@@ -204,11 +217,15 @@
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
 			opacity: {opacityTim}; z-index: {zidxBg};">
-  <div style="position: absolute; height: 60%; bottom: 16%; left: 10%;">
-	<img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
+  <div style="position: absolute; height: 60%; bottom: 40%; left: 20%;">
+	<img class="tim-intro" src="/tim-intro/standing.png" alt="tim">
   </div>
-  <div style="position: absolute; height: 60%; bottom: 20%; left: 20%;">
-	<img src="/tim.png" style="object-fit: contain;" alt="tim">
+</div>
+
+<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
+			opacity: {opacityTim}; z-index: {zidxBg};">
+  <div style="position: absolute; height: 60%; bottom: 40%; left: 20%;">
+	<img class="tim-intro" src="/tim-intro/walking-{walkingTim}.png" alt="tim">
   </div>
 </div>
 
@@ -219,9 +236,6 @@
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
 			opacity: {opacityJoe}; z-index: {zidxBg};">
-  <div style="position: absolute; height: 60%; bottom: 16%; right: 15%;">
-	<img src="/joe-bg.png" style="object-fit: contain;" alt="joe-bg">
-  </div>
   <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;">
 	<img src="/joe.png" style="object-fit: contain;" alt="joe">
   </div>
@@ -608,6 +622,11 @@
   .drag {
 	width: 10vh;
 	height: 10vh;
+  }
+  .tim-intro {
+	width: 40vh;
+	height: 100vh;
+	object-fit: cover;
   }
   #page-payer {
 	font-size: 50px;
