@@ -3,7 +3,6 @@
   import { fade } from 'svelte/transition';
   import * as d3 from 'd3';
   import { sliderBottom } from 'd3-simple-slider';
-  import { legendColor } from 'd3-svg-legend';
 
   export let sepTax = false;
   export let noninv = true;
@@ -61,6 +60,7 @@
 
 	d3.select(ratebothg)
 	  .selectAll("text")
+	  .attr("font-family", "Neucha")
 	  .attr("font-size", `${width * textRatioSlider}px`);
 
 	// non-investor rate slider
@@ -78,6 +78,7 @@
 
 	d3.select(ratenig)
 	  .selectAll("text")
+	  .attr("font-family", "Neucha")
 	  .attr("font-size", `${width * textRatioSlider}px`);
 
 	// investor rate slider
@@ -95,6 +96,7 @@
 
 	d3.select(rateig)
 	  .selectAll("text")
+	  .attr("font-family", "Neucha")
 	  .attr("font-size", `${width * textRatioSlider}px`);
 
 	slidere = sliderBottom()
@@ -111,6 +113,7 @@
 
 	d3.select(exemptiong)
 	  .selectAll("text")
+	  .attr("font-family", "Neucha")
 	  .attr("font-size", `${width * textRatioSlider}px`);
   });
 
@@ -131,7 +134,7 @@
 	   class="slider"
 	   transform="translate({margin.left}, {margin.top / 2 + 0.3 * height})">
 	  <text
-		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
+		x="{-0.01 * width}px" y="{-(0.04 * height)}px"
 		text-anchor="center"
 		style="font-size: {width * 0.05}px;">
 		exemption threshold
@@ -143,7 +146,7 @@
 	   transform="translate({margin.left}, {margin.top / 2 + 0.55 * height})"
 	   display="{sepTax ? 'default' : 'none'}">
 	  <text
-		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
+		x="{-0.01 * width}px" y="{-(0.04 * height)}px"
 		text-anchor="center"
 		style="font-size: {width * 0.05}px;">
 		tax rate
@@ -155,7 +158,7 @@
 	   transform="translate({margin.left}, {margin.top / 2 + 0.55 * height})"
 	   display="{sepTax ? 'none' : 'default'}">
 	  <text
-		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
+		x="{-0.01 * width}px" y="{-(0.04 * height)}px"
 		text-anchor="center"
 		style="font-size: {width * 0.05}px;">
 		tax rate (non-investor)
@@ -167,7 +170,7 @@
 	   transform="translate({margin.left}, {margin.top / 2 + 0.80 * height})"
 	   display="{sepTax ? 'none' : 'default'}">
 	  <text
-		x="{-0.01 * width}px" y="{-(0.02 * height)}px"
+		x="{-0.01 * width}px" y="{-(0.04 * height)}px"
 		text-anchor="center"
 		style="font-size: {width * 0.05}px;">
 		tax rate (investor)

@@ -28,7 +28,7 @@
 	top: height * 0.1,
 	right: width * 0.05,
 	bottom: height * 0.15,
-	left: width * 0.08,
+	left: width * 0.1,
   };
 
   // Computing tax revenue for each transaction
@@ -124,7 +124,7 @@
 	  .attr('stroke-width', '1px');
 
 	sel.selectAll('.tick > text')
-	  .attr('font-size', `${width * 0.015}px`);
+	  .attr('font-size', `${width * 0.02}px`);
   }
 
   // Y-axis
@@ -140,7 +140,7 @@
 	  .style('stroke-width', '1px');
 
 	sel.selectAll('.tick > text')
-	  .style('font-size', `${width * 0.015}px`);
+	  .style('font-size', `${width * 0.02}px`);
   }
 
   // Legend
@@ -155,7 +155,7 @@
 		.scale(ordinal);
 
 	d3.select(legendg)
-	  .style('font-size', `${width * 0.02}px`)
+	  .style('font-size', `${width * 0.025}px`)
 	  .call(legend);
 
 	d3.select(legendg)
@@ -185,7 +185,7 @@
 	   bind:this={xAxis}>
 	  <text class="axislabel"
 			x={width - margin.right * 0.7} y={margin.bottom * 0.6}
-			style="text-anchor: end; font-size: {width * 0.02}px">
+			style="text-anchor: end; font-size: {width * 0.025}px">
 		price range (million $)
 	  </text>
 	</g>
@@ -194,10 +194,13 @@
 	   bind:this={yAxis}>
 	  <text class="axislabel"
 			x={-(0.4 * margin.left)} y={margin.top * 0.6}
-			style="text-anchor: start; font-size: {width * 0.02}px">
+			style="text-anchor: start; font-size: {width * 0.025}px">
 		↑ total transfer fee (million $)
 	  </text>
 	</g>
+
+	<g bind:this={legendg}
+	   transform="translate({margin.left + width * 0.1}, {margin.top * 1})" />
   </svg>
 </div>
 

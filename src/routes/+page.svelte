@@ -96,21 +96,29 @@
   // Housing market
   let marketTran = createUpDownTransition(10, 20, 90, 100);
   $: opacityMarket = marketTran(progressHousing);
-  let topMarketCard1Tran = scaleTran(0, 40, createUpDownTransition(30, 35, 45, 50));
-  $: topMarketCard1 = topMarketCard1Tran(progressHousing);
-  let topMarketCard2Tran = scaleTran(0, 40, createUpDownTransition(50, 55, 65, 70));
-  $: topMarketCard2 = topMarketCard2Tran(progressHousing);
-  let topMarketCard3Tran = scaleTran(0, 40, createUpDownTransition(70, 75, 85, 90));
-  $: topMarketCard3 = topMarketCard3Tran(progressHousing);
+  let yMarketCard1Tran = scaleTran(-120, 0, createUpDownTransition(30, 35, 45, 50));
+  $: yMarketCard1 = yMarketCard1Tran(progressHousing);
+  let yMarketCard2Tran = scaleTran(-120, 0, createUpDownTransition(50, 55, 65, 70));
+  $: yMarketCard2 = yMarketCard2Tran(progressHousing);
+  let yMarketCard3Tran = scaleTran(-120, 0, createUpDownTransition(70, 75, 85, 90));
+  $: yMarketCard3 = yMarketCard3Tran(progressHousing);
 
   // Tax group
   let taxGroupTran = createUpDownTransition(40, 50, 70, 90);
   $: opacityTaxGroup = taxGroupTran(progressTax);
-  let topTaxGroupCard1Tran = scaleTran(0, 60, createUpDownTransition(50, 60, 70, 80));
-  $: topTaxGroupCard1 = topTaxGroupCard1Tran(progressTax);
   let taxControlHeightTran = scaleTran(50 * 0.75, 50, createUpTransition(50, 55));
   $: taxControlHeight = taxControlHeightTran(progressTax);
   $: sepTax = progressTax < 55 ? true : false;
+
+  // Tax group cards
+  let yTaxGroupCard1Tran = scaleTran(-120, 0, createUpDownTransition(30, 35, 40, 45));
+  $: yTaxGroupCard1 = yTaxGroupCard1Tran(progressTax);
+  let yTaxGroupCard2Tran = scaleTran(-120, 0, createUpDownTransition(45, 50, 55, 60));
+  $: yTaxGroupCard2 = yTaxGroupCard2Tran(progressTax);
+  let yTaxGroupCard3Tran = scaleTran(-120, 0, createUpDownTransition(60, 65, 70, 75));
+  $: yTaxGroupCard3 = yTaxGroupCard3Tran(progressTax);
+  let yTaxGroupCard4Tran = scaleTran(-120, 0, createUpDownTransition(75, 80, 85, 90));
+  $: yTaxGroupCard4 = yTaxGroupCard4Tran(progressTax);
 
   // Tax group control variables
   let noninv = true;
@@ -128,7 +136,7 @@
 
   let zidxBg = 1;
   $: {
-	if ((70 <= progressHousing && progressHousing < 100) || (50 <= progressTax && progressTax < 80)) {
+	if ((70 <= progressHousing && progressHousing < 100) || (50 <= progressTax && progressTax < 90)) {
 	  zidxBg = 0;
 	} else {
 	  zidxBg = 1;
@@ -324,19 +332,19 @@
 	<div style="height: 300vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="opacity: {opacityMarket};">
-		<div style="position: absolute; height: 50%; width: 50%; left: 5%;">
+		<div style="position: absolute; height: 65%; width: 50%; left: 5%; top: 22%;">
 		  <InvestorActivity phase={1} {colortim} {colorjoe} />
 		</div>
 		<div style="position: absolute; height: 30%; width: 40%; right: 5%; bottom: 10%;">
 		  <PriceHistogram color={colorjoe} seldata={seldatap} invsel={invselp} />
 		</div>
-		<div style="position: absolute; height: 30%; width: 20%; right: 0%; bottom: 20%;">
+		<div style="position: absolute; height: 25%; width: 20%; right: 0%; bottom: 20%;">
 		  <InvestorPie id={0} color={colorjoe} data={seldatap} invsel={invselp} />
 		</div>
-		<div style="position: absolute; height: 30%; width: 40%; left: 5%; bottom: 10%;">
+		<div style="position: absolute; height: 30%; width: 40%; right: 5%; bottom: 50%;">
 		  <PriceHistogram color={colortim} seldata={seldataq} invsel={invselq} />
 		</div>
-		<div style="position: absolute; height: 30%; width: 20%; left: 30%; bottom: 20%;">
+		<div style="position: absolute; height: 25%; width: 20%; right: 0%; bottom: 60%;">
 		  <InvestorPie id={1} color={colortim} data={seldataq} invsel={invselq} />
 		</div>
 	  </div>
@@ -344,22 +352,21 @@
   </Scrolly>
 
   <!-- Housing market cards -->
-  <div class="card"
-	   style="position: fixed; font-size: 20pt; color: black;
-			  width: 30%; right: 5%; top: {topMarketCard1}%; transform: translateY(-100%);">
-	<tspan style="font-weight: bold;">Key finding 1: </tspan> Investors make ~2x profit as non-investors,
-	<tspan>and this gap becomes even larger when it comes to flipped properties.</tspan>
+  <div class="card" style="transform: translateY({yMarketCard1}%);">
+	<text>
+	  <tspan style="font-weight: bold;">Key finding 1: </tspan>
+	  Investors make ~2x profit as non-investors,
+	  <tspan>and this gap becomes even larger when it comes to flipped properties.</tspan>
+	</text>
   </div>
 
-  <div class="card"
-	   style="position: fixed; font-size: 20pt; color: black;
-			  width: 30%; right: 5%; top: {topMarketCard2}%; transform: translateY(-100%);">
-	<tspan style="font-weight: bold;">Key finding 2: </tspan> Investors generally prefer the luxury housing markets.
+  <div class="card" style="transform: translateY({yMarketCard2}%);">
+	<text>
+	  <tspan style="font-weight: bold;">Key finding 2: </tspan> Investors generally prefer the luxury housing markets.
+	</text>
   </div>
 
-  <div class="card"
-	   style="position: fixed; font-size: 20pt; color: black;
-			  width: 30%; right: 5%; top: {topMarketCard3}%; transform: translateY(-100%);">
+  <div class="card" style="transform: translateY({yMarketCard3}%);">
 	Select two markets and compare their revenue on your own!
   </div>
 
@@ -394,35 +401,49 @@
 	<div class="flexpage textbox" style="font-size: 45px;">
 	  Let's dive into who's actually paying for the transfer fee!
 	</div>
-	<div style="height: 300vh;" />
+	<div style="height: 600vh;" />
 	<svelte:fragment slot="viz">
-	  <div class="text-dark" style="position: aboslute; height: 80vh; width: 65%; opacity: {opacityTaxGroup};">
+	  <div class="text-dark" style="position: absolute; top: 10%; height: 80vh; width: 65%; opacity: {opacityTaxGroup};">
 		<TaxGroup
 		  bind:sumNoninv bind:sumInv
 		  {colortim} {colorjoe} {noninv} {inv} {rateNoninv} {rateInv} {taxThrd}
 		  showtool={false} />
 	  </div>
-	  <div class="shaded" style="position: fixed; top: 25%; right: 2%; height: {taxControlHeight}vh; width: 30%; opacity: {opacityTaxGroup};">
+	  <div class="shaded" style="position: fixed; top: 30%; right: 2%; height: {taxControlHeight}vh; width: 32%; opacity: {opacityTaxGroup};">
 	  </div>
-	  <div class="text-dark" style="position: fixed; top: 25%; right: 2%; height: 50vh; width: 30%; opacity: {opacityTaxGroup};">
+	  <div class="text-dark" style="position: fixed; top: 30%; right: 2%; height: 50vh; width: 32%; opacity: {opacityTaxGroup};">
 		<TaxControl
 		  bind:noninv bind:inv bind:rateNoninv bind:rateInv bind:taxThrd bind:sepTax />
 	  </div>
 	  <div class="text-dark" style="position: fixed; bottom: 10%; right: 5%; opacity: {opacityTaxGroup}; font-size: {innerHeight * 0.04}px;">
-		Revenue (non-investors): ${(sumNoninv / 1000000).toFixed(0)} M ({((sumNoninv / sum) * 100).toFixed(0)}%)<br>
-		Revenue (investors): ${(sumInv / 1000000).toFixed(0)} M ({((sumInv / sum) * 100).toFixed(0)}%)<br>
-		Total revenue: ${(sum / 1000000).toFixed(0)} M
+		Total revenue: ${(sum / 1000000).toFixed(0)} M (
+		<tspan style="color: {colortim};">{((sumNoninv / sum) * 100).toFixed(0)}%</tspan> /
+		<tspan style="color: {colorjoe};">{((sumInv / sum) * 100).toFixed(0)}%</tspan>
+		  )
 	  </div>
 	</svelte:fragment>
   </Scrolly>
 
   <!-- Tax group cards -->
-  <div class="card"
-	   style="position: fixed; font-size: 20pt; color: black;
-			  width: 40%; left: 24%; top: {topTaxGroupCard1}%; transform: translateY(-100%);">
+  <div class="card" style="transform: translateY({yTaxGroupCard1}%);">
 	Due to the large number of the middle class, people like Tim, who
 	purchase homes in the 1M to 2M (and even 2M to 3M) range, have become
-	the primary group paying the transfer fee.
+	the primary group paying the transfer fee (31%).
+  </div>
+  <div class="card" style="transform: translateY({yTaxGroupCard2}%);">
+	Now, let's pretend we're the policy makers! If the exemption threshold were
+	increased to 2M, and the tax rate to 2%, the portion of non-investors would
+	significantly reduce to 8%.
+  </div>
+  <div class="card" style="transform: translateY({yTaxGroupCard3}%);">
+	If you were the policy maker, how should you adjust the policy, for a more
+	equitable distribution of resources?
+  </div>
+  <div class="card" style="transform: translateY({yTaxGroupCard4}%);">
+	<text>
+	  How about a more fine-grained policy that distinguishes between investors
+	  and non-investors? (See <a href="https://homesforprofit.mapc.org/report#data-and-definitions">here</a> for the definition of investors.)
+	</text>
   </div>
 
   <!-- Conclusions -->
@@ -485,11 +506,18 @@
 	color: black;
   }
   .card {
-	background: #F7F7F7;
+	position: fixed;
+	top: 0%;
+	width: 100%;
+	height: 8vh;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	align-self: center;
 	color: black;
-    font-size: 20px;
-	border-radius: 20px;
-	padding: 25px;
+    font-size: 36px;
+	box-shadow: rgba(0, 0, 0, 0.6) 0px 25px 20px -20px;
+	padding: 5%;
   }
   .shaded {
 	border-radius: 25px;
