@@ -87,8 +87,11 @@
   }
 
   // Opening
-  let openingTran = createUpTransition(0, 80);
+  let openingTran = createUpTransition(70, 100);
   $: opacityOpening = 1 - openingTran(progressOpening);
+  let openingFrameTran = scaleDiscreteTran(1, 12, createUpTransition(0, 20))
+  $: openingFrame = openingFrameTran(progressOpening);
+
 
   // Questions
   let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
@@ -196,13 +199,14 @@
 </script>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityOpening}; z-index: {zidxBg};">
-  <img src="/houses.png" alt="houses-color-bg">
+			opacity: {opacityBg}; z-index: {zidxBg};">
+  <img src="/houses-dark.png" alt="houses-bg">
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityBg}; z-index: {zidxBg};">
-  <img src="/houses-dark.png" alt="houses-bg">
+			opacity: {opacityOpening}; z-index: {zidxBg};">
+  <!-- <img src="/houses.png" alt="houses-color-bg"> -->
+  <img src="/opening/frame-{openingFrame}.png" alt="opening">
 </div>
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
@@ -245,7 +249,7 @@
 
   <!-- Opening -->
   <Scrolly bind:progress={progressOpening} threshold={0} margin={0} --scrolly-layout="overlap" >
-	<div style="height: 120vh;" />
+	<div style="height: 180vh;" />
 	<svelte:fragment slot="viz">
 	</svelte:fragment>
   </Scrolly>
@@ -262,7 +266,7 @@
 
   <!-- Transfer fee -->
   <div class="relpage">
-	<div style="width: 70%; position: absolute; bottom: 45%; left: 15%;
+	<div style="width: 80%; position: absolute; bottom: 45%; left: 10%;
 				font-size: 40px;">
 
 	  The Affordable Homes Act includes a provision that would grant
@@ -273,7 +277,7 @@
 	  <tspan style="color: #EE7733;">$1M</tspan> or the county median single
 	  family home price, whichever is greater.<br><br>
 
-	  For instance, the fee for a 2M property under the 2% tax rate is:<br>
+	  For instance, the transfer fee for a 2M property under the 2% rate is:<br>
 	  <center>(2M - 1M) × 0.02 = 10K $</center>
 	</div>
   </div>
