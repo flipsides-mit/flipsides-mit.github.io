@@ -61,6 +61,17 @@
 	}
   }
 
+  function createPhase(thrds) {
+	return (progress) => {
+	  for (let i = 0; i < thrds.length; i++) {
+		if (progress < thrds[i]) {
+		  return i;
+		}
+	  }
+	  return thrds.length;
+	}
+  }
+
   function scaleTran(begin, end, tran) {
 	return (progress) => {
 	  let d = end - begin;
@@ -96,12 +107,19 @@
   // Housing market
   let marketTran = createUpDownTransition(10, 20, 90, 100);
   $: opacityMarket = marketTran(progressHousing);
-  let yMarketCard1Tran = scaleTran(-120, 0, createUpDownTransition(30, 35, 45, 50));
+  let yMarketCard1Tran = scaleTran(-120, 0, createUpDownTransition(20, 25, 38, 40));
   $: yMarketCard1 = yMarketCard1Tran(progressHousing);
-  let yMarketCard2Tran = scaleTran(-120, 0, createUpDownTransition(50, 55, 65, 70));
+  let yMarketCard2Tran = scaleTran(-120, 0, createUpDownTransition(35, 40, 48, 50));
   $: yMarketCard2 = yMarketCard2Tran(progressHousing);
-  let yMarketCard3Tran = scaleTran(-120, 0, createUpDownTransition(70, 75, 85, 90));
+  let yMarketCard3Tran = scaleTran(-120, 0, createUpDownTransition(45, 50, 78, 80));
   $: yMarketCard3 = yMarketCard3Tran(progressHousing);
+  let yMarketCard4Tran = scaleTran(-120, 0, createUpDownTransition(75, 80, 90, 92));
+  $: yMarketCard4 = yMarketCard4Tran(progressHousing);
+
+
+  // Housing market phase
+  let phaseHousingTran = createPhase([20, 30, 40, 50, 60, 65, 70, 75, 80, 90])
+  $: phaseHousing = phaseHousingTran(progressHousing)
 
   // Tax group
   let taxGroupTran = createUpDownTransition(40, 50, 70, 90);
@@ -136,7 +154,7 @@
 
   let zidxBg = 1;
   $: {
-	if ((70 <= progressHousing && progressHousing < 100) || (50 <= progressTax && progressTax < 90)) {
+	if ((80 <= progressHousing && progressHousing < 100) || (50 <= progressTax && progressTax < 90)) {
 	  zidxBg = 0;
 	} else {
 	  zidxBg = 1;
@@ -331,11 +349,11 @@
 
   <!-- Interactive visualization: Housing market and investor activity -->
   <Scrolly bind:progress={progressHousing} threshold={0.95} margin={innerHeight * 0.05} --scrolly-layout="overlap" >
-	<div style="height: 300vh;" />
+	<div style="height: 400vh;" />
 	<svelte:fragment slot="viz">
 	  <div class="text-dark" style="opacity: {opacityMarket};">
 		<div style="position: absolute; height: 65%; width: 50%; left: 5%; top: 22%;">
-		  <InvestorActivity phase={1} {colortim} {colorjoe} />
+		  <InvestorActivity phase={phaseHousing} {colortim} {colorjoe} />
 		</div>
 		<div style="position: absolute; height: 30%; width: 40%; right: 5%; bottom: 10%;">
 		  <PriceHistogram color={colorjoe} seldata={seldatap} invsel={invselp} />
@@ -356,19 +374,26 @@
   <!-- Housing market cards -->
   <div class="card" style="transform: translateY({yMarketCard1}%);">
 	<text>
-	  <tspan style="font-weight: bold;">Key finding 1: </tspan>
-	  Investors make ~2x profit as non-investors,
-	  <tspan>and this gap becomes even larger when it comes to flipped properties.</tspan>
+	  <tspan style="font-weight: bold;">Key finding: </tspan>
+	  Investors make ~2x profit as non-investors in the high-end (> $1M) housing market.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard2}%);">
 	<text>
-	  <tspan style="font-weight: bold;">Key finding 2: </tspan> Investors generally prefer the luxury housing markets.
+	  <tspan style="font-weight: bold;">Key finding: </tspan>
+	  This gap becomes even larger when it comes to flipped properties.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard3}%);">
+	<text>
+	  <tspan style="font-weight: bold;">Key finding:
+	  </tspan> Investors generally prefer the luxury housing markets.
+	</text>
+  </div>
+
+  <div class="card" style="transform: translateY({yMarketCard4}%);">
 	Select two markets and compare their revenue on your own!
   </div>
 
@@ -527,6 +552,7 @@
 	width: 100%;
 	height: 8vh;
 	box-sizing: border-box;
+	background-color: white;
 	display: flex;
 	align-items: center;
 	align-self: center;

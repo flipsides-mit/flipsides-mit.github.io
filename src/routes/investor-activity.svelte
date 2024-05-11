@@ -215,8 +215,12 @@
 
   function resetBrushesLocation() {
 	d3.select(brushp)
+	  .transition()
+	  .duration(d)
 	  .call(brushes[0].move, [[xScale(0),yScale(0)],[xScale(0),yScale(0)]]);
 	d3.select(brushq)
+	  .transition()
+	  .duration(d)
 	  .call(brushes[1].move, [[xScale(0),yScale(0)],[xScale(0),yScale(0)]]);
   }
 
@@ -225,24 +229,55 @@
 	if (n == 0) {
 	  resetBrushesLocation()
 	} else if (n == 1) {
-	  d3.select(brushp)
-		.transition()
-		.duration(d)
-	  	.call(brushes[0].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
 		.duration(d)
-		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
+		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(6000000),yScale(0)]]);
 	} else if (n == 2) {
 	  d3.select(brushp)
 		.transition()
 		.duration(d)
-	  	.call(brushes[0].move, [[xScale(3000000),yScale(2)],[xScale(4000000),yScale(0)]]);
+	  	.call(brushes[0].move, [[xScale(1000000),yScale(25)],[xScale(6000000),yScale(0)]]);
+	} else if (n == 3) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(1000000),yScale(2)],[xScale(6000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
 		.duration(d)
-		.call(brushes[1].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
-
+	  	.call(brushes[1].move, [[xScale(1000000),yScale(2)],[xScale(6000000),yScale(0)]]);
+	} else if (n == 4) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(0),yScale(25)],[xScale(1000000),yScale(0)]]);
+	  d3.select(brushq)
+	  	.transition()
+		.duration(d)
+		.call(brushes[1].move, [[xScale(0),yScale(0)],[xScale(0),yScale(0)]]);
+	} else if (n == 5) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(1000000),yScale(25)],[xScale(2000000),yScale(0)]]);
+	} else if (n == 6) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(2000000),yScale(25)],[xScale(3000000),yScale(0)]]);
+	} else if (n == 7) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(3000000),yScale(25)],[xScale(4000000),yScale(0)]]);
+	} else if (n == 8) {
+	  d3.select(brushp)
+		.transition()
+		.duration(d)
+	  	.call(brushes[0].move, [[xScale(4000000),yScale(25)],[xScale(5000000),yScale(0)]]);
+	} else {
+	  resetBrushesLocation();
 	}
   }
 

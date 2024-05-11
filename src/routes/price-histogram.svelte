@@ -29,7 +29,7 @@
 	console.log('invsel = ', $invsel)
   }
 
-  $: xrange = 50 < medianp ? [-20, medianp * 1.5] : [-20, 60];
+  $: xrange = 50 < medianp ? [-20, medianp * 2] : [-20, 60];
 
   $: bins = d3.bin()
   .domain(xrange)
