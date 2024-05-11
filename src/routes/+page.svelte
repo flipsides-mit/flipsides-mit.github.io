@@ -311,7 +311,7 @@
 		An MIT architecture graduate and a
 		<tspan style="color: {colortim};">first-time home buyer</tspan>, just
 		got an offer in Boston with an annual household income is around
-		$150k~200k. Tim is looking for a house in Boston with his family.
+		$100K. Tim is looking for a house in Boston with his family.
 	  </div>
 	</div>
 	<div class="relpage" style="height: 80vh;">
