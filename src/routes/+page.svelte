@@ -277,21 +277,22 @@
 	<div class="relpage" style="height: 80vh;">
 	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 40%;
 				  font-size: 25pt;">
-		<center>
-		  -- Tim --<br><br>
-		  An MIT graduate, the <tspan style="color: {colortim};">middle class</tspan> represent, just got an offer
-		  from a tech company in Boston whose annual household income is
-		  around $150k~200k. Tim is looking for a house in Boston with his
-		  family.
+		<center>-- Tim --</center><br>
+		  
+		An MIT architecture graduate and a
+		<tspan style="color: {colortim};">first-time home buyer</tspan>, just
+		got an offer in Boston with an annual household income is around
+		$150k~200k. Tim is looking for a house in Boston with his family.
 	  </div>
 	</div>
 	<div class="relpage" style="height: 80vh;">
 	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 40%;
 				  font-size: 25pt;">
-		Ultimately, Tim sets his sights on a house priced
-		at <tspan style="color: #EE7733;">$1.3M</tspan> - which means he
-		has to pay <tspan style="color: #EE7733;">$3K</tspan> as the transfer
-		(assuming an 1% tax rate).
+		
+		Ultimately, Tim plans to purchase a
+		<tspan style="color: #EE7733;">$1.3M</tspan> house through a mortgage -
+		which means he has to pay <tspan style="color: #EE7733;">$6K</tspan> as
+		the transfer (assuming a 2% tax rate), almost one month of his salary.
 	  </div>
 	  <div style="position: absolute; height: 80%; left: 30%;">
 		<img src="/condo.png" style="object-fit: contain;" alt="condo">
@@ -304,11 +305,12 @@
   <Scrolly bind:progress={progressJoe} threshold={1} margin={0} --scrolly-layout="overlap" >
 	<div style="height: 100vh;" />
 	<div class="relpage" style="height: 80vh;">
-	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 5%;
+	  <div style="position: absolute; width: 50%; height: 34%; top: 0%; left: 5%;
 				  font-size: 25pt;">
-		<center>
-		  -- Joe -- <br><br> An agency from an investor company, looking for
-		  properties to invest in the Great Boston Area.
+		<center> -- Joe -- </center><br>
+
+		An agency from an investor company, looking for properties to invest in
+		the Great Boston Area.
 	  </div>
 	</div>
 	<div class="relpage" style="height: 80vh;">
@@ -375,12 +377,16 @@
   	<div style="position: absolute; width: 40%; height: 40%; top: 35%; left: 29%;
 				font-size: 25pt;">
 	  <center>
-		It seems that the <tspan style="color: {colortim};">middle-class
-		  majority</tspan>, represented by Tim, are paying a significant amount
-		of transfer fees; <br><br>meanwhile,
+		It seems that the
+		<tspan style="color: {colortim};">non-investor home buyers</tspan>,
+		represented by Tim, are paying a significant amount of transfer
+		fees. <br><br>
+		Meanwhile,
 		<tspan style="color: cyan;">investors</tspan> are able to cover their
-		transfer fee expenses through the much higher profits, potentially
-		from flipping houses.
+		transfer fee expenses through the much higher profits, potentially from
+		flipping houses.Not to mention they still have priority trading rights
+		in the housing market
+		with <a href="https://homesforprofit.mapc.org/report#the-investor-advantage">cash offers</a>.
 	</div>
 	<div style="position: absolute; height: 50%; width: 30%; top: 25%; transform: translate(0%, 10%);">
 	  <img src="/tim-bg.png" style="object-fit: contain;" alt="tim-bg">
@@ -399,7 +405,7 @@
   <!-- Interactive visualization: Tax group breakdown -->
   <Scrolly bind:progress={progressTax} threshold={0.9} margin={innerHeight * 0.1} --scrolly-layout="overlap" >
 	<div class="flexpage textbox" style="font-size: 45px;">
-	  Let's dive into who's actually paying for the transfer fee!
+	  Now, let's dive into who's actually paying for the transfer fee!
 	</div>
 	<div style="height: 600vh;" />
 	<svelte:fragment slot="viz">
@@ -426,8 +432,8 @@
 
   <!-- Tax group cards -->
   <div class="card" style="transform: translateY({yTaxGroupCard1}%);">
-	Due to the large number of the middle class, people like Tim, who
-	purchase homes in the 1M to 2M (and even 2M to 3M) range, have become
+	Due to the large number of the non-investor home buyers, people like Tim,
+	who purchase homes in the 1M to 2M (and even 2M to 3M) range, have become
 	the primary group paying the transfer fee (31%).
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard2}%);">
@@ -448,8 +454,8 @@
 
   <!-- Conclusions -->
   <div class="flexpage textbox" style="font-size: 45px;">
-	The initial intent of this tool is to present some information more
-	openly to the vast group of the middle class, and it is also hoped to
+	The initial intent of this tool is to present some information more openly
+	to the vast group of the non-investor home buyers, and it is also hoped to
 	serve as one of the reference elements for government policy regulation.
   </div>
   <div class="flexpage textbox" style="font-size: 45px;">
@@ -458,7 +464,16 @@
 	gradually move towards a more harmonious and fair state.
   </div>
   <div class="flexpage textbox" style="font-size: 45px;">
-  	Credit (TODO): 6.C85 staffs, MAPC, and Warren Group.
+	<text>
+	  This project was developed with guidance and feedback from the
+	  <a href="https://www.mapc.org/">Metropolitan Area Planning Commission
+		(MAPC)</a>.<br><br>
+
+	  We are also grateful to the MIT Data & Society staffs and students that
+	  provide valuable feedback.<br><br>
+
+	  Data source: the Warren Group.
+	</text>
   </div>
 
   <div style="height: 50%;" />
@@ -543,5 +558,8 @@
   img {
     width: 100%;
     height: 100%;
+  }
+  a, a:hover, a:visited, a:active {
+	color: inherit;
   }
 </style>
