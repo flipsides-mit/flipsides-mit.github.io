@@ -253,9 +253,14 @@
 
 	  The Affordable Homes Act includes a provision that would grant
 	  Massachusetts municipalities the authority to implement a real estate
-	  transfer fee of <tspan style="color: #EE7733;">0.5% to 2.0%</tspan> on
-	  transactions of more than $1M or the county median single family home
-	  price, whichever is greater.
+	  transfer fee of
+	  <tspan style="color: #EE7733;">0.5% to 2.0%</tspan> on transactions of
+	  more than
+	  <tspan style="color: #EE7733;">$1M</tspan> or the county median single
+	  family home price, whichever is greater.<br><br>
+
+	  For instance, the fee for a 2M property under the 2% tax rate is:<br>
+	  <center>(2M - 1M) × 0.02 = 10K $</center>
 	</div>
   </div>
 
