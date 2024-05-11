@@ -389,27 +389,28 @@
 
   <!-- Housing market cards -->
   <div class="card" style="transform: translateY({yMarketCard1}%);">
+	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
 	<text>
-	  <tspan style="font-weight: bold;">Key finding: </tspan>
 	  Investors make ~2x profit as non-investors in the high-end (> $1M) housing market.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard2}%);">
+	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
 	<text>
-	  <tspan style="font-weight: bold;">Key finding: </tspan>
 	  This gap becomes even larger when it comes to flipped properties.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard3}%);">
+	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
 	<text>
-	  <tspan style="font-weight: bold;">Key finding:
-	  </tspan> Investors generally prefer the luxury housing markets.
+	  Investors generally prefer the luxury housing markets.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard4}%);">
+	<img class="drag" src="/slider.gif" alt="slider">
 	Select two markets and compare their revenue on your own!
   </div>
 
@@ -483,20 +484,24 @@
 
   <!-- Tax group cards -->
   <div class="card" style="transform: translateY({yTaxGroupCard1}%);">
+	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
 	Due to the large number of the non-investor home buyers, people like Tim,
-	who purchase homes in the 1M-2M (and even 2M-3M) range, have become
+	who purchase homes in the 1M-3M range, have become
 	the primary group paying the transfer fee (31%).
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard2}%);">
+	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
 	If the exemption threshold were increased to 2M, and the tax rate to 2%, the
 	portion of non-investors would significantly reduce to 8% while maintaining
 	the same level of revenue.
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard3}%);">
+	<img class="slider" src="/slider.gif" alt="slider">
 	Let's pretend we're the policy makers!  How would you adjust the policy to
 	achieve a more equitable distribution of resources?
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard4}%);">
+	<img class="slider" src="/slider.gif" alt="slider">
 	<text>
 	  How about a more fine-grained policy that collects different rates of
 	  transfer fee from investors and non-investors?
@@ -591,6 +596,18 @@
   .shaded {
 	border-radius: 25px;
 	box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  }
+  .lightbulb {
+	width: 10vh;
+	height: 10vh;
+  }
+  .slider {
+	width: 10vh;
+	height: 10vh;
+  }
+  .drag {
+	width: 10vh;
+	height: 10vh;
   }
   #page-payer {
 	font-size: 50px;
