@@ -310,8 +310,8 @@
 		  
 		An MIT architecture graduate and a
 		<tspan style="color: {colortim};">first-time home buyer</tspan>, just
-		got an offer in Boston with an annual household income is around
-		$100K. Tim is looking for a house in Boston with his family.
+		got an offer in Boston with an annual household income around $100K. Tim
+		is looking for a house in Boston with his family.
 	  </div>
 	</div>
 	<div class="relpage" style="height: 80vh;">
@@ -346,8 +346,8 @@
 	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 5%;
 				  font-size: 25pt;">
 		
-		Now, let's take a look what kinds of properties investors like and how much
-		profit they can make in the housing market!
+		Let's take a look at what kinds of properties investors like and
+		how much profit they can make in the housing market!
 	  </div>
 	  <div style="position: absolute; height: 80%; left: -5%; bottom: 25%;">
 		<img src="/single-family.png" style="object-fit: contain;" alt="single-family">

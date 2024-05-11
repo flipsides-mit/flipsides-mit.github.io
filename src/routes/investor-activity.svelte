@@ -242,11 +242,11 @@
 	  d3.select(brushp)
 		.transition()
 		.duration(d)
-	  	.call(brushes[0].move, [[xScale(1000000),yScale(2)],[xScale(6000000),yScale(0)]]);
+	  	.call(brushes[0].move, [[xScale(0),yScale(2)],[xScale(6000000),yScale(0)]]);
 	  d3.select(brushq)
 		.transition()
 		.duration(d)
-	  	.call(brushes[1].move, [[xScale(1000000),yScale(2)],[xScale(6000000),yScale(0)]]);
+	  	.call(brushes[1].move, [[xScale(0),yScale(2)],[xScale(6000000),yScale(0)]]);
 	} else if (n == 4) {
 	  d3.select(brushp)
 		.transition()
