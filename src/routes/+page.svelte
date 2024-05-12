@@ -417,7 +417,7 @@
 		which means he has to pay <tspan style="color: #EE7733;">$6K</tspan> as
 		the transfer (assuming a 2% tax rate), almost one month of his salary.
 	  </div>
-	  <div style="position: absolute; height: 80%; left: 35%;">
+	  <div style="position: absolute; height: 80%; left: 40%;">
 		<img src="/condo.png" style="object-fit: contain;" alt="condo">
 	  </div>
 	</div>
@@ -428,7 +428,7 @@
   <Scrolly bind:progress={progressJoe} threshold={1} margin={0} --scrolly-layout="overlap" >
 	<div style="height: 100vh;" />
 	<div class="relpage" style="height: 80vh;">
-	  <div style="position: absolute; width: 50%; height: 34%; top: 0%; left: 5%;
+	  <div style="position: absolute; width: 50%; height: 34%; top: 0%; left: 10%;
 				  font-size: 25pt;">
 		<center> -- Joe -- </center><br>
 
@@ -437,13 +437,13 @@
 	  </div>
 	</div>
 	<div class="relpage" style="height: 80vh;">
-	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 5%;
+	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 10%;
 				  font-size: 25pt;">
 		
 		Let's take a look at what kinds of properties investors like and
 		how much profit they can make in the housing market!
 	  </div>
-	  <div style="position: absolute; height: 80%; left: -5%; bottom: 25%;">
+	  <div style="position: absolute; height: 80%; left: 5%; bottom: 25%;">
 		<img src="/single-family.png" style="object-fit: contain;" alt="single-family">
 	  </div>
 	</div>
@@ -622,7 +622,7 @@
 	  <a href="https://www.mapc.org/">Metropolitan Area Planning Commission
 		(MAPC)</a>.<br><br>
 
-	  We are also grateful to the MIT Data & Society staffs and students that
+	  We are also grateful to the MIT Vis & Society staffs and students that
 	  provide valuable feedback.<br><br>
 
 	  Data source: the Warren Group.
