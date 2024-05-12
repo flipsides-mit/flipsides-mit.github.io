@@ -92,7 +92,7 @@
   // Opening
   let openingTran = createUpTransition(70, 100);
   $: opacityOpening = 1 - openingTran(progressOpening);
-  let openingFrameTran = scaleDiscreteTran(1, 12, createUpTransition(0, 20))
+  let openingFrameTran = scaleDiscreteTran(1, 15, createUpTransition(0, 40))
   $: openingFrame = openingFrameTran(progressOpening);
 
   // Fee
@@ -183,9 +183,9 @@
   $: yTaxGroupCard1 = yTaxGroupCard1Tran(progressTax);
   let yTaxGroupCard2Tran = scaleTran(-120, 0, createUpDownTransition(30, 35, 58, 60));
   $: yTaxGroupCard2 = yTaxGroupCard2Tran(progressTax);
-  let yTaxGroupCard3Tran = scaleTran(-120, 0, createUpDownTransition(55, 60, 73, 75));
+  let yTaxGroupCard3Tran = scaleTran(-120, 0, createUpDownTransition(55, 60, 83, 88));
   $: yTaxGroupCard3 = yTaxGroupCard3Tran(progressTax);
-  let yTaxGroupCard4Tran = scaleTran(-120, 0, createUpDownTransition(70, 75, 90, 92));
+  let yTaxGroupCard4Tran = scaleTran(-120, 0, createUpDownTransition(80, 85, 90, 92));
   $: yTaxGroupCard4 = yTaxGroupCard4Tran(progressTax);
 
   // Tax group control variables
@@ -432,7 +432,7 @@
 				  font-size: 25pt;">
 		<center> -- Joe -- </center><br>
 
-		An agency from an investor company, looking for properties to invest in
+		An agency from an <tspan style="color: {colorjoe};">investor</tspan> company, looking for properties to invest in
 		the Great Boston Area.
 	  </div>
 	</div>
@@ -478,28 +478,28 @@
 
   <!-- Housing market cards -->
   <div class="card" style="transform: translateY({yMarketCard1}%);">
-	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
+	<img class="lightbulb" src="/lightbulb.gif?0" alt="lightbulb">
 	<text>
 	  Investors make ~2x profit as non-investors in the high-end (> $1M) housing market.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard2}%);">
-	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
+	<img class="lightbulb" src="/lightbulb.gif?1" alt="lightbulb">
 	<text>
 	  This gap becomes even larger when it comes to flipped properties.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard3}%);">
-	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
+	<img class="lightbulb" src="/lightbulb.gif?2" alt="lightbulb">
 	<text>
 	  Investors generally prefer the luxury housing markets.
 	</text>
   </div>
 
   <div class="card" style="transform: translateY({yMarketCard4}%);">
-	<img class="drag" src="/slider.gif" alt="slider">
+	<img class="selection" src="/selection.gif" alt="slider">
 	Select two markets and compare their revenue on your own!
   </div>
 
@@ -573,24 +573,24 @@
 
   <!-- Tax group cards -->
   <div class="card" style="transform: translateY({yTaxGroupCard1}%);">
-	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
+	<img class="lightbulb" src="/lightbulb.gif?3" alt="lightbulb">
 	Due to the large number of the non-investor home buyers, people like Tim,
 	who purchase homes in the 1M-3M range, have become
 	the primary group paying the transfer fee (31%).
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard2}%);">
-	<img class="lightbulb" src="/lightbulb.png" alt="lightbulb">
+	<img class="lightbulb" src="/lightbulb.gif" alt="lightbulb">
 	If the exemption threshold were increased to 2M, and the tax rate to 2%, the
 	portion of non-investors would significantly reduce to 8% while maintaining
 	the same level of revenue.
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard3}%);">
-	<img class="slider" src="/slider.gif" alt="slider">
+	<img class="slider" src="/slider.gif?0" alt="slider">
 	Let's pretend we're the policy makers!  How would you adjust the policy to
 	achieve a more equitable distribution of resources?
   </div>
   <div class="card" style="transform: translateY({yTaxGroupCard4}%);">
-	<img class="slider" src="/slider.gif" alt="slider">
+	<img class="slider" src="/slider.gif?1" alt="slider">
 	<text>
 	  How about a more fine-grained policy that collects different rates of
 	  transfer fee from investors and non-investors?
@@ -609,6 +609,12 @@
   	Balancing the interests of multiple parties is very complex and faces
 	many risks. With this tool, we hope that Boston's housing market can
 	gradually move towards a more harmonious and fair state.
+	<div style="position: absolute; width: 15%; bottom: 0%; left: 0%;">
+	  <img src="/tim-thinking.png" style="object-fit: contain;" />
+	</div>
+	<div style="position: absolute; width: 15%; top: 0%; right: 0%;">
+	  <img src="/joe-thinking.png" style="object-fit: contain;" />
+	</div>
   </div>
   <div class="flexpage textbox" style="font-size: 45px;">
 	<text>
@@ -621,7 +627,13 @@
 
 	  Data source: the Warren Group.
 	</text>
-  </div>
+	<div style="position: absolute; width: 15%; bottom: 0%; left: 0%;">
+	  <img src="/ending-tim.png" style="object-fit: contain;" />
+	</div>
+	<div style="position: absolute; width: 25%; bottom: 0%; right: 0%;">
+	  <img src="/ending-joe.png" style="object-fit: contain;" />
+	</div>
+</div>
 
   <div style="height: 50%;" />
 </div>
@@ -687,12 +699,16 @@
 	box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
   }
   .lightbulb {
-	width: 10vh;
-	height: 10vh;
+	width: 15vh;
+	height: 15vh;
   }
   .slider {
-	width: 10vh;
-	height: 10vh;
+	width: 15vh;
+	height: 15vh;
+  }
+  .selection {
+	width: 15vh;
+	height: 15vh;
   }
   .drag {
 	width: 10vh;

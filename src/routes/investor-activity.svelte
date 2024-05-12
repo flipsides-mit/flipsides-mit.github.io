@@ -323,7 +323,7 @@
 	<g transform="translate(0, {height - margin.bottom})"
 	   bind:this={xAxis}>
 	  <text class="axislabel"
-			x={width} y={margin.bottom * 0.7}
+			x={width} y={margin.bottom * 0.8}
 			style="text-anchor: end; font-size: {width * 0.03}px">
 		sales price (million $) →
 	  </text>
