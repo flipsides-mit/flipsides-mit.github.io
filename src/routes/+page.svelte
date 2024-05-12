@@ -123,8 +123,13 @@
   $: opacityTim = timTran(progressTim);
 
   // Tim animation
-  let walkingTimTran = scaleDiscreteTran(1, 15, createUpTransition(0, 20))
-  $: walkingTim = walkingTimTran(progressTim);
+  let walkingTimTran = scaleDiscreteTran(0, 40, createUpTransition(0, 20))
+  let walkingTim = 1;
+  $: {
+	let step = walkingTimTran(progressTim);
+	walkingTim = step == 40 ? 15 : step % 14 + 1;
+  }
+  
   let timXTran = scaleTran(-100, 20, createUpTransition(0, 20))
   $: timX = timXTran(progressTim);
 
@@ -132,14 +137,18 @@
 
   // Investors and Joe
   let peopleBlueTran = createUpDownTransition(0, 5, 15, 20);
-  $: opacityPeopleBlue = peopleBlueTran(progressJoe)
+  $: opacityPeopleBlue = peopleBlueTran(progressJoe);
   let joeTran = createUpDownTransition(20, 25, 90, 100);
   $: opacityJoe = joeTran(progressJoe);
 
   // Joe animation
-  let walkingJoeTran = scaleDiscreteTran(1, 10, createUpTransition(0, 20))
-  $: walkingJoe = walkingJoeTran(progressJoe);
-  let joeWidthTran = scaleTran(0, 20, createUpTransition(0, 20))
+  let walkingJoeTran = scaleDiscreteTran(0, 40, createUpTransition(25, 45))
+  let walkingJoe = 1;
+  $: {
+	let step = walkingJoeTran(progressJoe);
+	walkingJoe = step == 40 ? 10 : step % 9 + 1;
+  }
+  let joeWidthTran = scaleTran(0, 20, createUpTransition(25, 45))
   $: joeWidth = joeWidthTran(progressJoe);
 
   // Housing market
@@ -256,9 +265,10 @@
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
 			opacity: {opacityJoe}; z-index: {zidxBg};">
-  <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;
-			  width: {joeWidth}%;">
-	<img class="joe-intro" src="/joe-intro/walking-{walkingJoe}.png" alt="joe">
+  <div style="position: absolute; height: 60%; bottom: 20%; right: 20%;
+			  width: {joeWidth}%; display: flex;">
+	<img class="joe-intro"
+		 src="/joe-intro/walking-{walkingJoe}.png" alt="joe">
   </div>
 </div>
 
@@ -374,7 +384,7 @@
 
   <!-- Main question -->
   <Scrolly bind:progress={progressQuestion} threshold={1} margin={0} --scrolly-layout="overlap" >
-	<div class="relpage" style="height: 300vh;">
+	<div class="relpage" style="height: 250vh;">
 	  <div class="stickybox textbox"
 		   style="top: 20%; font-size: 50pt; padding: 15%;
 				  opacity: {opacityPeopleText};">
@@ -407,7 +417,7 @@
 		which means he has to pay <tspan style="color: #EE7733;">$6K</tspan> as
 		the transfer (assuming a 2% tax rate), almost one month of his salary.
 	  </div>
-	  <div style="position: absolute; height: 80%; left: 30%;">
+	  <div style="position: absolute; height: 80%; left: 35%;">
 		<img src="/condo.png" style="object-fit: contain;" alt="condo">
 	  </div>
 	</div>
@@ -688,8 +698,13 @@
 	width: 10vh;
 	height: 10vh;
   }
-  .tim-intro, .joe-intro {
+  .tim-intro {
 	height: 100%;
+  }
+  .joe-intro {
+	height: 100%;
+	object-fit: contain;
+	transform: translate(50%, 0);
   }
   #page-payer {
 	font-size: 50px;
