@@ -123,8 +123,10 @@
   $: opacityTim = timTran(progressTim);
 
   // Tim animation
-  let walkingTimTran = scaleDiscreteTran(1, 14, createUpTransition(10, 30))
+  let walkingTimTran = scaleDiscreteTran(1, 15, createUpTransition(0, 20))
   $: walkingTim = walkingTimTran(progressTim);
+  let timXTran = scaleTran(-100, 20, createUpTransition(0, 20))
+  $: timX = timXTran(progressTim);
 
   $: console.log(walkingTim);
 
@@ -133,6 +135,12 @@
   $: opacityPeopleBlue = peopleBlueTran(progressJoe)
   let joeTran = createUpDownTransition(20, 25, 90, 100);
   $: opacityJoe = joeTran(progressJoe);
+
+  // Joe animation
+  let walkingJoeTran = scaleDiscreteTran(1, 10, createUpTransition(0, 20))
+  $: walkingJoe = walkingJoeTran(progressJoe);
+  let joeWidthTran = scaleTran(0, 20, createUpTransition(0, 20))
+  $: joeWidth = joeWidthTran(progressJoe);
 
   // Housing market
   let marketTran = createUpDownTransition(10, 20, 90, 100);
@@ -235,14 +243,8 @@
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
 			opacity: {opacityTim}; z-index: {zidxBg};">
-  <div style="position: absolute; height: 60%; bottom: 40%; left: 20%;">
-	<img class="tim-intro" src="/tim-intro/standing.png" alt="tim">
-  </div>
-</div>
-
-<div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
-			opacity: {opacityTim}; z-index: {zidxBg};">
-  <div style="position: absolute; height: 60%; bottom: 40%; left: 20%;">
+  <div style="position: absolute; height: 60%; bottom: 20%; left: 0%;
+			  transform: translateX({timX}%);">
 	<img class="tim-intro" src="/tim-intro/walking-{walkingTim}.png" alt="tim">
   </div>
 </div>
@@ -254,8 +256,9 @@
 
 <div style="position: fixed; top: 0%; left: 0%; width: 100vw; height: 100vh;
 			opacity: {opacityJoe}; z-index: {zidxBg};">
-  <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;">
-	<img src="/joe.png" style="object-fit: contain;" alt="joe">
+  <div style="position: absolute; height: 60%; bottom: 20%; right: 10%;
+			  width: {joeWidth}%;">
+	<img class="joe-intro" src="/joe-intro/walking-{walkingJoe}.png" alt="joe">
   </div>
 </div>
 
@@ -385,7 +388,7 @@
   <!-- Tim -->
   <Scrolly bind:progress={progressTim} threshold={1} margin={0} --scrolly-layout="overlap" >
 	<div class="relpage" style="height: 80vh;">
-	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 40%;
+	  <div style="position: absolute; width: 45%; height: 34%; top: 0%; left: 45%;
 				  font-size: 25pt;">
 		<center>-- Tim --</center><br>
 		  
@@ -396,7 +399,7 @@
 	  </div>
 	</div>
 	<div class="relpage" style="height: 80vh;">
-	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 40%;
+	  <div style="position: absolute; width: 50%; height: 24%; bottom: 0%; left: 45%;
 				  font-size: 25pt;">
 		
 		Ultimately, Tim plans to purchase a
@@ -685,10 +688,8 @@
 	width: 10vh;
 	height: 10vh;
   }
-  .tim-intro {
-	width: 40vh;
-	height: 100vh;
-	object-fit: cover;
+  .tim-intro, .joe-intro {
+	height: 100%;
   }
   #page-payer {
 	font-size: 50px;
