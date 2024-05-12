@@ -308,7 +308,7 @@
 		family home price, whichever is greater.<br><br>
 
 		For instance, the transfer fee for a 2M property under the 2% rate is:<br>
-		<center>(2M - 1M) × 0.02 = 10K $</center>
+		<center>(2M - 1M) × 0.02 = 20K $</center>
 	  </div>
 
 	  <div style="position: sticky; top: 40vh; width: 100%; height: 60vh;
