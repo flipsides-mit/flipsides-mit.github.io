@@ -158,9 +158,9 @@
   $: yMarketCard1 = yMarketCard1Tran(progressHousing);
   let yMarketCard2Tran = scaleTran(-120, 0, createUpDownTransition(35, 40, 48, 50));
   $: yMarketCard2 = yMarketCard2Tran(progressHousing);
-  let yMarketCard3Tran = scaleTran(-120, 0, createUpDownTransition(45, 50, 78, 80));
+  let yMarketCard3Tran = scaleTran(-120, 0, createUpDownTransition(45, 50, 83, 85));
   $: yMarketCard3 = yMarketCard3Tran(progressHousing);
-  let yMarketCard4Tran = scaleTran(-120, 0, createUpDownTransition(75, 80, 90, 92));
+  let yMarketCard4Tran = scaleTran(-120, 0, createUpDownTransition(80, 85, 90, 92));
   $: yMarketCard4 = yMarketCard4Tran(progressHousing);
 
   // Housing market phase
@@ -183,9 +183,9 @@
   $: yTaxGroupCard1 = yTaxGroupCard1Tran(progressTax);
   let yTaxGroupCard2Tran = scaleTran(-120, 0, createUpDownTransition(30, 35, 58, 60));
   $: yTaxGroupCard2 = yTaxGroupCard2Tran(progressTax);
-  let yTaxGroupCard3Tran = scaleTran(-120, 0, createUpDownTransition(55, 60, 83, 88));
+  let yTaxGroupCard3Tran = scaleTran(-120, 0, createUpDownTransition(55, 60, 73, 75));
   $: yTaxGroupCard3 = yTaxGroupCard3Tran(progressTax);
-  let yTaxGroupCard4Tran = scaleTran(-120, 0, createUpDownTransition(80, 85, 90, 92));
+  let yTaxGroupCard4Tran = scaleTran(-120, 0, createUpDownTransition(70, 75, 90, 92));
   $: yTaxGroupCard4 = yTaxGroupCard4Tran(progressTax);
 
   // Tax group control variables
