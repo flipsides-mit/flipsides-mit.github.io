@@ -13,6 +13,7 @@
 
   let innerHeight;
   let progressOpening;
+  let progressAffordable;
   let progressQuestion;
   let progressTim;
   let progressJoe;
@@ -20,6 +21,8 @@
   let progressTax;
 
   $: console.log('opening prog', progressOpening);
+
+  $: console.log('affordable prog', progressAffordable);
 
   $: console.log('question prog', progressQuestion);
 
@@ -92,6 +95,17 @@
   let openingFrameTran = scaleDiscreteTran(1, 12, createUpTransition(0, 20))
   $: openingFrame = openingFrameTran(progressOpening);
 
+  // Fee
+  let opacityFeeTran = createUpTransition(35, 40);
+  $: opacityFee = 1 - opacityFeeTran(progressAffordable);
+
+  // Affordable
+  let opacityAffordableTran = createUpDownTransition(40, 45, 90, 100);
+  $: opacityAffordable = opacityAffordableTran(progressAffordable);
+  let opacityAffordableCalcTran = createUpDownTransition(80, 85, 90, 100);
+  $: opacityAffordableCalc = opacityAffordableCalcTran(progressAffordable);
+  let opacityBuildingTran = createUpTransition(90, 100);
+  $: opacityBuilding = 1 - opacityBuildingTran(progressAffordable);
 
   // Questions
   let peopleColorPhase1Tran = createUpDownTransition(10, 60, 80, 90);
@@ -255,60 +269,104 @@
   </Scrolly>
 
   <!-- Intro of Affordable Homes Act -->
-  <div class="flexpage flex-col">
-	<div style="flex: 1; height: 80%;">
+  <div class="flexpage flex-col" style="height: 140vh;">
+	<div style="flex: 1; height: 80vh;">
 	  <img height="100%" src="/intro-1.png" alt="act">
 	</div>
-	<div style="flex: 1; font-size: 40px; height: 20%; width: 80%;">
+	<div style="flex: 1; font-size: 40px; height: 20vh; width: 80%;">
 	  In 2023, Massachusetts published the Affordable Homes Acts, introducing the <tspan style="color: #EE7733;">transfer fee</tspan> to MA for the first time.
 	</div>
   </div>
 
   <!-- Transfer fee -->
-  <div class="relpage">
-	<div style="width: 80%; position: absolute; bottom: 45%; left: 10%;
-				font-size: 40px;">
+  <Scrolly bind:progress={progressAffordable} threshold={1} margin={0} --scrolly-layout="overlap" >
+	<div class="relpage" style="height: 500vh;">
+	  <div style="width: 80%; height: 100vh;
+				  position: sticky; top: 5%; left: 10%;
+				  font-size: 40px;
+				  opacity: {opacityFee};">
 
-	  The Affordable Homes Act includes a provision that would grant
-	  Massachusetts municipalities the authority to implement a real estate
-	  transfer fee of
-	  <tspan style="color: #EE7733;">0.5% to 2.0%</tspan> on transactions of
-	  more than
-	  <tspan style="color: #EE7733;">$1M</tspan> or the county median single
-	  family home price, whichever is greater.<br><br>
+		The Affordable Homes Act includes a provision that would grant
+		Massachusetts municipalities the authority to implement a real estate
+		transfer fee of
+		<tspan style="color: #EE7733;">0.5% to 2.0%</tspan> on transactions of
+		more than
+		<tspan style="color: #EE7733;">$1M</tspan> or the county median single
+		family home price, whichever is greater.<br><br>
 
-	  For instance, the transfer fee for a 2M property under the 2% rate is:<br>
-	  <center>(2M - 1M) × 0.02 = 10K $</center>
+		For instance, the transfer fee for a 2M property under the 2% rate is:<br>
+		<center>(2M - 1M) × 0.02 = 10K $</center>
+	  </div>
+
+	  <div style="position: sticky; top: 40vh; width: 100%; height: 60vh;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/base.png" alt="act">
+	  </div>
+
+	  <div style="height: 80vh;" />
+
+	  <div style="position: sticky; top: 62vh; left: 20vh; width: 30%;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/add-2.png" alt="act">
+	  </div>
+
+	  <div style="position: sticky; top: 56vh; left: 2vh; width: 20%;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/add-0.png" alt="act">
+	  </div>
+
+	  <div style="position: sticky; top: 45vh; left: 112vh; width: 20%;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/add-1.png" alt="act">
+	  </div>
+
+	  <div style="position: sticky; top: 55vh; left: 140vh; width: 30%;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/add-2.png" alt="act">
+	  </div>
+
+	  <div style="position: sticky; top: 49vh; left: 61vh; width: 22%;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/add-3.png" alt="act">
+	  </div>
+
+	  <div style="position: sticky; top: 60vh; left: 49vh; width: 18%;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/add-4.png" alt="act">
+	  </div>
+
+	  <div style="position: sticky; top: 50vh; left: 82vh; width: 18%;
+				  opacity: {opacityBuilding};">
+		<img src="/affordable/add-0.png" alt="act">
+	  </div>
+
+	  <div style="height: 100vh;" />
 	</div>
+  </Scrolly>
+
+  <div style="position: fixed; width: 50%; bottom: 70%; left: 3%;
+			  font-size: 36px;
+			  z-index: {zidxBg};
+			  opacity: {opacityAffordable};">
+	According to the 2022 Greater Boston Area housing transaction data, it is
+	preliminarily estimated that the implementation of this policy in 2023
+	will generate <tspan style="color: #EE7733;">$208 million</tspan> in
+	revenue for affordable housing.
   </div>
 
-  <!-- New affordable homes -->
-  <div class="relpage">
-	<div style="width: 47%; position: absolute; bottom: 70%; left: 3%;
-				font-size: 36px;">
-
-	  According to the 2022 Greater Boston Area housing transaction data, it is
-	  preliminarily estimated that the implementation of this policy in 2023
-	  will generate <tspan style="color: #EE7733;">$208 million</tspan> in
-	  revenue for affordable housing.
-	</div>
-	<div class="flexbox flex-row"
-		 style="width: 47%; position: absolute; bottom: 15%; left: 3%;
-				font-size: 80px;">
-	  <center>
-		$208M<br>
-		≈<br>
-		2000 units
-		<tspan style="font-size: 25px;">
-		  <br>(estimation based on
-		  <a href="https://www.boston.gov/sites/default/files/file/2022/04/Income%20Restricted%20Housing%20Report%2C%202021_0.pdf">
-			Income-Restricted Housing in Boston 2021)
-		  </a>
-		</tspan>
-	</div>
-	<div style="position: absolute; right: 3%; bottom: 0%; width: 45%;">
-	  <img src="/base.png" alt="act">
-	</div>
+  <div style="position: fixed; width: 50%; top: 10%; right: 3%;
+			  font-size: 60px;
+			  z-index: {zidxBg};
+			  opacity: {opacityAffordableCalc};">
+	<center>
+	  $208M ≈ 2000 units
+	  <tspan style="font-size: 20px;">
+		<br>(estimation based on
+		<a href="https://www.boston.gov/sites/default/files/file/2022/04/Income%20Restricted%20Housing%20Report%2C%202021_0.pdf">
+		  Income-Restricted Housing in Boston 2021)
+		</a>
+	  </tspan>
+	</center>
   </div>
 
   <!-- Main question -->
