@@ -415,7 +415,8 @@
 		Ultimately, Tim plans to purchase a
 		<tspan style="color: #EE7733;">$1.3M</tspan> house through a mortgage -
 		which means he has to pay <tspan style="color: #EE7733;">$6K</tspan> as
-		the transfer (assuming a 2% tax rate), almost one month of his salary.
+		the transfer fee (assuming a 2% tax rate), almost one month of his
+		salary.
 	  </div>
 	  <div style="position: absolute; height: 80%; left: 40%;">
 		<img src="/condo.png" style="object-fit: contain;" alt="condo">
@@ -500,7 +501,7 @@
 
   <div class="card" style="transform: translateY({yMarketCard4}%);">
 	<img class="selection" src="/selection.gif" alt="slider">
-	Select two markets and compare their revenue on your own!
+	Select two subsets of transactions and compare their results on your own!
   </div>
 
   <!-- Key result: Non-investors paying too much fee -->
